@@ -1,0 +1,11 @@
+{
+  "format": "ISP9/28 fields/1764 bytes",
+  "producer": "tests/adaptive_integration/make_legacy.c compiled against the sealed v9 codec; fixture is portable without the historical archive",
+  "fixture_sha256": "5d819fd28e5ecb9c5c7a3a2503df3b55b346fe99b91389ac8ecefcb0c39c1a48",
+  "legacy_source_hashes": {
+    "GigePreset.c": "a870a99623400ff882775265fc7e346970d460101e8c870749a03c8bfe31a170",
+    "GigePreset.h": "d216e6b22d9287fc63e485d0a39b6537a97971049b183046372069d375f24e16",
+    "GigeFpgaIsp.h": "330eb1aada4bcfa7a46eb1fca89c661a3f4df887cff194162294959b42122bd1",
+    "GigeFeatureRegisters.h": "8cd185c234ef4a7cec2dbfff94360997d466d5510f39885a5eb606b2f39b7afe"
+  }
+}

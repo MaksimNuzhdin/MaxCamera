@@ -1,0 +1,6188 @@
+{
+  "features": {
+    "AcquisitionAbort": {
+      "entries": [],
+      "type": "Command"
+    },
+    "AcquisitionArm": {
+      "entries": [],
+      "type": "Command"
+    },
+    "AcquisitionBurstFrameCount": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "AcquisitionControl": {
+      "entries": [],
+      "type": "Category"
+    },
+    "AcquisitionFrameCount": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "AcquisitionFrameRate": {
+      "entries": [],
+      "type": "Float"
+    },
+    "AcquisitionFrameRateEnable": {
+      "entries": [],
+      "type": "Boolean"
+    },
+    "AcquisitionLineRate": {
+      "entries": [],
+      "type": "Float"
+    },
+    "AcquisitionLineRateEnable": {
+      "entries": [],
+      "type": "Boolean"
+    },
+    "AcquisitionMode": {
+      "entries": [
+        "SingleFrame",
+        "MultiFrame",
+        "Continuous"
+      ],
+      "type": "Enumeration"
+    },
+    "AcquisitionStart": {
+      "entries": [],
+      "type": "Command"
+    },
+    "AcquisitionStatus": {
+      "entries": [],
+      "type": "Boolean"
+    },
+    "AcquisitionStatusSelector": {
+      "entries": [
+        "AcquisitionTriggerWait",
+        "AcquisitionActive",
+        "AcquisitionTransfer",
+        "FrameTriggerWait",
+        "FrameActive",
+        "ExposureActive"
+      ],
+      "type": "Enumeration"
+    },
+    "AcquisitionStop": {
+      "entries": [],
+      "type": "Command"
+    },
+    "AcquisitionStopMode": {
+      "entries": [
+        "Complete",
+        "Immediate",
+        "ImmediateWithPadding"
+      ],
+      "type": "Enumeration"
+    },
+    "ActionControl": {
+      "entries": [],
+      "type": "Category"
+    },
+    "ActionDeviceKey": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "ActionGroupKey": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "ActionGroupMask": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "ActionQueueSize": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "ActionSelector": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "ActionUnconditionalMode": {
+      "entries": [
+        "Off",
+        "On"
+      ],
+      "type": "Enumeration"
+    },
+    "AnalogControl": {
+      "entries": [],
+      "type": "Category"
+    },
+    "Aperture": {
+      "entries": [],
+      "type": "Float"
+    },
+    "ApertureInitialize": {
+      "entries": [],
+      "type": "Command"
+    },
+    "ApertureStatus": {
+      "entries": [
+        "NotConnected",
+        "NotInitialized",
+        "NotSupported",
+        "Busy",
+        "Ready",
+        "Error"
+      ],
+      "type": "Enumeration"
+    },
+    "ApertureStepper": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "BalanceRatio": {
+      "entries": [],
+      "type": "Float"
+    },
+    "BalanceRatioSelector": {
+      "entries": [
+        "All",
+        "Red",
+        "Green",
+        "Blue",
+        "Y",
+        "U",
+        "V",
+        "Tap1",
+        "Tap2"
+      ],
+      "type": "Enumeration"
+    },
+    "BalanceWhiteAuto": {
+      "entries": [
+        "Off",
+        "Once",
+        "Continuous"
+      ],
+      "type": "Enumeration"
+    },
+    "BinningHorizontal": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "BinningHorizontalMode": {
+      "entries": [
+        "Sum",
+        "Average"
+      ],
+      "type": "Enumeration"
+    },
+    "BinningSelector": {
+      "entries": [
+        "Sensor",
+        "Region0",
+        "Region1",
+        "Region2"
+      ],
+      "type": "Enumeration"
+    },
+    "BinningVertical": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "BinningVerticalMode": {
+      "entries": [
+        "Sum",
+        "Average"
+      ],
+      "type": "Enumeration"
+    },
+    "BlackLevel": {
+      "entries": [],
+      "type": "Float"
+    },
+    "BlackLevelAuto": {
+      "entries": [
+        "Off",
+        "Once",
+        "Continuous"
+      ],
+      "type": "Enumeration"
+    },
+    "BlackLevelAutoBalance": {
+      "entries": [
+        "Off",
+        "Once",
+        "Continuous"
+      ],
+      "type": "Enumeration"
+    },
+    "BlackLevelSelector": {
+      "entries": [
+        "All",
+        "Red",
+        "Green",
+        "Blue",
+        "Y",
+        "U",
+        "V",
+        "Tap1",
+        "Tap2"
+      ],
+      "type": "Enumeration"
+    },
+    "CameraLink": {
+      "entries": [],
+      "type": "Category"
+    },
+    "ChunkBinningHorizontal": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "ChunkBinningVertical": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "ChunkBlackLevel": {
+      "entries": [],
+      "type": "Float"
+    },
+    "ChunkBlackLevelSelector": {
+      "entries": [
+        "All",
+        "Red",
+        "Green",
+        "Blue",
+        "Y",
+        "U",
+        "V",
+        "Tap1",
+        "Tap2"
+      ],
+      "type": "Enumeration"
+    },
+    "ChunkComponentID": {
+      "entries": [
+        "Intensity",
+        "Infrared",
+        "Ultraviolet",
+        "Range",
+        "Reflectance",
+        "Disparity",
+        "Confidence",
+        "Scatter",
+        "Multispectral",
+        "CoordinateMapA",
+        "CoordinateMapB"
+      ],
+      "type": "Enumeration"
+    },
+    "ChunkComponentIDValue": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "ChunkComponentSelector": {
+      "entries": [
+        "Intensity",
+        "Infrared",
+        "Ultraviolet",
+        "Range",
+        "Reflectance",
+        "Disparity",
+        "Confidence",
+        "Scatter",
+        "Multispectral",
+        "CoordinateMapA",
+        "CoordinateMapB"
+      ],
+      "type": "Enumeration"
+    },
+    "ChunkCounterSelector": {
+      "entries": [
+        "Counter0",
+        "Counter1",
+        "Counter2"
+      ],
+      "type": "Enumeration"
+    },
+    "ChunkCounterValue": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "ChunkDataControl": {
+      "entries": [],
+      "type": "Category"
+    },
+    "ChunkDecimationHorizontal": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "ChunkDecimationVertical": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "ChunkEnable": {
+      "entries": [],
+      "type": "Boolean"
+    },
+    "ChunkEncoderSelector": {
+      "entries": [
+        "Encoder0",
+        "Encoder1",
+        "Encoder2"
+      ],
+      "type": "Enumeration"
+    },
+    "ChunkEncoderStatus": {
+      "entries": [
+        "EncoderUp",
+        "EncoderDown",
+        "EncoderIdle",
+        "EncoderStatic"
+      ],
+      "type": "Enumeration"
+    },
+    "ChunkEncoderValue": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "ChunkExposureTime": {
+      "entries": [],
+      "type": "Float"
+    },
+    "ChunkExposureTimeSelector": {
+      "entries": [
+        "Common",
+        "Red",
+        "Green",
+        "Blue",
+        "Cyan",
+        "Magenta",
+        "Yellow",
+        "Infrared",
+        "Ultraviolet",
+        "Stage1",
+        "Stage2"
+      ],
+      "type": "Enumeration"
+    },
+    "ChunkFrameID": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "ChunkGain": {
+      "entries": [],
+      "type": "Float"
+    },
+    "ChunkGainSelector": {
+      "entries": [
+        "All",
+        "Red",
+        "Green",
+        "Blue",
+        "Y",
+        "U",
+        "V",
+        "Tap1",
+        "Tap2",
+        "AnalogAll",
+        "AnalogRed",
+        "AnalogGreen",
+        "AnalogBlue",
+        "AnalogY",
+        "AnalogU",
+        "AnalogV",
+        "AnalogTap1",
+        "AnalogTap2",
+        "DigitalAll",
+        "DigitalRed",
+        "DigitalGreen",
+        "DigitalBlue",
+        "DigitalY",
+        "DigitalU",
+        "DigitalV",
+        "DigitalTap1",
+        "DigitalTap2"
+      ],
+      "type": "Enumeration"
+    },
+    "ChunkGroupID": {
+      "entries": [
+        "Group0",
+        "Group1",
+        "Group2"
+      ],
+      "type": "Enumeration"
+    },
+    "ChunkGroupIDValue": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "ChunkGroupSelector": {
+      "entries": [
+        "Group0",
+        "Group1",
+        "Group2"
+      ],
+      "type": "Enumeration"
+    },
+    "ChunkHeight": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "ChunkImage": {
+      "entries": [],
+      "type": "Register"
+    },
+    "ChunkLinePitch": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "ChunkLineStatusAll": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "ChunkModeActive": {
+      "entries": [],
+      "type": "Boolean"
+    },
+    "ChunkOffsetX": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "ChunkOffsetY": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "ChunkPixelDynamicRangeMax": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "ChunkPixelDynamicRangeMin": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "ChunkPixelFormat": {
+      "entries": [
+        "Mono1p",
+        "Mono2p",
+        "Mono4p",
+        "Mono8",
+        "Mono8s",
+        "Mono10",
+        "Mono10p",
+        "Mono12",
+        "Mono12p",
+        "Mono14",
+        "Mono14p",
+        "Mono16",
+        "Mono32",
+        "BayerBG4p",
+        "BayerBG8",
+        "BayerBG10",
+        "BayerBG10p",
+        "BayerBG12",
+        "BayerBG12p",
+        "BayerBG14",
+        "BayerBG14p",
+        "BayerBG16",
+        "BayerGB4p",
+        "BayerGB8",
+        "BayerGB10",
+        "BayerGB10p",
+        "BayerGB12",
+        "BayerGB12p",
+        "BayerGB14",
+        "BayerGB14p",
+        "BayerGB16",
+        "BayerGR4p",
+        "BayerGR8",
+        "BayerGR10",
+        "BayerGR10p",
+        "BayerGR12",
+        "BayerGR12p",
+        "BayerGR14",
+        "BayerGR14p",
+        "BayerGR16",
+        "BayerRG4p",
+        "BayerRG8",
+        "BayerRG10",
+        "BayerRG10p",
+        "BayerRG12",
+        "BayerRG12p",
+        "BayerRG14",
+        "BayerRG14p",
+        "BayerRG16",
+        "RGBa8",
+        "RGBa10",
+        "RGBa10p",
+        "RGBa12",
+        "RGBa12p",
+        "RGBa14",
+        "RGBa16",
+        "RGB8",
+        "RGB8_Planar",
+        "RGB8a32",
+        "RGB10",
+        "RGB10_Planar",
+        "RGB10p",
+        "RGB10p32",
+        "RGB12",
+        "RGB12_Planar",
+        "RGB12p",
+        "RGB14",
+        "RGB16",
+        "RGB16_Planar",
+        "RGB565p",
+        "BGRa8",
+        "BGRa10",
+        "BGRa10p",
+        "BGRa12",
+        "BGRa12p",
+        "BGRa14",
+        "BGRa16",
+        "BGR8",
+        "BGR8a32",
+        "BGR10",
+        "BGR10p",
+        "BGR12",
+        "BGR12p",
+        "BGR14",
+        "BGR16",
+        "BGR565p",
+        "R8",
+        "R10",
+        "R10_Deprecated",
+        "R12",
+        "R12_Deprecated",
+        "R16",
+        "G8",
+        "G10",
+        "G10_Deprecated",
+        "G12",
+        "G12_Deprecated",
+        "G16",
+        "B8",
+        "B10",
+        "B10_Deprecated",
+        "B12",
+        "B12_Deprecated",
+        "B16",
+        "Coord3D_ABC8",
+        "Coord3D_ABC8_Planar",
+        "Coord3D_ABC10p",
+        "Coord3D_ABC10p_Planar",
+        "Coord3D_ABC12p",
+        "Coord3D_ABC12p_Planar",
+        "Coord3D_ABC16",
+        "Coord3D_ABC16_Planar",
+        "Coord3D_ABC32f",
+        "Coord3D_ABC32f_Planar",
+        "Coord3D_ABC64f",
+        "Coord3D_ABC64f_Planar",
+        "Coord3D_AC8",
+        "Coord3D_AC8_Planar",
+        "Coord3D_AC10p",
+        "Coord3D_AC10p_Planar",
+        "Coord3D_AC12p",
+        "Coord3D_AC12p_Planar",
+        "Coord3D_AC16",
+        "Coord3D_AC16_Planar",
+        "Coord3D_AC32f",
+        "Coord3D_AC32f_Planar",
+        "Coord3D_AC64f",
+        "Coord3D_AC64f_Planar",
+        "Coord3D_A8",
+        "Coord3D_A10p",
+        "Coord3D_A12p",
+        "Coord3D_A16",
+        "Coord3D_A32f",
+        "Coord3D_A64f",
+        "Coord3D_B8",
+        "Coord3D_B10p",
+        "Coord3D_B12p",
+        "Coord3D_B16",
+        "Coord3D_B32f",
+        "Coord3D_B64f",
+        "Coord3D_C8",
+        "Coord3D_C10p",
+        "Coord3D_C12p",
+        "Coord3D_C16",
+        "Coord3D_C32f",
+        "Coord3D_C64f",
+        "Confidence1",
+        "Confidence1p",
+        "Confidence8",
+        "Confidence16",
+        "Confidence32f",
+        "BiColorBGRG8",
+        "BiColorBGRG10",
+        "BiColorBGRG10p",
+        "BiColorBGRG12",
+        "BiColorBGRG12p",
+        "BiColorRGBG8",
+        "BiColorRGBG10",
+        "BiColorRGBG10p",
+        "BiColorRGBG12",
+        "BiColorRGBG12p",
+        "Data8",
+        "Data8s",
+        "Data16",
+        "Data16s",
+        "Data32",
+        "Data32f",
+        "Data32s",
+        "Data64",
+        "Data64f",
+        "Data64s",
+        "SCF1WBWG8",
+        "SCF1WBWG10",
+        "SCF1WBWG10p",
+        "SCF1WBWG12",
+        "SCF1WBWG12p",
+        "SCF1WBWG14",
+        "SCF1WBWG16",
+        "SCF1WGWB8",
+        "SCF1WGWB10",
+        "SCF1WGWB10p",
+        "SCF1WGWB12",
+        "SCF1WGWB12p",
+        "SCF1WGWB14",
+        "SCF1WGWB16",
+        "SCF1WGWR8",
+        "SCF1WGWR10",
+        "SCF1WGWR10p",
+        "SCF1WGWR12",
+        "SCF1WGWR12p",
+        "SCF1WGWR14",
+        "SCF1WGWR16",
+        "SCF1WRWG8",
+        "SCF1WRWG10",
+        "SCF1WRWG10p",
+        "SCF1WRWG12",
+        "SCF1WRWG12p",
+        "SCF1WRWG14",
+        "SCF1WRWG16",
+        "YCbCr8",
+        "YCbCr8_CbYCr",
+        "YCbCr10_CbYCr",
+        "YCbCr10p_CbYCr",
+        "YCbCr12_CbYCr",
+        "YCbCr12p_CbYCr",
+        "YCbCr411_8",
+        "YCbCr411_8_CbYYCrYY",
+        "YCbCr420_8_YY_CbCr_Semiplanar",
+        "YCbCr420_8_YY_CrCb_Semiplanar",
+        "YCbCr422_8",
+        "YCbCr422_8_CbYCrY",
+        "YCbCr422_8_YY_CbCr_Semiplanar",
+        "YCbCr422_8_YY_CrCb_Semiplanar",
+        "YCbCr422_10",
+        "YCbCr422_10_CbYCrY",
+        "YCbCr422_10p",
+        "YCbCr422_10p_CbYCrY",
+        "YCbCr422_12",
+        "YCbCr422_12_CbYCrY",
+        "YCbCr422_12p",
+        "YCbCr422_12p_CbYCrY",
+        "YCbCr601_8_CbYCr",
+        "YCbCr601_10_CbYCr",
+        "YCbCr601_10p_CbYCr",
+        "YCbCr601_12_CbYCr",
+        "YCbCr601_12p_CbYCr",
+        "YCbCr601_411_8_CbYYCrYY",
+        "YCbCr601_422_8",
+        "YCbCr601_422_8_CbYCrY",
+        "YCbCr601_422_10",
+        "YCbCr601_422_10_CbYCrY",
+        "YCbCr601_422_10p",
+        "YCbCr601_422_10p_CbYCrY",
+        "YCbCr601_422_12",
+        "YCbCr601_422_12_CbYCrY",
+        "YCbCr601_422_12p",
+        "YCbCr601_422_12p_CbYCrY",
+        "YCbCr709_8_CbYCr",
+        "YCbCr709_10_CbYCr",
+        "YCbCr709_10p_CbYCr",
+        "YCbCr709_12_CbYCr",
+        "YCbCr709_12p_CbYCr",
+        "YCbCr709_411_8_CbYYCrYY",
+        "YCbCr709_422_8",
+        "YCbCr709_422_8_CbYCrY",
+        "YCbCr709_422_10",
+        "YCbCr709_422_10_CbYCrY",
+        "YCbCr709_422_10p",
+        "YCbCr709_422_10p_CbYCrY",
+        "YCbCr709_422_12",
+        "YCbCr709_422_12_CbYCrY",
+        "YCbCr709_422_12p",
+        "YCbCr709_422_12p_CbYCrY",
+        "YCbCr2020_8_CbYCr",
+        "YCbCr2020_10_CbYCr",
+        "YCbCr2020_10p_CbYCr",
+        "YCbCr2020_12_CbYCr",
+        "YCbCr2020_12p_CbYCr",
+        "YCbCr2020_411_8_CbYYCrYY",
+        "YCbCr2020_422_8",
+        "YCbCr2020_422_8_CbYCrY",
+        "YCbCr2020_422_10",
+        "YCbCr2020_422_10_CbYCrY",
+        "YCbCr2020_422_10p",
+        "YCbCr2020_422_10p_CbYCrY",
+        "YCbCr2020_422_12",
+        "YCbCr2020_422_12_CbYCrY",
+        "YCbCr2020_422_12p",
+        "YCbCr2020_422_12p_CbYCrY",
+        "YUV8_UYV",
+        "YUV411_8_UYYVYY",
+        "YUV422_8",
+        "YUV422_8_UYVY"
+      ],
+      "type": "Enumeration"
+    },
+    "ChunkRegionID": {
+      "entries": [
+        "Region0",
+        "Region1",
+        "Region2",
+        "Scan3dExtraction0",
+        "Scan3dExtraction1",
+        "Scan3dExtraction2"
+      ],
+      "type": "Enumeration"
+    },
+    "ChunkRegionIDValue": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "ChunkRegionSelector": {
+      "entries": [
+        "Region0",
+        "Region1",
+        "Region2",
+        "Scan3dExtraction0",
+        "Scan3dExtraction1",
+        "Scan3dExtraction2"
+      ],
+      "type": "Enumeration"
+    },
+    "ChunkReverseX": {
+      "entries": [],
+      "type": "Boolean"
+    },
+    "ChunkReverseY": {
+      "entries": [],
+      "type": "Boolean"
+    },
+    "ChunkScan3dAspectRatio": {
+      "entries": [],
+      "type": "Float"
+    },
+    "ChunkScan3dAxisMax": {
+      "entries": [],
+      "type": "Float"
+    },
+    "ChunkScan3dAxisMin": {
+      "entries": [],
+      "type": "Float"
+    },
+    "ChunkScan3dBaseline": {
+      "entries": [],
+      "type": "Float"
+    },
+    "ChunkScan3dCoordinateOffset": {
+      "entries": [],
+      "type": "Float"
+    },
+    "ChunkScan3dCoordinateReferenceSelector": {
+      "entries": [
+        "RotationX",
+        "RotationY",
+        "RotationZ",
+        "TranslationX",
+        "TranslationY",
+        "TranslationZ"
+      ],
+      "type": "Enumeration"
+    },
+    "ChunkScan3dCoordinateReferenceValue": {
+      "entries": [],
+      "type": "Float"
+    },
+    "ChunkScan3dCoordinateScale": {
+      "entries": [],
+      "type": "Float"
+    },
+    "ChunkScan3dCoordinateSelector": {
+      "entries": [
+        "CoordinateA",
+        "CoordinateB",
+        "CoordinateC"
+      ],
+      "type": "Enumeration"
+    },
+    "ChunkScan3dCoordinateSystem": {
+      "entries": [
+        "Cartesian",
+        "Spherical",
+        "Cylindrical"
+      ],
+      "type": "Enumeration"
+    },
+    "ChunkScan3dCoordinateSystemReference": {
+      "entries": [
+        "Anchor",
+        "Transformed"
+      ],
+      "type": "Enumeration"
+    },
+    "ChunkScan3dCoordinateTransformSelector": {
+      "entries": [
+        "RotationX",
+        "RotationY",
+        "RotationZ",
+        "TranslationX",
+        "TranslationY",
+        "TranslationZ"
+      ],
+      "type": "Enumeration"
+    },
+    "ChunkScan3dDistanceUnit": {
+      "entries": [
+        "Millimeter",
+        "Inch",
+        "Pixel"
+      ],
+      "type": "Enumeration"
+    },
+    "ChunkScan3dFocalLength": {
+      "entries": [],
+      "type": "Float"
+    },
+    "ChunkScan3dInvalidDataFlag": {
+      "entries": [],
+      "type": "Boolean"
+    },
+    "ChunkScan3dInvalidDataValue": {
+      "entries": [],
+      "type": "Float"
+    },
+    "ChunkScan3dOutputMode": {
+      "entries": [
+        "UncalibratedC",
+        "CalibratedABC_Grid",
+        "CalibratedABC_PointCloud",
+        "CalibratedAC",
+        "CalibratedAC_Linescan",
+        "CalibratedC",
+        "CalibratedC_Linescan",
+        "RectifiedC",
+        "RectifiedC_Linescan",
+        "DisparityC",
+        "DisparityC_Linescan",
+        "ProjectedC",
+        "ProjectedC_Linescan"
+      ],
+      "type": "Enumeration"
+    },
+    "ChunkScan3dPrincipalPointU": {
+      "entries": [],
+      "type": "Float"
+    },
+    "ChunkScan3dPrincipalPointV": {
+      "entries": [],
+      "type": "Float"
+    },
+    "ChunkScan3dTransformValue": {
+      "entries": [],
+      "type": "Float"
+    },
+    "ChunkScanLineSelector": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "ChunkSelector": {
+      "entries": [
+        "Image",
+        "OffsetX",
+        "OffsetY",
+        "Width",
+        "Height",
+        "PixelFormat",
+        "PixelDynamicRangeMin",
+        "PixelDynamicRangeMax",
+        "BinningHorizontal",
+        "BinningVertical",
+        "DecimationHorizontal",
+        "DecimationVertical",
+        "ReverseX",
+        "ReverseY",
+        "Timestamp",
+        "TimestampLatchValue",
+        "LineStatusAll",
+        "CounterValue",
+        "TimerValue",
+        "EncoderValue",
+        "EncoderStatusValue",
+        "ExposureTime",
+        "Gain",
+        "BlackLevel",
+        "LinePitch",
+        "FrameID",
+        "SourceID",
+        "SourceIDValue",
+        "RegionID",
+        "RegionIDValue",
+        "ComponentID",
+        "ComponentIDValue",
+        "GroupIDValue",
+        "TransferBlockID",
+        "TransferStreamID",
+        "TransferQueueCurrentBlockCount",
+        "StreamChannelID",
+        "SequencerSetActive",
+        "Scan3dDistanceUnit",
+        "Scan3dOutputMode",
+        "Scan3dCoordinateSystem",
+        "Scan3dCoordinateSystemReference",
+        "Scan3dCoordinateScale",
+        "Scan3dCoordinateOffset",
+        "Scan3dInvalidDataFlag",
+        "Scan3dInvalidDataValue",
+        "Scan3dAxisMin",
+        "Scan3dAxisMax",
+        "Scan3dCoordinateTransformValue",
+        "Scan3dCoordinateReferenceValue"
+      ],
+      "type": "Enumeration"
+    },
+    "ChunkSequencerSetActive": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "ChunkSourceID": {
+      "entries": [
+        "Source0",
+        "Source1",
+        "Source2"
+      ],
+      "type": "Enumeration"
+    },
+    "ChunkSourceIDValue": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "ChunkSourceSelector": {
+      "entries": [
+        "Source0",
+        "Source1",
+        "Source2"
+      ],
+      "type": "Enumeration"
+    },
+    "ChunkStreamChannelID": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "ChunkTimerSelector": {
+      "entries": [
+        "Timer0",
+        "Timer1",
+        "Timer2"
+      ],
+      "type": "Enumeration"
+    },
+    "ChunkTimerValue": {
+      "entries": [],
+      "type": "Float"
+    },
+    "ChunkTimestamp": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "ChunkTimestampLatchValue": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "ChunkTransferBlockID": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "ChunkTransferQueueCurrentBlockCount": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "ChunkTransferStreamID": {
+      "entries": [
+        "Stream0",
+        "Stream1",
+        "Stream2",
+        "Stream3"
+      ],
+      "type": "Enumeration"
+    },
+    "ChunkWidth": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "ChunkXMLEnable": {
+      "entries": [],
+      "type": "Boolean"
+    },
+    "ClConfiguration": {
+      "entries": [
+        "Base",
+        "Medium",
+        "Full",
+        "DualBase",
+        "EightyBit"
+      ],
+      "type": "Enumeration"
+    },
+    "ClTimeSlotsCount": {
+      "entries": [
+        "One",
+        "Two",
+        "Three"
+      ],
+      "type": "Enumeration"
+    },
+    "CoaXPress": {
+      "entries": [],
+      "type": "Category"
+    },
+    "ColorTransformationControl": {
+      "entries": [],
+      "type": "Category"
+    },
+    "ColorTransformationEnable": {
+      "entries": [],
+      "type": "Boolean"
+    },
+    "ColorTransformationSelector": {
+      "entries": [
+        "RGBtoRGB",
+        "RGBtoYUV"
+      ],
+      "type": "Enumeration"
+    },
+    "ColorTransformationValue": {
+      "entries": [],
+      "type": "Float"
+    },
+    "ColorTransformationValueSelector": {
+      "entries": [
+        "Gain00",
+        "Gain01",
+        "Gain02",
+        "Gain10",
+        "Gain11",
+        "Gain12",
+        "Gain20",
+        "Gain21",
+        "Gain22",
+        "Offset0",
+        "Offset1",
+        "Offset2"
+      ],
+      "type": "Enumeration"
+    },
+    "ComponentEnable": {
+      "entries": [],
+      "type": "Boolean"
+    },
+    "ComponentIDValue": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "ComponentSelector": {
+      "entries": [
+        "Intensity",
+        "Infrared",
+        "Ultraviolet",
+        "Range",
+        "Reflectance",
+        "Confidence",
+        "Scatter",
+        "Disparity",
+        "Multispectral",
+        "CoordinateMapA",
+        "CoordinateMapB"
+      ],
+      "type": "Enumeration"
+    },
+    "CounterAndTimerControl": {
+      "entries": [],
+      "type": "Category"
+    },
+    "CounterDuration": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "CounterEventActivation": {
+      "entries": [
+        "RisingEdge",
+        "FallingEdge",
+        "AnyEdge"
+      ],
+      "type": "Enumeration"
+    },
+    "CounterEventSource": {
+      "entries": [
+        "Off",
+        "AcquisitionTrigger",
+        "AcquisitionTriggerMissed",
+        "AcquisitionStart",
+        "AcquisitionEnd",
+        "FrameTrigger",
+        "FrameTriggerMissed",
+        "FrameStart",
+        "FrameEnd",
+        "FrameBurstStart",
+        "FrameBurstEnd",
+        "LineTrigger",
+        "LineTriggerMissed",
+        "LineStart",
+        "LineEnd",
+        "ExposureStart",
+        "ExposureEnd",
+        "Line0",
+        "Line1",
+        "Line2",
+        "Counter0Start",
+        "Counter1Start",
+        "Counter2Start",
+        "Counter0End",
+        "Counter1End",
+        "Counter2End",
+        "Timer0Start",
+        "Timer1Start",
+        "Timer2Start",
+        "Timer0End",
+        "Timer1End",
+        "Timer2End",
+        "Encoder0",
+        "Encoder1",
+        "Encoder2",
+        "LogicBlock0",
+        "LogicBlock1",
+        "LogicBlock2",
+        "SoftwareSignal0",
+        "SoftwareSignal1",
+        "SoftwareSignal2",
+        "Action0",
+        "Action1",
+        "Action2",
+        "LinkTrigger0",
+        "LinkTrigger1",
+        "LinkTrigger2",
+        "LinkTriggerMissed0",
+        "LinkTriggerMissed1",
+        "LinkTriggerMissed2",
+        "TimestampTick"
+      ],
+      "type": "Enumeration"
+    },
+    "CounterReset": {
+      "entries": [],
+      "type": "Command"
+    },
+    "CounterResetActivation": {
+      "entries": [
+        "RisingEdge",
+        "FallingEdge",
+        "AnyEdge",
+        "LevelHigh",
+        "LevelLow"
+      ],
+      "type": "Enumeration"
+    },
+    "CounterResetSource": {
+      "entries": [
+        "Off",
+        "CounterTrigger",
+        "AcquisitionTrigger",
+        "AcquisitionTriggerMissed",
+        "AcquisitionStart",
+        "AcquisitionEnd",
+        "FrameTrigger",
+        "FrameTriggerMissed",
+        "FrameStart",
+        "FrameEnd",
+        "LineTrigger",
+        "LineTriggerMissed",
+        "LineStart",
+        "LineEnd",
+        "ExposureStart",
+        "ExposureEnd",
+        "Line0",
+        "Line1",
+        "Line2",
+        "UserOutput0",
+        "UserOutput1",
+        "UserOutput2",
+        "Counter0Start",
+        "Counter1Start",
+        "Counter2Start",
+        "Counter0End",
+        "Counter1End",
+        "Counter2End",
+        "Timer0Start",
+        "Timer1Start",
+        "Timer2Start",
+        "Timer0End",
+        "Timer1End",
+        "Timer2End",
+        "Encoder0",
+        "Encoder1",
+        "Encoder2",
+        "LogicBlock0",
+        "LogicBlock1",
+        "LogicBlock2",
+        "SoftwareSignal0",
+        "SoftwareSignal1",
+        "SoftwareSignal2",
+        "Action0",
+        "Action1",
+        "Action2",
+        "LinkTrigger0",
+        "LinkTrigger1",
+        "LinkTrigger2"
+      ],
+      "type": "Enumeration"
+    },
+    "CounterSelector": {
+      "entries": [
+        "Counter0",
+        "Counter1",
+        "Counter2"
+      ],
+      "type": "Enumeration"
+    },
+    "CounterStatus": {
+      "entries": [
+        "CounterIdle",
+        "CounterTriggerWait",
+        "CounterActive",
+        "CounterCompleted",
+        "CounterOverflow"
+      ],
+      "type": "Enumeration"
+    },
+    "CounterTriggerActivation": {
+      "entries": [
+        "RisingEdge",
+        "FallingEdge",
+        "AnyEdge",
+        "LevelHigh",
+        "LevelLow"
+      ],
+      "type": "Enumeration"
+    },
+    "CounterTriggerSource": {
+      "entries": [
+        "Off",
+        "AcquisitionTrigger",
+        "AcquisitionTriggerMissed",
+        "AcquisitionStart",
+        "AcquisitionEnd",
+        "FrameTrigger",
+        "FrameTriggerMissed",
+        "FrameStart",
+        "FrameEnd",
+        "FrameBurstStart",
+        "FrameBurstEnd",
+        "LineTrigger",
+        "LineTriggerMissed",
+        "LineStart",
+        "LineEnd",
+        "ExposureStart",
+        "ExposureEnd",
+        "Line0",
+        "Line1",
+        "Line2",
+        "UserOutput0",
+        "UserOutput1",
+        "UserOutput2",
+        "Counter0Start",
+        "Counter1Start",
+        "Counter2Start",
+        "Counter0End",
+        "Counter1End",
+        "Counter2End",
+        "Timer0Start",
+        "Timer1Start",
+        "Timer2Start",
+        "Timer0End",
+        "Timer1End",
+        "Timer2End",
+        "Encoder0",
+        "Encoder1",
+        "Encoder2",
+        "LogicBlock0",
+        "LogicBlock1",
+        "LogicBlock2",
+        "SoftwareSignal0",
+        "SoftwareSignal1",
+        "SoftwareSignal2",
+        "Action0",
+        "Action1",
+        "Action2",
+        "LinkTrigger0",
+        "LinkTrigger1",
+        "LinkTrigger2"
+      ],
+      "type": "Enumeration"
+    },
+    "CounterValue": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "CounterValueAtReset": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "CxpConnectionSelector": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "CxpConnectionTestErrorCount": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "CxpConnectionTestMode": {
+      "entries": [
+        "Off",
+        "Mode1"
+      ],
+      "type": "Enumeration"
+    },
+    "CxpConnectionTestPacketCount": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "CxpErrorCounterReset": {
+      "entries": [],
+      "type": "Command"
+    },
+    "CxpErrorCounterSelector": {
+      "entries": [
+        "ConnectionLockLoss",
+        "Encoding",
+        "StreamDataPacketCrc",
+        "ControlPacketCrc",
+        "EventPacketCrc",
+        "DuplicatedCharactersCorrected",
+        "DuplicatedCharactersUncorrected"
+      ],
+      "type": "Enumeration"
+    },
+    "CxpErrorCounterStatus": {
+      "entries": [
+        "CounterActive",
+        "CounterOverflow"
+      ],
+      "type": "Enumeration"
+    },
+    "CxpErrorCounterValue": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "CxpFirstLineTriggerWithFrameStart": {
+      "entries": [],
+      "type": "Boolean"
+    },
+    "CxpLinkConfiguration": {
+      "entries": [
+        "Auto",
+        "CXP1_X1",
+        "CXP2_X1",
+        "CXP3_X1",
+        "CXP5_X1",
+        "CXP6_X1",
+        "CXP10_X1",
+        "CXP12_X1",
+        "CXP25_X1",
+        "CXP31_X1",
+        "CXP1_X2",
+        "CXP2_X2",
+        "CXP3_X2",
+        "CXP5_X2",
+        "CXP6_X2",
+        "CXP10_X2",
+        "CXP12_X2",
+        "CXP25_X2",
+        "CXP31_X2",
+        "CXP1_X4",
+        "CXP2_X4",
+        "CXP3_X4",
+        "CXP5_X4",
+        "CXP6_X4",
+        "CXP10_X4",
+        "CXP12_X4",
+        "CXP25_X4",
+        "CXP31_X4",
+        "CXP1_X8",
+        "CXP2_X8",
+        "CXP3_X8",
+        "CXP5_X8",
+        "CXP6_X8",
+        "CXP10_X8",
+        "CXP12_X8",
+        "CXP25_X8",
+        "CXP31_X8"
+      ],
+      "type": "Enumeration"
+    },
+    "CxpLinkConfigurationPreferred": {
+      "entries": [
+        "CXP1_X1",
+        "CXP2_X1",
+        "CXP3_X1",
+        "CXP5_X1",
+        "CXP6_X1",
+        "CXP10_X1",
+        "CXP12_X1",
+        "CXP25_X1",
+        "CXP31_X1",
+        "CXP1_X2",
+        "CXP2_X2",
+        "CXP3_X2",
+        "CXP5_X2",
+        "CXP6_X2",
+        "CXP10_X2",
+        "CXP12_X2",
+        "CXP25_X2",
+        "CXP31_X2",
+        "CXP1_X4",
+        "CXP2_X4",
+        "CXP3_X4",
+        "CXP5_X4",
+        "CXP6_X4",
+        "CXP10_X4",
+        "CXP12_X4",
+        "CXP25_X4",
+        "CXP31_X4",
+        "CXP1_X8",
+        "CXP2_X8",
+        "CXP3_X8",
+        "CXP5_X8",
+        "CXP6_X8",
+        "CXP10_X8",
+        "CXP12_X8",
+        "CXP25_X8",
+        "CXP31_X8"
+      ],
+      "type": "Enumeration"
+    },
+    "CxpLinkConfigurationStatus": {
+      "entries": [
+        "None",
+        "Pending",
+        "CXP1_X1",
+        "CXP2_X1",
+        "CXP3_X1",
+        "CXP5_X1",
+        "CXP6_X1",
+        "CXP10_X1",
+        "CXP12_X1",
+        "CXP25_X1",
+        "CXP31_X1",
+        "CXP1_X2",
+        "CXP2_X2",
+        "CXP3_X2",
+        "CXP5_X2",
+        "CXP6_X2",
+        "CXP10_X2",
+        "CXP12_X2",
+        "CXP25_X2",
+        "CXP31_X2",
+        "CXP1_X4",
+        "CXP2_X4",
+        "CXP3_X4",
+        "CXP5_X4",
+        "CXP6_X4",
+        "CXP10_X4",
+        "CXP12_X4",
+        "CXP25_X4",
+        "CXP31_X4",
+        "CXP1_X8",
+        "CXP2_X8",
+        "CXP3_X8",
+        "CXP5_X8",
+        "CXP6_X8",
+        "CXP10_X8",
+        "CXP12_X8",
+        "CXP25_X8",
+        "CXP31_X8"
+      ],
+      "type": "Enumeration"
+    },
+    "CxpLinkSharingDuplicateStripe": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "CxpLinkSharingEnable": {
+      "entries": [],
+      "type": "Boolean"
+    },
+    "CxpLinkSharingHorizontalOverlap": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "CxpLinkSharingHorizontalStripeCount": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "CxpLinkSharingStatus": {
+      "entries": [
+        "Ready",
+        "NotReady",
+        "NotUsed"
+      ],
+      "type": "Enumeration"
+    },
+    "CxpLinkSharingSubDeviceSelector": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "CxpLinkSharingSubDeviceType": {
+      "entries": [
+        "Master",
+        "Slave"
+      ],
+      "type": "Enumeration"
+    },
+    "CxpLinkSharingVerticalOverlap": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "CxpLinkSharingVerticalStripeCount": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "CxpPoCxpAuto": {
+      "entries": [],
+      "type": "Command"
+    },
+    "CxpPoCxpStatus": {
+      "entries": [
+        "Auto",
+        "Off",
+        "Tripped"
+      ],
+      "type": "Enumeration"
+    },
+    "CxpPoCxpTripReset": {
+      "entries": [],
+      "type": "Command"
+    },
+    "CxpPoCxpTurnOff": {
+      "entries": [],
+      "type": "Command"
+    },
+    "CxpSendReceiveSelector": {
+      "entries": [
+        "Send",
+        "Receive"
+      ],
+      "type": "Enumeration"
+    },
+    "DecimationHorizontal": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "DecimationHorizontalMode": {
+      "entries": [
+        "Discard",
+        "Average"
+      ],
+      "type": "Enumeration"
+    },
+    "DecimationVertical": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "DecimationVerticalMode": {
+      "entries": [
+        "Discard",
+        "Average"
+      ],
+      "type": "Enumeration"
+    },
+    "Deinterlacing": {
+      "entries": [
+        "Off",
+        "LineDuplication",
+        "Weave"
+      ],
+      "type": "Enumeration"
+    },
+    "Device": {
+      "entries": [],
+      "type": "Port"
+    },
+    "DeviceCharacterSet": {
+      "entries": [
+        "UTF8",
+        "ASCII"
+      ],
+      "type": "Enumeration"
+    },
+    "DeviceClockFrequency": {
+      "entries": [],
+      "type": "Float"
+    },
+    "DeviceClockSelector": {
+      "entries": [
+        "Sensor",
+        "SensorDigitization",
+        "CameraLink"
+      ],
+      "type": "Enumeration"
+    },
+    "DeviceConnectionSelector": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "DeviceConnectionSpeed": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "DeviceConnectionStatus": {
+      "entries": [
+        "Active",
+        "Inactive"
+      ],
+      "type": "Enumeration"
+    },
+    "DeviceControl": {
+      "entries": [],
+      "type": "Category"
+    },
+    "DeviceEventChannelCount": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "DeviceFamilyName": {
+      "entries": [],
+      "type": "String"
+    },
+    "DeviceFeaturePersistenceEnd": {
+      "entries": [],
+      "type": "Command"
+    },
+    "DeviceFeaturePersistenceStart": {
+      "entries": [],
+      "type": "Command"
+    },
+    "DeviceFirmwareVersion": {
+      "entries": [],
+      "type": "String"
+    },
+    "DeviceGenCPVersionMajor": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "DeviceGenCPVersionMinor": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "DeviceID": {
+      "deprecated": true,
+      "entries": [],
+      "type": "String"
+    },
+    "DeviceIndicatorMode": {
+      "entries": [
+        "Inactive",
+        "Active",
+        "ErrorStatus"
+      ],
+      "type": "Enumeration"
+    },
+    "DeviceLinkCommandTimeout": {
+      "entries": [],
+      "type": "Float"
+    },
+    "DeviceLinkConnectionCount": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "DeviceLinkHeartbeatMode": {
+      "entries": [
+        "On",
+        "Off"
+      ],
+      "type": "Enumeration"
+    },
+    "DeviceLinkHeartbeatTimeout": {
+      "entries": [],
+      "type": "Float"
+    },
+    "DeviceLinkSelector": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "DeviceLinkSpeed": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "DeviceLinkThroughputLimit": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "DeviceLinkThroughputLimitMode": {
+      "entries": [
+        "On",
+        "Off"
+      ],
+      "type": "Enumeration"
+    },
+    "DeviceManifestEntrySelector": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "DeviceManifestPrimaryURL": {
+      "entries": [],
+      "type": "String"
+    },
+    "DeviceManifestSchemaMajorVersion": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "DeviceManifestSchemaMinorVersion": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "DeviceManifestSecondaryURL": {
+      "entries": [],
+      "type": "String"
+    },
+    "DeviceManifestXMLMajorVersion": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "DeviceManifestXMLMinorVersion": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "DeviceManifestXMLSubMinorVersion": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "DeviceManufacturerInfo": {
+      "entries": [],
+      "type": "String"
+    },
+    "DeviceMaxThroughput": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "DeviceModelName": {
+      "entries": [],
+      "type": "String"
+    },
+    "DeviceRegistersCheck": {
+      "entries": [],
+      "type": "Command"
+    },
+    "DeviceRegistersEndianness": {
+      "entries": [
+        "Big",
+        "Little"
+      ],
+      "type": "Enumeration"
+    },
+    "DeviceRegistersStreamingEnd": {
+      "entries": [],
+      "type": "Command"
+    },
+    "DeviceRegistersStreamingStart": {
+      "entries": [],
+      "type": "Command"
+    },
+    "DeviceRegistersValid": {
+      "entries": [],
+      "type": "Boolean"
+    },
+    "DeviceReset": {
+      "entries": [],
+      "type": "Command"
+    },
+    "DeviceSFNCVersionMajor": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "DeviceSFNCVersionMinor": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "DeviceSFNCVersionSubMinor": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "DeviceScanType": {
+      "entries": [
+        "Areascan",
+        "Linescan",
+        "Areascan3D",
+        "Linescan3D"
+      ],
+      "type": "Enumeration"
+    },
+    "DeviceSerialNumber": {
+      "entries": [],
+      "type": "String"
+    },
+    "DeviceSerialPortBaudRate": {
+      "entries": [
+        "Baud9600",
+        "Baud19200",
+        "Baud38400",
+        "Baud57600",
+        "Baud115200",
+        "Baud230400",
+        "Baud460800",
+        "Baud921600"
+      ],
+      "type": "Enumeration"
+    },
+    "DeviceSerialPortSelector": {
+      "entries": [
+        "CameraLink"
+      ],
+      "type": "Enumeration"
+    },
+    "DeviceStreamChannelCount": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "DeviceStreamChannelEndianness": {
+      "entries": [
+        "Big",
+        "Little"
+      ],
+      "type": "Enumeration"
+    },
+    "DeviceStreamChannelLink": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "DeviceStreamChannelPacketSize": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "DeviceStreamChannelSelector": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "DeviceStreamChannelType": {
+      "entries": [
+        "Transmitter",
+        "Receiver"
+      ],
+      "type": "Enumeration"
+    },
+    "DeviceTLType": {
+      "entries": [
+        "GigEVision",
+        "CameraLink",
+        "CameraLinkHS",
+        "CoaXPress",
+        "USB3Vision",
+        "Custom"
+      ],
+      "type": "Enumeration"
+    },
+    "DeviceTLVersionMajor": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "DeviceTLVersionMinor": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "DeviceTLVersionSubMinor": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "DeviceTapGeometry": {
+      "entries": [
+        "Geometry_1X_1Y",
+        "Geometry_1X2_1Y",
+        "Geometry_1X2_1Y2",
+        "Geometry_2X_1Y",
+        "Geometry_2X_1Y2",
+        "Geometry_2XE_1Y",
+        "Geometry_2XE_1Y2",
+        "Geometry_2XM_1Y",
+        "Geometry_2XM_1Y2",
+        "Geometry_1X_1Y2",
+        "Geometry_1X_2YE",
+        "Geometry_1X3_1Y",
+        "Geometry_3X_1Y",
+        "Geometry_1X",
+        "Geometry_1X2",
+        "Geometry_2X",
+        "Geometry_2XE",
+        "Geometry_2XM",
+        "Geometry_1X3",
+        "Geometry_3X",
+        "Geometry_1X4_1Y",
+        "Geometry_4X_1Y",
+        "Geometry_2X2_1Y",
+        "Geometry_2X2E_1Y",
+        "Geometry_2X2M_1Y",
+        "Geometry_1X2_2YE",
+        "Geometry_2X_2YE",
+        "Geometry_2XE_2YE",
+        "Geometry_2XM_2YE",
+        "Geometry_1X4",
+        "Geometry_4X",
+        "Geometry_2X2",
+        "Geometry_2X2E",
+        "Geometry_2X2M",
+        "Geometry_1X8_1Y",
+        "Geometry_8X_1Y",
+        "Geometry_4X2_1Y",
+        "Geometry_2X2E_2YE",
+        "Geometry_1X8",
+        "Geometry_8X",
+        "Geometry_4X2",
+        "Geometry_4X2E",
+        "Geometry_4X2E_1Y",
+        "Geometry_1X10_1Y",
+        "Geometry_10X_1Y",
+        "Geometry_1X10",
+        "Geometry_10X"
+      ],
+      "type": "Enumeration"
+    },
+    "DeviceTemperature": {
+      "entries": [],
+      "type": "Float"
+    },
+    "DeviceTemperatureSelector": {
+      "entries": [
+        "Sensor",
+        "Mainboard"
+      ],
+      "type": "Enumeration"
+    },
+    "DeviceType": {
+      "entries": [
+        "Transmitter",
+        "Receiver",
+        "Transceiver",
+        "Peripheral"
+      ],
+      "type": "Enumeration"
+    },
+    "DeviceUserID": {
+      "entries": [],
+      "type": "String"
+    },
+    "DeviceVendorName": {
+      "entries": [],
+      "type": "String"
+    },
+    "DeviceVersion": {
+      "entries": [],
+      "type": "String"
+    },
+    "DigitalIOControl": {
+      "entries": [],
+      "type": "Category"
+    },
+    "EncoderControl": {
+      "entries": [],
+      "type": "Category"
+    },
+    "EncoderDivider": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EncoderMode": {
+      "entries": [
+        "FourPhase",
+        "HighResolution"
+      ],
+      "type": "Enumeration"
+    },
+    "EncoderOutputMode": {
+      "entries": [
+        "Off",
+        "PositionUp",
+        "PositionDown",
+        "DirectionUp",
+        "DirectionDown",
+        "Motion"
+      ],
+      "type": "Enumeration"
+    },
+    "EncoderReset": {
+      "entries": [],
+      "type": "Command"
+    },
+    "EncoderResetActivation": {
+      "entries": [
+        "RisingEdge",
+        "FallingEdge",
+        "AnyEdge",
+        "LevelHigh",
+        "LevelLow"
+      ],
+      "type": "Enumeration"
+    },
+    "EncoderResetSource": {
+      "entries": [
+        "Off",
+        "AcquisitionTrigger",
+        "AcquisitionTriggerMissed",
+        "AcquisitionStart",
+        "AcquisitionEnd",
+        "FrameTrigger",
+        "FrameTriggerMissed",
+        "FrameStart",
+        "FrameEnd",
+        "ExposureStart",
+        "ExposureEnd",
+        "Line0",
+        "Line1",
+        "Line2",
+        "UserOutput0",
+        "UserOutput1",
+        "UserOutput2",
+        "Counter0Start",
+        "Counter1Start",
+        "Counter2Start",
+        "Counter0End",
+        "Counter1End",
+        "Counter2End",
+        "Timer0Start",
+        "Timer1Start",
+        "Timer2Start",
+        "Timer0End",
+        "Timer1End",
+        "Timer2End",
+        "LogicBlock0",
+        "LogicBlock1",
+        "LogicBlock2",
+        "SoftwareSignal0",
+        "SoftwareSignal1",
+        "SoftwareSignal2",
+        "Action0",
+        "Action1",
+        "Action2",
+        "LinkTrigger0",
+        "LinkTrigger1",
+        "LinkTrigger2"
+      ],
+      "type": "Enumeration"
+    },
+    "EncoderResolution": {
+      "entries": [],
+      "type": "Float"
+    },
+    "EncoderSelector": {
+      "entries": [
+        "Encoder0",
+        "Encoder1",
+        "Encoder2"
+      ],
+      "type": "Enumeration"
+    },
+    "EncoderSourceA": {
+      "entries": [
+        "Off",
+        "Line0",
+        "Line1",
+        "Line2"
+      ],
+      "type": "Enumeration"
+    },
+    "EncoderSourceB": {
+      "entries": [
+        "Off",
+        "Line0",
+        "Line1",
+        "Line2"
+      ],
+      "type": "Enumeration"
+    },
+    "EncoderStatus": {
+      "entries": [
+        "EncoderUp",
+        "EncoderDown",
+        "EncoderIdle",
+        "EncoderStatic"
+      ],
+      "type": "Enumeration"
+    },
+    "EncoderTimeout": {
+      "entries": [],
+      "type": "Float"
+    },
+    "EncoderValue": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EncoderValueAtReset": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventAcquisitionEnd": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventAcquisitionEndData": {
+      "entries": [],
+      "type": "Category"
+    },
+    "EventAcquisitionEndFrameID": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventAcquisitionEndTimestamp": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventAcquisitionError": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventAcquisitionErrorData": {
+      "entries": [],
+      "type": "Category"
+    },
+    "EventAcquisitionErrorFrameID": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventAcquisitionErrorTimestamp": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventAcquisitionStart": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventAcquisitionStartData": {
+      "entries": [],
+      "type": "Category"
+    },
+    "EventAcquisitionStartFrameID": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventAcquisitionStartTimestamp": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventAcquisitionTransferEnd": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventAcquisitionTransferEndData": {
+      "entries": [],
+      "type": "Category"
+    },
+    "EventAcquisitionTransferEndFrameID": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventAcquisitionTransferEndTimestamp": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventAcquisitionTransferStart": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventAcquisitionTransferStartData": {
+      "entries": [],
+      "type": "Category"
+    },
+    "EventAcquisitionTransferStartFrameID": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventAcquisitionTransferStartTimestamp": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventAcquisitionTrigger": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventAcquisitionTriggerData": {
+      "entries": [],
+      "type": "Category"
+    },
+    "EventAcquisitionTriggerFrameID": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventAcquisitionTriggerMissed": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventAcquisitionTriggerMissedData": {
+      "entries": [],
+      "type": "Category"
+    },
+    "EventAcquisitionTriggerMissedFrameID": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventAcquisitionTriggerMissedTimestamp": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventAcquisitionTriggerTimestamp": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventActionLate": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventActionLateData": {
+      "entries": [],
+      "type": "Category"
+    },
+    "EventActionLateFrameID": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventActionLateTimestamp": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventControl": {
+      "entries": [],
+      "type": "Category"
+    },
+    "EventCounter0End": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventCounter0EndData": {
+      "entries": [],
+      "type": "Category"
+    },
+    "EventCounter0EndFrameID": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventCounter0EndTimestamp": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventCounter0Start": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventCounter0StartData": {
+      "entries": [],
+      "type": "Category"
+    },
+    "EventCounter0StartFrameID": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventCounter0StartTimestamp": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventCounter1End": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventCounter1EndData": {
+      "entries": [],
+      "type": "Category"
+    },
+    "EventCounter1EndFrameID": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventCounter1EndTimestamp": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventCounter1Start": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventCounter1StartData": {
+      "entries": [],
+      "type": "Category"
+    },
+    "EventCounter1StartFrameID": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventCounter1StartTimestamp": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventEncoder0Restarted": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventEncoder0RestartedData": {
+      "entries": [],
+      "type": "Category"
+    },
+    "EventEncoder0RestartedFrameID": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventEncoder0RestartedTimestamp": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventEncoder0Stopped": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventEncoder0StoppedData": {
+      "entries": [],
+      "type": "Category"
+    },
+    "EventEncoder0StoppedFrameID": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventEncoder0StoppedTimestamp": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventEncoder1Restarted": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventEncoder1RestartedData": {
+      "entries": [],
+      "type": "Category"
+    },
+    "EventEncoder1RestartedFrameID": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventEncoder1RestartedTimestamp": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventEncoder1Stopped": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventEncoder1StoppedData": {
+      "entries": [],
+      "type": "Category"
+    },
+    "EventEncoder1StoppedFrameID": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventEncoder1StoppedTimestamp": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventError": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventErrorCode": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventErrorData": {
+      "entries": [],
+      "type": "Category"
+    },
+    "EventErrorFrameID": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventErrorTimestamp": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventExposureEnd": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventExposureEndData": {
+      "entries": [],
+      "type": "Category"
+    },
+    "EventExposureEndFrameID": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventExposureEndTimestamp": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventExposureStart": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventExposureStartData": {
+      "entries": [],
+      "type": "Category"
+    },
+    "EventExposureStartFrameID": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventExposureStartTimestamp": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventFrameBurstEnd": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventFrameBurstEndData": {
+      "entries": [],
+      "type": "Category"
+    },
+    "EventFrameBurstEndFrameID": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventFrameBurstEndTimestamp": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventFrameBurstStart": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventFrameBurstStartData": {
+      "entries": [],
+      "type": "Category"
+    },
+    "EventFrameBurstStartFrameID": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventFrameBurstStartTimestamp": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventFrameEnd": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventFrameEndData": {
+      "entries": [],
+      "type": "Category"
+    },
+    "EventFrameEndFrameID": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventFrameEndTimestamp": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventFrameStart": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventFrameStartData": {
+      "entries": [],
+      "type": "Category"
+    },
+    "EventFrameStartFrameID": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventFrameStartTimestamp": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventFrameTransferEnd": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventFrameTransferEndData": {
+      "entries": [],
+      "type": "Category"
+    },
+    "EventFrameTransferEndFrameID": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventFrameTransferEndTimestamp": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventFrameTransferStart": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventFrameTransferStartData": {
+      "entries": [],
+      "type": "Category"
+    },
+    "EventFrameTransferStartFrameID": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventFrameTransferStartTimestamp": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventFrameTrigger": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventFrameTriggerData": {
+      "entries": [],
+      "type": "Category"
+    },
+    "EventFrameTriggerFrameID": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventFrameTriggerMissed": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventFrameTriggerMissedData": {
+      "entries": [],
+      "type": "Category"
+    },
+    "EventFrameTriggerMissedFrameID": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventFrameTriggerMissedTimestamp": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventFrameTriggerTimestamp": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventLine0AnyEdge": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventLine0AnyEdgeData": {
+      "entries": [],
+      "type": "Category"
+    },
+    "EventLine0AnyEdgeFrameID": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventLine0AnyEdgeTimestamp": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventLine0FallingEdge": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventLine0FallingEdgeData": {
+      "entries": [],
+      "type": "Category"
+    },
+    "EventLine0FallingEdgeFrameID": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventLine0FallingEdgeTimestamp": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventLine0RisingEdge": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventLine0RisingEdgeData": {
+      "entries": [],
+      "type": "Category"
+    },
+    "EventLine0RisingEdgeFrameID": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventLine0RisingEdgeTimestamp": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventLine1AnyEdge": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventLine1AnyEdgeData": {
+      "entries": [],
+      "type": "Category"
+    },
+    "EventLine1AnyEdgeFrameID": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventLine1AnyEdgeTimestamp": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventLine1FallingEdge": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventLine1FallingEdgeData": {
+      "entries": [],
+      "type": "Category"
+    },
+    "EventLine1FallingEdgeFrameID": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventLine1FallingEdgeTimestamp": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventLine1RisingEdge": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventLine1RisingEdgeData": {
+      "entries": [],
+      "type": "Category"
+    },
+    "EventLine1RisingEdgeFrameID": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventLine1RisingEdgeTimestamp": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventLineEnd": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventLineEndData": {
+      "entries": [],
+      "type": "Category"
+    },
+    "EventLineEndFrameID": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventLineEndTimestamp": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventLineStart": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventLineStartData": {
+      "entries": [],
+      "type": "Category"
+    },
+    "EventLineStartFrameID": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventLineStartTimestamp": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventLineTrigger": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventLineTriggerData": {
+      "entries": [],
+      "type": "Category"
+    },
+    "EventLineTriggerFrameID": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventLineTriggerMissed": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventLineTriggerMissedData": {
+      "entries": [],
+      "type": "Category"
+    },
+    "EventLineTriggerMissedFrameID": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventLineTriggerMissedTimestamp": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventLineTriggerTimestamp": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventLinkSpeedChange": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventLinkSpeedChangeData": {
+      "entries": [],
+      "type": "Category"
+    },
+    "EventLinkSpeedChangeFrameID": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventLinkSpeedChangeTimestamp": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventLinkTrigger0": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventLinkTrigger0Data": {
+      "entries": [],
+      "type": "Category"
+    },
+    "EventLinkTrigger0FrameID": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventLinkTrigger0Timestamp": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventLinkTrigger1": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventLinkTrigger1Data": {
+      "entries": [],
+      "type": "Category"
+    },
+    "EventLinkTrigger1FrameID": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventLinkTrigger1Timestamp": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventNotification": {
+      "entries": [
+        "Off",
+        "On",
+        "Once"
+      ],
+      "type": "Enumeration"
+    },
+    "EventPrimaryApplicationSwitch": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventPrimaryApplicationSwitchData": {
+      "entries": [],
+      "type": "Category"
+    },
+    "EventPrimaryApplicationSwitchFrameID": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventPrimaryApplicationSwitchTimestamp": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventSelector": {
+      "entries": [
+        "AcquisitionTrigger",
+        "AcquisitionTriggerMissed",
+        "AcquisitionStart",
+        "AcquisitionEnd",
+        "AcquisitionTransferStart",
+        "AcquisitionTransferEnd",
+        "AcquisitionError",
+        "FrameBurstStart",
+        "FrameBurstEnd",
+        "FrameTrigger",
+        "FrameTriggerMissed",
+        "FrameStart",
+        "FrameEnd",
+        "FrameTransferStart",
+        "FrameTransferEnd",
+        "LineTrigger",
+        "LineTriggerMissed",
+        "LineStart",
+        "LineEnd",
+        "ExposureStart",
+        "ExposureEnd",
+        "Stream0TransferStart",
+        "Stream0TransferEnd",
+        "Stream0TransferPause",
+        "Stream0TransferResume",
+        "Stream0TransferBlockStart",
+        "Stream0TransferBlockEnd",
+        "Stream0TransferBlockTrigger",
+        "Stream0TransferBurstStart",
+        "Stream0TransferBurstEnd",
+        "Stream0TransferOverflow",
+        "SequencerSetChange",
+        "Counter0Start",
+        "Counter1Start",
+        "Counter0End",
+        "Counter1End",
+        "Timer0Start",
+        "Timer1Start",
+        "Timer0End",
+        "Timer1End",
+        "Encoder0Stopped",
+        "Encoder1Stopped",
+        "Encoder0Restarted",
+        "Encoder1Restarted",
+        "Line0RisingEdge",
+        "Line1RisingEdge",
+        "Line0FallingEdge",
+        "Line1FallingEdge",
+        "Line0AnyEdge",
+        "Line1AnyEdge",
+        "LinkTrigger0",
+        "LinkTrigger1",
+        "LinkSpeedChange",
+        "ActionLate",
+        "Error",
+        "Test",
+        "PrimaryApplicationSwitch"
+      ],
+      "type": "Enumeration"
+    },
+    "EventSequencerSetChange": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventSequencerSetChangeData": {
+      "entries": [],
+      "type": "Category"
+    },
+    "EventSequencerSetChangeFrameID": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventSequencerSetChangeTimestamp": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventStream0TransferBlockEnd": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventStream0TransferBlockEndData": {
+      "entries": [],
+      "type": "Category"
+    },
+    "EventStream0TransferBlockEndFrameID": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventStream0TransferBlockEndTimestamp": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventStream0TransferBlockStart": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventStream0TransferBlockStartData": {
+      "entries": [],
+      "type": "Category"
+    },
+    "EventStream0TransferBlockStartFrameID": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventStream0TransferBlockStartTimestamp": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventStream0TransferBlockTrigger": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventStream0TransferBlockTriggerData": {
+      "entries": [],
+      "type": "Category"
+    },
+    "EventStream0TransferBlockTriggerFrameID": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventStream0TransferBlockTriggerTimestamp": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventStream0TransferBurstEnd": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventStream0TransferBurstEndData": {
+      "entries": [],
+      "type": "Category"
+    },
+    "EventStream0TransferBurstEndFrameID": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventStream0TransferBurstEndTimestamp": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventStream0TransferBurstStart": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventStream0TransferBurstStartData": {
+      "entries": [],
+      "type": "Category"
+    },
+    "EventStream0TransferBurstStartFrameID": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventStream0TransferBurstStartTimestamp": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventStream0TransferEnd": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventStream0TransferEndData": {
+      "entries": [],
+      "type": "Category"
+    },
+    "EventStream0TransferEndFrameID": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventStream0TransferEndTimestamp": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventStream0TransferOverflow": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventStream0TransferOverflowData": {
+      "entries": [],
+      "type": "Category"
+    },
+    "EventStream0TransferOverflowFrameID": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventStream0TransferOverflowTimestamp": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventStream0TransferPause": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventStream0TransferPauseData": {
+      "entries": [],
+      "type": "Category"
+    },
+    "EventStream0TransferPauseFrameID": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventStream0TransferPauseTimestamp": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventStream0TransferResume": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventStream0TransferResumeData": {
+      "entries": [],
+      "type": "Category"
+    },
+    "EventStream0TransferResumeFrameID": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventStream0TransferResumeTimestamp": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventStream0TransferStart": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventStream0TransferStartData": {
+      "entries": [],
+      "type": "Category"
+    },
+    "EventStream0TransferStartFrameID": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventStream0TransferStartTimestamp": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventTest": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventTestData": {
+      "entries": [],
+      "type": "Category"
+    },
+    "EventTestTimestamp": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventTimer0End": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventTimer0EndData": {
+      "entries": [],
+      "type": "Category"
+    },
+    "EventTimer0EndFrameID": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventTimer0EndTimestamp": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventTimer0Start": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventTimer0StartData": {
+      "entries": [],
+      "type": "Category"
+    },
+    "EventTimer0StartFrameID": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventTimer0StartTimestamp": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventTimer1End": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventTimer1EndData": {
+      "entries": [],
+      "type": "Category"
+    },
+    "EventTimer1EndFrameID": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventTimer1EndTimestamp": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventTimer1Start": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventTimer1StartData": {
+      "entries": [],
+      "type": "Category"
+    },
+    "EventTimer1StartFrameID": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "EventTimer1StartTimestamp": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "ExposureAuto": {
+      "entries": [
+        "Off",
+        "Once",
+        "Continuous"
+      ],
+      "type": "Enumeration"
+    },
+    "ExposureMode": {
+      "entries": [
+        "Off",
+        "Timed",
+        "TriggerWidth",
+        "TriggerControlled"
+      ],
+      "type": "Enumeration"
+    },
+    "ExposureTime": {
+      "entries": [],
+      "type": "Float"
+    },
+    "ExposureTimeMode": {
+      "entries": [
+        "Common",
+        "Individual"
+      ],
+      "type": "Enumeration"
+    },
+    "ExposureTimeSelector": {
+      "entries": [
+        "Common",
+        "Red",
+        "Green",
+        "Blue",
+        "Cyan",
+        "Magenta",
+        "Yellow",
+        "Infrared",
+        "Ultraviolet",
+        "Stage1",
+        "Stage2"
+      ],
+      "type": "Enumeration"
+    },
+    "FileAccessBuffer": {
+      "entries": [],
+      "type": "Register"
+    },
+    "FileAccessControl": {
+      "entries": [],
+      "type": "Category"
+    },
+    "FileAccessLength": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "FileAccessOffset": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "FileOpenMode": {
+      "entries": [
+        "Read",
+        "Write",
+        "ReadWrite"
+      ],
+      "type": "Enumeration"
+    },
+    "FileOperationExecute": {
+      "entries": [],
+      "type": "Command"
+    },
+    "FileOperationResult": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "FileOperationSelector": {
+      "entries": [
+        "Open",
+        "Close",
+        "Read",
+        "Write",
+        "Delete"
+      ],
+      "type": "Enumeration"
+    },
+    "FileOperationStatus": {
+      "entries": [
+        "Success",
+        "Failure"
+      ],
+      "type": "Enumeration"
+    },
+    "FileSelector": {
+      "entries": [
+        "UserSetDefault",
+        "UserSet0",
+        "UserSet1",
+        "UserSet2",
+        "UserSet3",
+        "LUTLuminance",
+        "LUTRed",
+        "LUTGreen",
+        "LUTBlue",
+        "CoordinateMapA",
+        "CoordinateMapB"
+      ],
+      "type": "Enumeration"
+    },
+    "FileSize": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "Filter": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "FilterInitialize": {
+      "entries": [],
+      "type": "Command"
+    },
+    "FilterStatus": {
+      "entries": [
+        "NotConnected",
+        "NotInitialized",
+        "NotSupported",
+        "Busy",
+        "Ready",
+        "Error"
+      ],
+      "type": "Enumeration"
+    },
+    "FocalLength": {
+      "entries": [],
+      "type": "Float"
+    },
+    "FocalLengthInitialize": {
+      "entries": [],
+      "type": "Command"
+    },
+    "FocalLengthStatus": {
+      "entries": [
+        "NotConnected",
+        "NotInitialized",
+        "NotSupported",
+        "Busy",
+        "Ready",
+        "Error"
+      ],
+      "type": "Enumeration"
+    },
+    "FocalLengthStepper": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "FocalPower": {
+      "entries": [],
+      "type": "Float"
+    },
+    "FocusAuto": {
+      "entries": [
+        "Off",
+        "Once",
+        "Continuous"
+      ],
+      "type": "Enumeration"
+    },
+    "FocusAutoMode": {
+      "entries": [
+        "DistanceBased",
+        "ImageBased"
+      ],
+      "type": "Enumeration"
+    },
+    "FocusInitialize": {
+      "entries": [],
+      "type": "Command"
+    },
+    "FocusStatus": {
+      "entries": [
+        "NotConnected",
+        "NotInitialized",
+        "NotSupported",
+        "Busy",
+        "Ready",
+        "Error"
+      ],
+      "type": "Enumeration"
+    },
+    "FocusStepper": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "Gain": {
+      "entries": [],
+      "type": "Float"
+    },
+    "GainAuto": {
+      "entries": [
+        "Off",
+        "Once",
+        "Continuous"
+      ],
+      "type": "Enumeration"
+    },
+    "GainAutoBalance": {
+      "entries": [
+        "Off",
+        "Once",
+        "Continuous"
+      ],
+      "type": "Enumeration"
+    },
+    "GainSelector": {
+      "entries": [
+        "All",
+        "Red",
+        "Green",
+        "Blue",
+        "Y",
+        "U",
+        "V",
+        "Tap1",
+        "Tap2",
+        "AnalogAll",
+        "AnalogRed",
+        "AnalogGreen",
+        "AnalogBlue",
+        "AnalogY",
+        "AnalogU",
+        "AnalogV",
+        "AnalogTap1",
+        "AnalogTap2",
+        "DigitalAll",
+        "DigitalRed",
+        "DigitalGreen",
+        "DigitalBlue",
+        "DigitalY",
+        "DigitalU",
+        "DigitalV",
+        "DigitalTap1",
+        "DigitalTap2"
+      ],
+      "type": "Enumeration"
+    },
+    "Gamma": {
+      "entries": [],
+      "type": "Float"
+    },
+    "GenDCDescriptor": {
+      "entries": [],
+      "type": "Register"
+    },
+    "GenDCFlowMappingTable": {
+      "entries": [],
+      "type": "Register"
+    },
+    "GenDCStreamingMode": {
+      "entries": [
+        "Off",
+        "On",
+        "Automatic"
+      ],
+      "type": "Enumeration"
+    },
+    "GenDCStreamingStatus": {
+      "entries": [
+        "Off",
+        "On"
+      ],
+      "type": "Enumeration"
+    },
+    "GevActiveLinkCount": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "GevCCP": {
+      "entries": [
+        "OpenAccess",
+        "ExclusiveAccess",
+        "ControlAccess",
+        "ControlAccessSwitchoverActive"
+      ],
+      "type": "Enumeration"
+    },
+    "GevControlChannelMaxPacketSize": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "GevCurrentDefaultGateway": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "GevCurrentIPAddress": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "GevCurrentIPConfigurationDHCP": {
+      "entries": [],
+      "type": "Boolean"
+    },
+    "GevCurrentIPConfigurationLLA": {
+      "entries": [],
+      "type": "Boolean"
+    },
+    "GevCurrentIPConfigurationPersistentIP": {
+      "entries": [],
+      "type": "Boolean"
+    },
+    "GevCurrentPhysicalLinkConfiguration": {
+      "entries": [
+        "SingleLink",
+        "MultiLink",
+        "StaticLAG",
+        "DynamicLAG"
+      ],
+      "type": "Enumeration"
+    },
+    "GevCurrentSubnetMask": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "GevDiscoveryAckDelay": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "GevFirstURL": {
+      "entries": [],
+      "type": "String"
+    },
+    "GevGVCPExtendedStatusCodes": {
+      "entries": [],
+      "type": "Boolean"
+    },
+    "GevGVCPExtendedStatusCodesSelector": {
+      "entries": [
+        "Version1_1",
+        "Version2_0"
+      ],
+      "type": "Enumeration"
+    },
+    "GevGVCPPendingAck": {
+      "entries": [],
+      "type": "Boolean"
+    },
+    "GevGVSPExtendedIDMode": {
+      "entries": [
+        "Off",
+        "On"
+      ],
+      "type": "Enumeration"
+    },
+    "GevHeartbeatTimeout": {
+      "deprecated": true,
+      "entries": [],
+      "type": "Integer"
+    },
+    "GevIPConfigurationStatus": {
+      "entries": [
+        "None",
+        "PersistentIP",
+        "DHCP",
+        "LLA",
+        "ForceIP"
+      ],
+      "type": "Enumeration"
+    },
+    "GevInterfaceSelector": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "GevMACAddress": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "GevMCDA": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "GevMCPHostPort": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "GevMCRC": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "GevMCSP": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "GevMCTT": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "GevPAUSEFrameReception": {
+      "entries": [],
+      "type": "Boolean"
+    },
+    "GevPAUSEFrameTransmission": {
+      "entries": [],
+      "type": "Boolean"
+    },
+    "GevPersistentDefaultGateway": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "GevPersistentIPAddress": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "GevPersistentSubnetMask": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "GevPhysicalLinkConfiguration": {
+      "entries": [
+        "SingleLink",
+        "MultiLink",
+        "StaticLAG",
+        "DynamicLAG"
+      ],
+      "type": "Enumeration"
+    },
+    "GevPrimaryApplicationIPAddress": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "GevPrimaryApplicationSocket": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "GevPrimaryApplicationSwitchoverKey": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "GevSCCFGAllInTransmission": {
+      "entries": [],
+      "type": "Boolean"
+    },
+    "GevSCCFGExtendedChunkData": {
+      "entries": [],
+      "type": "Boolean"
+    },
+    "GevSCCFGPacketResendDestination": {
+      "entries": [],
+      "type": "Boolean"
+    },
+    "GevSCCFGUnconditionalStreaming": {
+      "entries": [],
+      "type": "Boolean"
+    },
+    "GevSCDA": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "GevSCPD": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "GevSCPHostPort": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "GevSCPInterfaceIndex": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "GevSCPSDoNotFragment": {
+      "entries": [],
+      "type": "Boolean"
+    },
+    "GevSCPSFireTestPacket": {
+      "entries": [],
+      "type": "Boolean"
+    },
+    "GevSCPSPacketSize": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "GevSCSP": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "GevSCZoneConfigurationLock": {
+      "entries": [],
+      "type": "Boolean"
+    },
+    "GevSCZoneCount": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "GevSCZoneDirectionAll": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "GevSecondURL": {
+      "entries": [],
+      "type": "String"
+    },
+    "GevStreamChannelSelector": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "GevStreamingMode": {
+      "entries": [
+        "GVSP",
+        "GVRSP"
+      ],
+      "type": "Enumeration"
+    },
+    "GevSupportedOption": {
+      "entries": [],
+      "type": "Boolean"
+    },
+    "GevSupportedOptionSelector": {
+      "entries": [
+        "SingleLink",
+        "MultiLink",
+        "StaticLAG",
+        "DynamicLAG",
+        "PAUSEFrameReception",
+        "PAUSEFrameGeneration",
+        "IPConfigurationLLA",
+        "IPConfigurationDHCP",
+        "IPConfigurationPersistentIP",
+        "StandardIDMode",
+        "CommandsConcatenation",
+        "WriteMem",
+        "PacketResend",
+        "Event",
+        "EventData",
+        "PendingAck",
+        "Ptp",
+        "Action",
+        "UnconditionalAction",
+        "ScheduledAction",
+        "PrimaryApplicationSwitchover",
+        "ExtendedStatusCodes",
+        "ExtendedStatusCodesVersion2_0",
+        "DiscoveryAckDelay",
+        "DiscoveryAckDelayWritable",
+        "TestData",
+        "ManifestTable",
+        "CCPApplicationSocket",
+        "LinkSpeed",
+        "HeartbeatDisable",
+        "SerialNumber",
+        "UserDefinedName",
+        "ControlChannelLargePacketSize",
+        "MessageChannelSourceSocket",
+        "StreamChannelSourceSocket",
+        "StreamChannel0BigAndLittleEndian",
+        "StreamChannel0IPReassembly",
+        "StreamChannel0MultiZone",
+        "StreamChannel0PacketResendDestination",
+        "StreamChannel0AllInTransmission",
+        "StreamChannel0UnconditionalStreaming",
+        "StreamChannel0ExtendedChunkData",
+        "StreamChannel1BigAndLittleEndian",
+        "StreamChannel1IPReassembly",
+        "StreamChannel1MultiZone",
+        "StreamChannel1PacketResendDestination",
+        "StreamChannel1AllInTransmission",
+        "StreamChannel1UnconditionalStreaming",
+        "StreamChannel1ExtendedChunkData",
+        "StreamChannel2BigAndLittleEndian",
+        "StreamChannel2IPReassembly",
+        "StreamChannel2MultiZone",
+        "StreamChannel2PacketResendDestination",
+        "StreamChannel2AllInTransmission",
+        "StreamChannel2UnconditionalStreaming",
+        "StreamChannel2ExtendedChunkData"
+      ],
+      "type": "Enumeration"
+    },
+    "GevTimestampControlLatch": {
+      "deprecated": true,
+      "entries": [],
+      "type": "Command"
+    },
+    "GevTimestampControlReset": {
+      "deprecated": true,
+      "entries": [],
+      "type": "Command"
+    },
+    "GevTimestampTickFrequency": {
+      "deprecated": true,
+      "entries": [],
+      "type": "Integer"
+    },
+    "GevTimestampValue": {
+      "deprecated": true,
+      "entries": [],
+      "type": "Integer"
+    },
+    "GigEVision": {
+      "entries": [],
+      "type": "Category"
+    },
+    "GroupIDValue": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "GroupSelector": {
+      "entries": [
+        "Group0",
+        "Group1",
+        "Group2"
+      ],
+      "type": "Enumeration"
+    },
+    "Height": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "HeightMax": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "ImageCompressionBitrate": {
+      "entries": [],
+      "type": "Float"
+    },
+    "ImageCompressionJPEGFormatOption": {
+      "entries": [
+        "Lossless",
+        "BaselineStandard",
+        "BaselineOptimized",
+        "Progressive"
+      ],
+      "type": "Enumeration"
+    },
+    "ImageCompressionMode": {
+      "entries": [
+        "Off",
+        "JPEG",
+        "JPEG2000",
+        "JPEG_XS",
+        "H264"
+      ],
+      "type": "Enumeration"
+    },
+    "ImageCompressionQuality": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "ImageCompressionRateOption": {
+      "entries": [
+        "FixBitrate",
+        "FixQuality"
+      ],
+      "type": "Enumeration"
+    },
+    "ImageFormatControl": {
+      "entries": [],
+      "type": "Category"
+    },
+    "LUTControl": {
+      "entries": [],
+      "type": "Category"
+    },
+    "LUTEnable": {
+      "entries": [],
+      "type": "Boolean"
+    },
+    "LUTIndex": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "LUTSelector": {
+      "entries": [
+        "Luminance",
+        "Red",
+        "Green",
+        "Blue"
+      ],
+      "type": "Enumeration"
+    },
+    "LUTValue": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "LUTValueAll": {
+      "entries": [],
+      "type": "Register"
+    },
+    "LightBrightness": {
+      "entries": [],
+      "type": "Float"
+    },
+    "LightConnectionStatus": {
+      "entries": [
+        "Sensing",
+        "Ready",
+        "NoConnect",
+        "Error"
+      ],
+      "type": "Enumeration"
+    },
+    "LightControl": {
+      "entries": [],
+      "type": "Category"
+    },
+    "LightControllerSelector": {
+      "entries": [
+        "LightController0",
+        "LightController1",
+        "LightController2"
+      ],
+      "type": "Enumeration"
+    },
+    "LightControllerSource": {
+      "entries": [
+        "Line0",
+        "Timer0",
+        "Counter0",
+        "UserOutput0"
+      ],
+      "type": "Enumeration"
+    },
+    "LightCurrentMeasured": {
+      "entries": [],
+      "type": "Float"
+    },
+    "LightCurrentRating": {
+      "entries": [],
+      "type": "Float"
+    },
+    "LightVoltageMeasured": {
+      "entries": [],
+      "type": "Float"
+    },
+    "LightVoltageRating": {
+      "entries": [],
+      "type": "Float"
+    },
+    "LineFormat": {
+      "entries": [
+        "NoConnect",
+        "TriState",
+        "TTL",
+        "LVDS",
+        "RS422",
+        "OptoCoupled",
+        "OpenDrain"
+      ],
+      "type": "Enumeration"
+    },
+    "LineInverter": {
+      "entries": [],
+      "type": "Boolean"
+    },
+    "LineMode": {
+      "entries": [
+        "Input",
+        "Output"
+      ],
+      "type": "Enumeration"
+    },
+    "LinePitch": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "LinePitchEnable": {
+      "entries": [],
+      "type": "Boolean"
+    },
+    "LineSelector": {
+      "entries": [
+        "Line0",
+        "Line1",
+        "Line2",
+        "LinkTrigger0",
+        "LinkTrigger1",
+        "LinkTrigger2",
+        "CC1",
+        "CC2",
+        "CC3",
+        "CC4"
+      ],
+      "type": "Enumeration"
+    },
+    "LineSource": {
+      "entries": [
+        "Off",
+        "UserOutput0",
+        "UserOutput1",
+        "UserOutput2",
+        "AcquisitionTriggerWait",
+        "AcquisitionTrigger",
+        "AcquisitionTriggerMissed",
+        "AcquisitionActive",
+        "FrameTriggerWait",
+        "FrameTrigger",
+        "FrameTriggerMissed",
+        "FrameActive",
+        "ExposureActive",
+        "LineTriggerWait",
+        "LineTrigger",
+        "LineTriggerMissed",
+        "LineActive",
+        "Counter0Active",
+        "Counter1Active",
+        "Counter2Active",
+        "Timer0Active",
+        "Timer1Active",
+        "Timer2Active",
+        "Encoder0",
+        "Encoder1",
+        "Encoder2",
+        "LogicBlock0",
+        "LogicBlock1",
+        "LogicBlock2",
+        "SoftwareSignal0",
+        "SoftwareSignal1",
+        "SoftwareSignal2",
+        "Stream0TransferActive",
+        "Stream1TransferActive",
+        "Stream0TransferPaused",
+        "Stream1TransferPaused",
+        "Stream0TransferStopping",
+        "Stream1TransferStopping",
+        "Stream0TransferStopped",
+        "Stream1TransferStopped",
+        "Stream0TransferOverflow",
+        "Stream1TransferOverflow"
+      ],
+      "type": "Enumeration"
+    },
+    "LineStatus": {
+      "entries": [],
+      "type": "Boolean"
+    },
+    "LineStatusAll": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "LogicBlockControl": {
+      "entries": [],
+      "type": "Category"
+    },
+    "LogicBlockFunction": {
+      "entries": [
+        "AND",
+        "OR",
+        "LUT",
+        "LatchedLUT"
+      ],
+      "type": "Enumeration"
+    },
+    "LogicBlockInputInverter": {
+      "entries": [],
+      "type": "Boolean"
+    },
+    "LogicBlockInputNumber": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "LogicBlockInputSelector": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "LogicBlockInputSource": {
+      "entries": [
+        "True",
+        "False",
+        "AcquisitionTriggerWait",
+        "AcquisitionTrigger",
+        "AcquisitionTriggerMissed",
+        "AcquisitionActive",
+        "FrameTriggerWait",
+        "FrameTrigger",
+        "FrameTriggerMissed",
+        "FrameActive",
+        "ExposureActive",
+        "LineTriggerWait",
+        "LineTrigger",
+        "LineTriggerMissed",
+        "LineActive",
+        "Counter0Active",
+        "Counter1Active",
+        "Counter2Active",
+        "Timer0Active",
+        "Timer1Active",
+        "Timer2Active",
+        "Encoder0",
+        "Encoder1",
+        "Encoder2",
+        "LogicBlock0",
+        "LogicBlock1",
+        "LogicBlock2",
+        "SoftwareSignal0",
+        "SoftwareSignal1",
+        "SoftwareSignal2",
+        "Line0",
+        "Line1",
+        "Line2",
+        "UserOutput0",
+        "UserOutput1",
+        "UserOutput2",
+        "Stream0TransferActive",
+        "Stream1TransferActive",
+        "Stream0TransferPaused",
+        "Stream1TransferPaused",
+        "Stream0TransferStopping",
+        "Stream1TransferStopping",
+        "Stream0TransferStopped",
+        "Stream1TransferStopped",
+        "Stream0TransferOverflow",
+        "Stream1TransferOverflow"
+      ],
+      "type": "Enumeration"
+    },
+    "LogicBlockLUTIndex": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "LogicBlockLUTSelector": {
+      "entries": [
+        "Value",
+        "Enable"
+      ],
+      "type": "Enumeration"
+    },
+    "LogicBlockLUTValue": {
+      "entries": [],
+      "type": "Boolean"
+    },
+    "LogicBlockLUTValueAll": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "LogicBlockSelector": {
+      "entries": [
+        "LogicBlock0",
+        "LogicBlock1",
+        "LogicBlock2"
+      ],
+      "type": "Enumeration"
+    },
+    "Magnification": {
+      "entries": [],
+      "type": "Float"
+    },
+    "MagnificationInitialize": {
+      "entries": [],
+      "type": "Command"
+    },
+    "MagnificationStatus": {
+      "entries": [
+        "NotConnected",
+        "NotInitialized",
+        "NotSupported",
+        "Busy",
+        "Ready",
+        "Error"
+      ],
+      "type": "Enumeration"
+    },
+    "MagnificationStepper": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "MultiSlopeExposureGradient": {
+      "entries": [],
+      "type": "Float"
+    },
+    "MultiSlopeExposureLimit": {
+      "entries": [],
+      "type": "Float"
+    },
+    "MultiSlopeIntensityLimit": {
+      "entries": [],
+      "type": "Float"
+    },
+    "MultiSlopeKneePointCount": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "MultiSlopeKneePointSelector": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "MultiSlopeMode": {
+      "entries": [
+        "Off",
+        "Manual",
+        "PresetSoft",
+        "PresetMedium",
+        "PresetAggressive"
+      ],
+      "type": "Enumeration"
+    },
+    "MultiSlopeSaturationThreshold": {
+      "entries": [],
+      "type": "Float"
+    },
+    "NetworkStatistics": {
+      "entries": [],
+      "type": "Category"
+    },
+    "NumericalAperture": {
+      "entries": [],
+      "type": "Float"
+    },
+    "ObjectSensorDistance": {
+      "entries": [],
+      "type": "Float"
+    },
+    "OffsetX": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "OffsetY": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "OpticControl": {
+      "entries": [],
+      "type": "Category"
+    },
+    "OpticControllerAbort": {
+      "entries": [],
+      "type": "Command"
+    },
+    "OpticControllerDisconnect": {
+      "entries": [],
+      "type": "Command"
+    },
+    "OpticControllerFamilyName": {
+      "entries": [],
+      "type": "String"
+    },
+    "OpticControllerFirmwareVersion": {
+      "entries": [],
+      "type": "String"
+    },
+    "OpticControllerInitialize": {
+      "entries": [],
+      "type": "Command"
+    },
+    "OpticControllerModelName": {
+      "entries": [],
+      "type": "String"
+    },
+    "OpticControllerSelector": {
+      "entries": [
+        "OpticController0",
+        "OpticController1",
+        "OpticController2"
+      ],
+      "type": "Enumeration"
+    },
+    "OpticControllerSerialNumber": {
+      "entries": [],
+      "type": "String"
+    },
+    "OpticControllerStatus": {
+      "entries": [
+        "NotConnected",
+        "NotInitialized",
+        "NotSupported",
+        "Busy",
+        "Ready",
+        "Error"
+      ],
+      "type": "Enumeration"
+    },
+    "OpticControllerTemperature": {
+      "entries": [],
+      "type": "Float"
+    },
+    "OpticControllerVendorName": {
+      "entries": [],
+      "type": "String"
+    },
+    "OpticControllerVersion": {
+      "entries": [],
+      "type": "String"
+    },
+    "PayloadSize": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "PixelColorFilter": {
+      "entries": [
+        "None",
+        "BayerRG",
+        "BayerGB",
+        "BayerGR",
+        "BayerBG"
+      ],
+      "type": "Enumeration"
+    },
+    "PixelDynamicRangeMax": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "PixelDynamicRangeMin": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "PixelFormat": {
+      "entries": [
+        "Mono1p",
+        "Mono2p",
+        "Mono4p",
+        "Mono8",
+        "Mono8s",
+        "Mono10",
+        "Mono10p",
+        "Mono12",
+        "Mono12p",
+        "Mono14",
+        "Mono14p",
+        "Mono16",
+        "Mono32",
+        "BayerBG4p",
+        "BayerBG8",
+        "BayerBG10",
+        "BayerBG10p",
+        "BayerBG12",
+        "BayerBG12p",
+        "BayerBG14",
+        "BayerBG14p",
+        "BayerBG16",
+        "BayerGB4p",
+        "BayerGB8",
+        "BayerGB10",
+        "BayerGB10p",
+        "BayerGB12",
+        "BayerGB12p",
+        "BayerGB14",
+        "BayerGB14p",
+        "BayerGB16",
+        "BayerGR4p",
+        "BayerGR8",
+        "BayerGR10",
+        "BayerGR10p",
+        "BayerGR12",
+        "BayerGR12p",
+        "BayerGR14",
+        "BayerGR14p",
+        "BayerGR16",
+        "BayerRG4p",
+        "BayerRG8",
+        "BayerRG10",
+        "BayerRG10p",
+        "BayerRG12",
+        "BayerRG12p",
+        "BayerRG14",
+        "BayerRG14p",
+        "BayerRG16",
+        "RGBa8",
+        "RGBa10",
+        "RGBa10p",
+        "RGBa12",
+        "RGBa12p",
+        "RGBa14",
+        "RGBa16",
+        "RGB8",
+        "RGB8_Planar",
+        "RGB8a32",
+        "RGB10",
+        "RGB10_Planar",
+        "RGB10p",
+        "RGB10p32",
+        "RGB12",
+        "RGB12_Planar",
+        "RGB12p",
+        "RGB14",
+        "RGB16",
+        "RGB16_Planar",
+        "RGB565p",
+        "BGRa8",
+        "BGRa10",
+        "BGRa10p",
+        "BGRa12",
+        "BGRa12p",
+        "BGRa14",
+        "BGRa16",
+        "BGR8",
+        "BGR8a32",
+        "BGR10",
+        "BGR10p",
+        "BGR12",
+        "BGR12p",
+        "BGR14",
+        "BGR16",
+        "BGR565p",
+        "R8",
+        "R10",
+        "R10_Deprecated",
+        "R12",
+        "R12_Deprecated",
+        "R16",
+        "G8",
+        "G10",
+        "G10_Deprecated",
+        "G12",
+        "G12_Deprecated",
+        "G16",
+        "B8",
+        "B10",
+        "B10_Deprecated",
+        "B12",
+        "B12_Deprecated",
+        "B16",
+        "Coord3D_ABC8",
+        "Coord3D_ABC8_Planar",
+        "Coord3D_ABC10p",
+        "Coord3D_ABC10p_Planar",
+        "Coord3D_ABC12p",
+        "Coord3D_ABC12p_Planar",
+        "Coord3D_ABC16",
+        "Coord3D_ABC16_Planar",
+        "Coord3D_ABC32f",
+        "Coord3D_ABC32f_Planar",
+        "Coord3D_ABC64f",
+        "Coord3D_ABC64f_Planar",
+        "Coord3D_AC8",
+        "Coord3D_AC8_Planar",
+        "Coord3D_AC10p",
+        "Coord3D_AC10p_Planar",
+        "Coord3D_AC12p",
+        "Coord3D_AC12p_Planar",
+        "Coord3D_AC16",
+        "Coord3D_AC16_Planar",
+        "Coord3D_AC32f",
+        "Coord3D_AC32f_Planar",
+        "Coord3D_AC64f",
+        "Coord3D_AC64f_Planar",
+        "Coord3D_A8",
+        "Coord3D_A10p",
+        "Coord3D_A12p",
+        "Coord3D_A16",
+        "Coord3D_A32f",
+        "Coord3D_A64f",
+        "Coord3D_B8",
+        "Coord3D_B10p",
+        "Coord3D_B12p",
+        "Coord3D_B16",
+        "Coord3D_B32f",
+        "Coord3D_B64f",
+        "Coord3D_C8",
+        "Coord3D_C10p",
+        "Coord3D_C12p",
+        "Coord3D_C16",
+        "Coord3D_C32f",
+        "Coord3D_C64f",
+        "Confidence1",
+        "Confidence1p",
+        "Confidence8",
+        "Confidence16",
+        "Confidence32f",
+        "BiColorBGRG8",
+        "BiColorBGRG10",
+        "BiColorBGRG10p",
+        "BiColorBGRG12",
+        "BiColorBGRG12p",
+        "BiColorRGBG8",
+        "BiColorRGBG10",
+        "BiColorRGBG10p",
+        "BiColorRGBG12",
+        "BiColorRGBG12p",
+        "Data8",
+        "Data8s",
+        "Data16",
+        "Data16s",
+        "Data32",
+        "Data32f",
+        "Data32s",
+        "Data64",
+        "Data64f",
+        "Data64s",
+        "SCF1WBWG8",
+        "SCF1WBWG10",
+        "SCF1WBWG10p",
+        "SCF1WBWG12",
+        "SCF1WBWG12p",
+        "SCF1WBWG14",
+        "SCF1WBWG16",
+        "SCF1WGWB8",
+        "SCF1WGWB10",
+        "SCF1WGWB10p",
+        "SCF1WGWB12",
+        "SCF1WGWB12p",
+        "SCF1WGWB14",
+        "SCF1WGWB16",
+        "SCF1WGWR8",
+        "SCF1WGWR10",
+        "SCF1WGWR10p",
+        "SCF1WGWR12",
+        "SCF1WGWR12p",
+        "SCF1WGWR14",
+        "SCF1WGWR16",
+        "SCF1WRWG8",
+        "SCF1WRWG10",
+        "SCF1WRWG10p",
+        "SCF1WRWG12",
+        "SCF1WRWG12p",
+        "SCF1WRWG14",
+        "SCF1WRWG16",
+        "YCbCr8",
+        "YCbCr8_CbYCr",
+        "YCbCr10_CbYCr",
+        "YCbCr10p_CbYCr",
+        "YCbCr12_CbYCr",
+        "YCbCr12p_CbYCr",
+        "YCbCr411_8",
+        "YCbCr411_8_CbYYCrYY",
+        "YCbCr420_8_YY_CbCr_Semiplanar",
+        "YCbCr420_8_YY_CrCb_Semiplanar",
+        "YCbCr422_8",
+        "YCbCr422_8_CbYCrY",
+        "YCbCr422_8_YY_CbCr_Semiplanar",
+        "YCbCr422_8_YY_CrCb_Semiplanar",
+        "YCbCr422_10",
+        "YCbCr422_10_CbYCrY",
+        "YCbCr422_10p",
+        "YCbCr422_10p_CbYCrY",
+        "YCbCr422_12",
+        "YCbCr422_12_CbYCrY",
+        "YCbCr422_12p",
+        "YCbCr422_12p_CbYCrY",
+        "YCbCr601_8_CbYCr",
+        "YCbCr601_10_CbYCr",
+        "YCbCr601_10p_CbYCr",
+        "YCbCr601_12_CbYCr",
+        "YCbCr601_12p_CbYCr",
+        "YCbCr601_411_8_CbYYCrYY",
+        "YCbCr601_422_8",
+        "YCbCr601_422_8_CbYCrY",
+        "YCbCr601_422_10",
+        "YCbCr601_422_10_CbYCrY",
+        "YCbCr601_422_10p",
+        "YCbCr601_422_10p_CbYCrY",
+        "YCbCr601_422_12",
+        "YCbCr601_422_12_CbYCrY",
+        "YCbCr601_422_12p",
+        "YCbCr601_422_12p_CbYCrY",
+        "YCbCr709_8_CbYCr",
+        "YCbCr709_10_CbYCr",
+        "YCbCr709_10p_CbYCr",
+        "YCbCr709_12_CbYCr",
+        "YCbCr709_12p_CbYCr",
+        "YCbCr709_411_8_CbYYCrYY",
+        "YCbCr709_422_8",
+        "YCbCr709_422_8_CbYCrY",
+        "YCbCr709_422_10",
+        "YCbCr709_422_10_CbYCrY",
+        "YCbCr709_422_10p",
+        "YCbCr709_422_10p_CbYCrY",
+        "YCbCr709_422_12",
+        "YCbCr709_422_12_CbYCrY",
+        "YCbCr709_422_12p",
+        "YCbCr709_422_12p_CbYCrY",
+        "YCbCr2020_8_CbYCr",
+        "YCbCr2020_10_CbYCr",
+        "YCbCr2020_10p_CbYCr",
+        "YCbCr2020_12_CbYCr",
+        "YCbCr2020_12p_CbYCr",
+        "YCbCr2020_411_8_CbYYCrYY",
+        "YCbCr2020_422_8",
+        "YCbCr2020_422_8_CbYCrY",
+        "YCbCr2020_422_10",
+        "YCbCr2020_422_10_CbYCrY",
+        "YCbCr2020_422_10p",
+        "YCbCr2020_422_10p_CbYCrY",
+        "YCbCr2020_422_12",
+        "YCbCr2020_422_12_CbYCrY",
+        "YCbCr2020_422_12p",
+        "YCbCr2020_422_12p_CbYCrY",
+        "YUV8_UYV",
+        "YUV411_8_UYYVYY",
+        "YUV422_8",
+        "YUV422_8_UYVY"
+      ],
+      "type": "Enumeration"
+    },
+    "PixelFormatInfoID": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "PixelFormatInfoSelector": {
+      "entries": [
+        "Mono1p",
+        "Mono2p",
+        "Mono4p",
+        "Mono8",
+        "Mono8s",
+        "Mono10",
+        "Mono10p",
+        "Mono12",
+        "Mono12p",
+        "Mono14",
+        "Mono14p",
+        "Mono16",
+        "Mono32",
+        "BayerBG4p",
+        "BayerBG8",
+        "BayerBG10",
+        "BayerBG10p",
+        "BayerBG12",
+        "BayerBG12p",
+        "BayerBG14",
+        "BayerBG14p",
+        "BayerBG16",
+        "BayerGB4p",
+        "BayerGB8",
+        "BayerGB10",
+        "BayerGB10p",
+        "BayerGB12",
+        "BayerGB12p",
+        "BayerGB14",
+        "BayerGB14p",
+        "BayerGB16",
+        "BayerGR4p",
+        "BayerGR8",
+        "BayerGR10",
+        "BayerGR10p",
+        "BayerGR12",
+        "BayerGR12p",
+        "BayerGR14",
+        "BayerGR14p",
+        "BayerGR16",
+        "BayerRG4p",
+        "BayerRG8",
+        "BayerRG10",
+        "BayerRG10p",
+        "BayerRG12",
+        "BayerRG12p",
+        "BayerRG14",
+        "BayerRG14p",
+        "BayerRG16",
+        "RGBa8",
+        "RGBa10",
+        "RGBa10p",
+        "RGBa12",
+        "RGBa12p",
+        "RGBa14",
+        "RGBa16",
+        "RGB8",
+        "RGB8_Planar",
+        "RGB8a32",
+        "RGB10",
+        "RGB10_Planar",
+        "RGB10p",
+        "RGB10p32",
+        "RGB12",
+        "RGB12_Planar",
+        "RGB12p",
+        "RGB14",
+        "RGB16",
+        "RGB16_Planar",
+        "RGB565p",
+        "BGRa8",
+        "BGRa10",
+        "BGRa10p",
+        "BGRa12",
+        "BGRa12p",
+        "BGRa14",
+        "BGRa16",
+        "BGR8",
+        "BGR8a32",
+        "BGR10",
+        "BGR10p",
+        "BGR12",
+        "BGR12p",
+        "BGR14",
+        "BGR16",
+        "BGR565p",
+        "R8",
+        "R10",
+        "R10_Deprecated",
+        "R12",
+        "R12_Deprecated",
+        "R16",
+        "G8",
+        "G10",
+        "G10_Deprecated",
+        "G12",
+        "G12_Deprecated",
+        "G16",
+        "B8",
+        "B10",
+        "B10_Deprecated",
+        "B12",
+        "B12_Deprecated",
+        "B16",
+        "Coord3D_ABC8",
+        "Coord3D_ABC8_Planar",
+        "Coord3D_ABC10p",
+        "Coord3D_ABC10p_Planar",
+        "Coord3D_ABC12p",
+        "Coord3D_ABC12p_Planar",
+        "Coord3D_ABC16",
+        "Coord3D_ABC16_Planar",
+        "Coord3D_ABC32f",
+        "Coord3D_ABC32f_Planar",
+        "Coord3D_ABC64f",
+        "Coord3D_ABC64f_Planar",
+        "Coord3D_AC8",
+        "Coord3D_AC8_Planar",
+        "Coord3D_AC10p",
+        "Coord3D_AC10p_Planar",
+        "Coord3D_AC12p",
+        "Coord3D_AC12p_Planar",
+        "Coord3D_AC16",
+        "Coord3D_AC16_Planar",
+        "Coord3D_AC32f",
+        "Coord3D_AC32f_Planar",
+        "Coord3D_AC64f",
+        "Coord3D_AC64f_Planar",
+        "Coord3D_A8",
+        "Coord3D_A10p",
+        "Coord3D_A12p",
+        "Coord3D_A16",
+        "Coord3D_A32f",
+        "Coord3D_A64f",
+        "Coord3D_B8",
+        "Coord3D_B10p",
+        "Coord3D_B12p",
+        "Coord3D_B16",
+        "Coord3D_B32f",
+        "Coord3D_B64f",
+        "Coord3D_C8",
+        "Coord3D_C10p",
+        "Coord3D_C12p",
+        "Coord3D_C16",
+        "Coord3D_C32f",
+        "Coord3D_C64f",
+        "Confidence1",
+        "Confidence1p",
+        "Confidence8",
+        "Confidence16",
+        "Confidence32f",
+        "BiColorBGRG8",
+        "BiColorBGRG10",
+        "BiColorBGRG10p",
+        "BiColorBGRG12",
+        "BiColorBGRG12p",
+        "BiColorRGBG8",
+        "BiColorRGBG10",
+        "BiColorRGBG10p",
+        "BiColorRGBG12",
+        "BiColorRGBG12p",
+        "Data8",
+        "Data8s",
+        "Data16",
+        "Data16s",
+        "Data32",
+        "Data32f",
+        "Data32s",
+        "Data64",
+        "Data64f",
+        "Data64s",
+        "SCF1WBWG8",
+        "SCF1WBWG10",
+        "SCF1WBWG10p",
+        "SCF1WBWG12",
+        "SCF1WBWG12p",
+        "SCF1WBWG14",
+        "SCF1WBWG16",
+        "SCF1WGWB8",
+        "SCF1WGWB10",
+        "SCF1WGWB10p",
+        "SCF1WGWB12",
+        "SCF1WGWB12p",
+        "SCF1WGWB14",
+        "SCF1WGWB16",
+        "SCF1WGWR8",
+        "SCF1WGWR10",
+        "SCF1WGWR10p",
+        "SCF1WGWR12",
+        "SCF1WGWR12p",
+        "SCF1WGWR14",
+        "SCF1WGWR16",
+        "SCF1WRWG8",
+        "SCF1WRWG10",
+        "SCF1WRWG10p",
+        "SCF1WRWG12",
+        "SCF1WRWG12p",
+        "SCF1WRWG14",
+        "SCF1WRWG16",
+        "YCbCr8",
+        "YCbCr8_CbYCr",
+        "YCbCr10_CbYCr",
+        "YCbCr10p_CbYCr",
+        "YCbCr12_CbYCr",
+        "YCbCr12p_CbYCr",
+        "YCbCr411_8",
+        "YCbCr411_8_CbYYCrYY",
+        "YCbCr420_8_YY_CbCr_Semiplanar",
+        "YCbCr420_8_YY_CrCb_Semiplanar",
+        "YCbCr422_8",
+        "YCbCr422_8_CbYCrY",
+        "YCbCr422_8_YY_CbCr_Semiplanar",
+        "YCbCr422_8_YY_CrCb_Semiplanar",
+        "YCbCr422_10",
+        "YCbCr422_10_CbYCrY",
+        "YCbCr422_10p",
+        "YCbCr422_10p_CbYCrY",
+        "YCbCr422_12",
+        "YCbCr422_12_CbYCrY",
+        "YCbCr422_12p",
+        "YCbCr422_12p_CbYCrY",
+        "YCbCr601_8_CbYCr",
+        "YCbCr601_10_CbYCr",
+        "YCbCr601_10p_CbYCr",
+        "YCbCr601_12_CbYCr",
+        "YCbCr601_12p_CbYCr",
+        "YCbCr601_411_8_CbYYCrYY",
+        "YCbCr601_422_8",
+        "YCbCr601_422_8_CbYCrY",
+        "YCbCr601_422_10",
+        "YCbCr601_422_10_CbYCrY",
+        "YCbCr601_422_10p",
+        "YCbCr601_422_10p_CbYCrY",
+        "YCbCr601_422_12",
+        "YCbCr601_422_12_CbYCrY",
+        "YCbCr601_422_12p",
+        "YCbCr601_422_12p_CbYCrY",
+        "YCbCr709_8_CbYCr",
+        "YCbCr709_10_CbYCr",
+        "YCbCr709_10p_CbYCr",
+        "YCbCr709_12_CbYCr",
+        "YCbCr709_12p_CbYCr",
+        "YCbCr709_411_8_CbYYCrYY",
+        "YCbCr709_422_8",
+        "YCbCr709_422_8_CbYCrY",
+        "YCbCr709_422_10",
+        "YCbCr709_422_10_CbYCrY",
+        "YCbCr709_422_10p",
+        "YCbCr709_422_10p_CbYCrY",
+        "YCbCr709_422_12",
+        "YCbCr709_422_12_CbYCrY",
+        "YCbCr709_422_12p",
+        "YCbCr709_422_12p_CbYCrY",
+        "YCbCr2020_8_CbYCr",
+        "YCbCr2020_10_CbYCr",
+        "YCbCr2020_10p_CbYCr",
+        "YCbCr2020_12_CbYCr",
+        "YCbCr2020_12p_CbYCr",
+        "YCbCr2020_411_8_CbYYCrYY",
+        "YCbCr2020_422_8",
+        "YCbCr2020_422_8_CbYCrY",
+        "YCbCr2020_422_10",
+        "YCbCr2020_422_10_CbYCrY",
+        "YCbCr2020_422_10p",
+        "YCbCr2020_422_10p_CbYCrY",
+        "YCbCr2020_422_12",
+        "YCbCr2020_422_12_CbYCrY",
+        "YCbCr2020_422_12p",
+        "YCbCr2020_422_12p_CbYCrY",
+        "YUV8_UYV",
+        "YUV411_8_UYYVYY",
+        "YUV422_8",
+        "YUV422_8_UYVY"
+      ],
+      "type": "Enumeration"
+    },
+    "PixelSize": {
+      "entries": [
+        "Bpp1",
+        "Bpp2",
+        "Bpp4",
+        "Bpp8",
+        "Bpp10",
+        "Bpp12",
+        "Bpp14",
+        "Bpp16",
+        "Bpp20",
+        "Bpp24",
+        "Bpp30",
+        "Bpp32",
+        "Bpp36",
+        "Bpp48",
+        "Bpp64",
+        "Bpp96"
+      ],
+      "type": "Enumeration"
+    },
+    "PtpClockAccuracy": {
+      "entries": [
+        "Within25ns",
+        "Within100ns",
+        "Within250ns",
+        "Within1us",
+        "Within2p5us",
+        "Within10us",
+        "Within25us",
+        "Within100us",
+        "Within250us",
+        "Within1ms",
+        "Within2p5ms",
+        "Within10ms",
+        "Within25ms",
+        "Within100ms",
+        "Within250ms",
+        "Within1s",
+        "Within10s",
+        "GreaterThan10s",
+        "AlternatePTPProfile",
+        "Unknown",
+        "Reserved"
+      ],
+      "type": "Enumeration"
+    },
+    "PtpClockID": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "PtpControl": {
+      "entries": [],
+      "type": "Category"
+    },
+    "PtpDataSetLatch": {
+      "entries": [],
+      "type": "Command"
+    },
+    "PtpEnable": {
+      "entries": [],
+      "type": "Boolean"
+    },
+    "PtpGrandmasterClockID": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "PtpMeanPropagationDelay": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "PtpOffsetFromMaster": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "PtpParentClockID": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "PtpServoStatus": {
+      "entries": [
+        "Unknown",
+        "Locked"
+      ],
+      "type": "Enumeration"
+    },
+    "PtpStatus": {
+      "entries": [
+        "Initializing",
+        "Faulty",
+        "Disabled",
+        "Listening",
+        "PreMaster",
+        "Master",
+        "Passive",
+        "Uncalibrated",
+        "Slave"
+      ],
+      "type": "Enumeration"
+    },
+    "RegionDestination": {
+      "entries": [
+        "Stream0",
+        "Stream1",
+        "Stream2"
+      ],
+      "type": "Enumeration"
+    },
+    "RegionIDValue": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "RegionMode": {
+      "entries": [
+        "Off",
+        "On"
+      ],
+      "type": "Enumeration"
+    },
+    "RegionSelector": {
+      "entries": [
+        "Region0",
+        "Region1",
+        "Region2",
+        "Scan3dExtraction0",
+        "Scan3dExtraction1",
+        "Scan3dExtraction2",
+        "All"
+      ],
+      "type": "Enumeration"
+    },
+    "ReverseX": {
+      "entries": [],
+      "type": "Boolean"
+    },
+    "ReverseY": {
+      "entries": [],
+      "type": "Boolean"
+    },
+    "Root": {
+      "entries": [],
+      "type": "Category"
+    },
+    "Scan3dAspectRatio": {
+      "entries": [],
+      "type": "Float"
+    },
+    "Scan3dAxisMax": {
+      "entries": [],
+      "type": "Float"
+    },
+    "Scan3dAxisMin": {
+      "entries": [],
+      "type": "Float"
+    },
+    "Scan3dBaseline": {
+      "entries": [],
+      "type": "Float"
+    },
+    "Scan3dControl": {
+      "entries": [],
+      "type": "Category"
+    },
+    "Scan3dCoordinateMapEnable": {
+      "entries": [],
+      "type": "Boolean"
+    },
+    "Scan3dCoordinateMapSelector": {
+      "entries": [
+        "CoordinateA",
+        "CoordinateB"
+      ],
+      "type": "Enumeration"
+    },
+    "Scan3dCoordinateMapValueAll": {
+      "entries": [],
+      "type": "Register"
+    },
+    "Scan3dCoordinateOffset": {
+      "entries": [],
+      "type": "Float"
+    },
+    "Scan3dCoordinateReferenceSelector": {
+      "entries": [
+        "RotationX",
+        "RotationY",
+        "RotationZ",
+        "TranslationX",
+        "TranslationY",
+        "TranslationZ"
+      ],
+      "type": "Enumeration"
+    },
+    "Scan3dCoordinateReferenceValue": {
+      "entries": [],
+      "type": "Float"
+    },
+    "Scan3dCoordinateScale": {
+      "entries": [],
+      "type": "Float"
+    },
+    "Scan3dCoordinateSelector": {
+      "entries": [
+        "CoordinateA",
+        "CoordinateB",
+        "CoordinateC"
+      ],
+      "type": "Enumeration"
+    },
+    "Scan3dCoordinateSystem": {
+      "entries": [
+        "Cartesian",
+        "Spherical",
+        "Cylindrical"
+      ],
+      "type": "Enumeration"
+    },
+    "Scan3dCoordinateSystemReference": {
+      "entries": [
+        "Anchor",
+        "Transformed"
+      ],
+      "type": "Enumeration"
+    },
+    "Scan3dCoordinateTransformSelector": {
+      "entries": [
+        "RotationX",
+        "RotationY",
+        "RotationZ",
+        "TranslationX",
+        "TranslationY",
+        "TranslationZ"
+      ],
+      "type": "Enumeration"
+    },
+    "Scan3dDistanceUnit": {
+      "entries": [
+        "Millimeter",
+        "Meter",
+        "Inch",
+        "Pixel"
+      ],
+      "type": "Enumeration"
+    },
+    "Scan3dExtractionMethod": {
+      "entries": [
+        "Default"
+      ],
+      "type": "Enumeration"
+    },
+    "Scan3dExtractionSelector": {
+      "entries": [
+        "Scan3dExtraction0",
+        "Scan3dExtraction1",
+        "Scan3dExtraction2"
+      ],
+      "type": "Enumeration"
+    },
+    "Scan3dExtractionSource": {
+      "entries": [
+        "Region0",
+        "Region1",
+        "Region2"
+      ],
+      "type": "Enumeration"
+    },
+    "Scan3dFocalLength": {
+      "entries": [],
+      "type": "Float"
+    },
+    "Scan3dInvalidDataFlag": {
+      "entries": [],
+      "type": "Boolean"
+    },
+    "Scan3dInvalidDataValue": {
+      "entries": [],
+      "type": "Float"
+    },
+    "Scan3dOutputMode": {
+      "entries": [
+        "UncalibratedC",
+        "CalibratedABC_Grid",
+        "CalibratedABC_PointCloud",
+        "CalibratedAC",
+        "CalibratedAC_Linescan",
+        "CalibratedC",
+        "CalibratedC_Linescan",
+        "RectifiedC",
+        "RectifiedC_Linescan",
+        "DisparityC",
+        "DisparityC_Linescan",
+        "ProjectedC",
+        "ProjectedC_Linescan"
+      ],
+      "type": "Enumeration"
+    },
+    "Scan3dPrincipalPointU": {
+      "entries": [],
+      "type": "Float"
+    },
+    "Scan3dPrincipalPointV": {
+      "entries": [],
+      "type": "Float"
+    },
+    "Scan3dTransformValue": {
+      "entries": [],
+      "type": "Float"
+    },
+    "SensorDigitizationTaps": {
+      "entries": [
+        "One",
+        "Two",
+        "Three",
+        "Four",
+        "Eight",
+        "Ten"
+      ],
+      "type": "Enumeration"
+    },
+    "SensorHeight": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "SensorName": {
+      "entries": [],
+      "type": "String"
+    },
+    "SensorPixelHeight": {
+      "entries": [],
+      "type": "Float"
+    },
+    "SensorPixelWidth": {
+      "entries": [],
+      "type": "Float"
+    },
+    "SensorShutterMode": {
+      "entries": [
+        "Global",
+        "Rolling",
+        "GlobalReset"
+      ],
+      "type": "Enumeration"
+    },
+    "SensorTaps": {
+      "entries": [
+        "One",
+        "Two",
+        "Three",
+        "Four",
+        "Eight",
+        "Ten"
+      ],
+      "type": "Enumeration"
+    },
+    "SensorWidth": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "SequencerConfigurationMode": {
+      "entries": [
+        "On",
+        "Off"
+      ],
+      "type": "Enumeration"
+    },
+    "SequencerControl": {
+      "entries": [],
+      "type": "Category"
+    },
+    "SequencerFeatureEnable": {
+      "entries": [],
+      "type": "Boolean"
+    },
+    "SequencerFeatureSelector": {
+      "entries": [
+        "DeviceSpecificFeatureList"
+      ],
+      "type": "Enumeration"
+    },
+    "SequencerMode": {
+      "entries": [
+        "On",
+        "Off"
+      ],
+      "type": "Enumeration"
+    },
+    "SequencerPathSelector": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "SequencerSetActive": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "SequencerSetLoad": {
+      "entries": [],
+      "type": "Command"
+    },
+    "SequencerSetNext": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "SequencerSetSave": {
+      "entries": [],
+      "type": "Command"
+    },
+    "SequencerSetSelector": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "SequencerSetStart": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "SequencerTriggerActivation": {
+      "entries": [
+        "RisingEdge",
+        "FallingEdge",
+        "AnyEdge",
+        "LevelHigh",
+        "LevelLow"
+      ],
+      "type": "Enumeration"
+    },
+    "SequencerTriggerSource": {
+      "entries": [
+        "Off",
+        "AcquisitionTrigger",
+        "AcquisitionTriggerMissed",
+        "AcquisitionStart",
+        "AcquisitionEnd",
+        "FrameTrigger",
+        "FrameTriggerMissed",
+        "FrameStart",
+        "FrameEnd",
+        "FrameBurstStart",
+        "FrameBurstEnd",
+        "ExposureStart",
+        "ExposureEnd",
+        "Line0",
+        "Line1",
+        "Line2",
+        "UserOutput0",
+        "UserOutput1",
+        "UserOutput2",
+        "Counter0Start",
+        "Counter1Start",
+        "Counter2Start",
+        "Counter0End",
+        "Counter1End",
+        "Counter2End",
+        "Timer0Start",
+        "Timer1Start",
+        "Timer2Start",
+        "Timer0End",
+        "Timer1End",
+        "Timer2End",
+        "Encoder0",
+        "Encoder1",
+        "Encoder2",
+        "LogicBlock0",
+        "LogicBlock1",
+        "LogicBlock2",
+        "SoftwareSignal0",
+        "SoftwareSignal1",
+        "SoftwareSignal2",
+        "Action0",
+        "Action1",
+        "Action2",
+        "LinkTrigger0",
+        "LinkTrigger1",
+        "LinkTrigger2",
+        "CC1",
+        "CC2",
+        "CC3",
+        "CC4"
+      ],
+      "type": "Enumeration"
+    },
+    "Shutter": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "ShutterInitialize": {
+      "entries": [],
+      "type": "Command"
+    },
+    "ShutterStatus": {
+      "entries": [
+        "NotConnected",
+        "NotInitialized",
+        "NotSupported",
+        "Busy",
+        "Ready",
+        "Error"
+      ],
+      "type": "Enumeration"
+    },
+    "SoftwareSignalControl": {
+      "entries": [],
+      "type": "Category"
+    },
+    "SoftwareSignalPulse": {
+      "entries": [],
+      "type": "Command"
+    },
+    "SoftwareSignalSelector": {
+      "entries": [
+        "SoftwareSignal0",
+        "SoftwareSignal1",
+        "SoftwareSignal2"
+      ],
+      "type": "Enumeration"
+    },
+    "SourceControl": {
+      "entries": [],
+      "type": "Category"
+    },
+    "SourceCount": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "SourceIDValue": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "SourceSelector": {
+      "entries": [
+        "Source0",
+        "Source1",
+        "Source2",
+        "All"
+      ],
+      "type": "Enumeration"
+    },
+    "Stabilization": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "StabilizationInitialize": {
+      "entries": [],
+      "type": "Command"
+    },
+    "StabilizationStatus": {
+      "entries": [
+        "NotConnected",
+        "NotInitialized",
+        "NotSupported",
+        "Busy",
+        "Ready",
+        "Error"
+      ],
+      "type": "Enumeration"
+    },
+    "TLParamsLocked": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "TLParamsLockedSelector": {
+      "entries": [
+        "ImageSize",
+        "PixelFormat",
+        "PixelSize",
+        "ExtendedPayload"
+      ],
+      "type": "Enumeration"
+    },
+    "TLParamsLockedState": {
+      "entries": [],
+      "type": "Boolean"
+    },
+    "TestControl": {
+      "entries": [],
+      "type": "Category"
+    },
+    "TestEventGenerate": {
+      "entries": [],
+      "type": "Command"
+    },
+    "TestPattern": {
+      "entries": [
+        "Off",
+        "Black",
+        "White",
+        "GreyHorizontalRamp",
+        "GreyVerticalRamp",
+        "GreyHorizontalRampMoving",
+        "GreyVerticalRampMoving",
+        "HorizontalLineMoving",
+        "VerticalLineMoving",
+        "ColorBar",
+        "FrameCounter"
+      ],
+      "type": "Enumeration"
+    },
+    "TestPatternGeneratorSelector": {
+      "entries": [
+        "Sensor",
+        "Region0",
+        "Region1",
+        "Region2"
+      ],
+      "type": "Enumeration"
+    },
+    "TestPayloadFormatMode": {
+      "entries": [
+        "Off",
+        "MultiPart",
+        "GenDC"
+      ],
+      "type": "Enumeration"
+    },
+    "TestPendingAck": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "TimerDelay": {
+      "entries": [],
+      "type": "Float"
+    },
+    "TimerDuration": {
+      "entries": [],
+      "type": "Float"
+    },
+    "TimerReset": {
+      "entries": [],
+      "type": "Command"
+    },
+    "TimerSelector": {
+      "entries": [
+        "Timer0",
+        "Timer1",
+        "Timer2"
+      ],
+      "type": "Enumeration"
+    },
+    "TimerStatus": {
+      "entries": [
+        "TimerIdle",
+        "TimerTriggerWait",
+        "TimerActive",
+        "TimerCompleted"
+      ],
+      "type": "Enumeration"
+    },
+    "TimerTriggerActivation": {
+      "entries": [
+        "RisingEdge",
+        "FallingEdge",
+        "AnyEdge",
+        "LevelHigh",
+        "LevelLow"
+      ],
+      "type": "Enumeration"
+    },
+    "TimerTriggerArmDelay": {
+      "entries": [],
+      "type": "Float"
+    },
+    "TimerTriggerSource": {
+      "entries": [
+        "Off",
+        "AcquisitionTrigger",
+        "AcquisitionTriggerMissed",
+        "AcquisitionStart",
+        "AcquisitionEnd",
+        "FrameTrigger",
+        "FrameTriggerMissed",
+        "FrameStart",
+        "FrameEnd",
+        "FrameBurstStart",
+        "FrameBurstEnd",
+        "LineTrigger",
+        "LineTriggerMissed",
+        "LineStart",
+        "LineEnd",
+        "ExposureStart",
+        "ExposureEnd",
+        "Line0",
+        "Line1",
+        "Line2",
+        "UserOutput0",
+        "UserOutput1",
+        "UserOutput2",
+        "Counter0Start",
+        "Counter1Start",
+        "Counter2Start",
+        "Counter0End",
+        "Counter1End",
+        "Counter2End",
+        "Timer0Start",
+        "Timer1Start",
+        "Timer2Start",
+        "Timer0End",
+        "Timer1End",
+        "Timer2End",
+        "Encoder0",
+        "Encoder1",
+        "Encoder2",
+        "LogicBlock0",
+        "LogicBlock1",
+        "LogicBlock2",
+        "SoftwareSignal0",
+        "SoftwareSignal1",
+        "SoftwareSignal2",
+        "Action0",
+        "Action1",
+        "Action2",
+        "LinkTrigger0",
+        "LinkTrigger1",
+        "LinkTrigger2"
+      ],
+      "type": "Enumeration"
+    },
+    "TimerValue": {
+      "entries": [],
+      "type": "Float"
+    },
+    "Timestamp": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "TimestampLatch": {
+      "entries": [],
+      "type": "Command"
+    },
+    "TimestampLatchValue": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "TimestampReset": {
+      "entries": [],
+      "type": "Command"
+    },
+    "TransferAbort": {
+      "entries": [],
+      "type": "Command"
+    },
+    "TransferBlockCount": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "TransferBurstCount": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "TransferComponentSelector": {
+      "entries": [
+        "Red",
+        "Green",
+        "Blue",
+        "All"
+      ],
+      "type": "Enumeration"
+    },
+    "TransferControl": {
+      "entries": [],
+      "type": "Category"
+    },
+    "TransferControlMode": {
+      "entries": [
+        "Basic",
+        "Automatic",
+        "UserControlled"
+      ],
+      "type": "Enumeration"
+    },
+    "TransferOperationMode": {
+      "entries": [
+        "Continuous",
+        "MultiBlock"
+      ],
+      "type": "Enumeration"
+    },
+    "TransferPause": {
+      "entries": [],
+      "type": "Command"
+    },
+    "TransferQueueCurrentBlockCount": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "TransferQueueMaxBlockCount": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "TransferQueueMode": {
+      "entries": [
+        "FirstInFirstOut"
+      ],
+      "type": "Enumeration"
+    },
+    "TransferResume": {
+      "entries": [],
+      "type": "Command"
+    },
+    "TransferSelector": {
+      "entries": [
+        "Stream0",
+        "Stream1",
+        "Stream2",
+        "All"
+      ],
+      "type": "Enumeration"
+    },
+    "TransferStart": {
+      "entries": [],
+      "type": "Command"
+    },
+    "TransferStatus": {
+      "entries": [],
+      "type": "Boolean"
+    },
+    "TransferStatusSelector": {
+      "entries": [
+        "Streaming",
+        "Paused",
+        "Stopping",
+        "Stopped",
+        "QueueOverflow"
+      ],
+      "type": "Enumeration"
+    },
+    "TransferStop": {
+      "entries": [],
+      "type": "Command"
+    },
+    "TransferStreamChannel": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "TransferTriggerActivation": {
+      "entries": [
+        "RisingEdge",
+        "FallingEdge",
+        "AnyEdge",
+        "LevelHigh",
+        "LevelLow"
+      ],
+      "type": "Enumeration"
+    },
+    "TransferTriggerMode": {
+      "entries": [
+        "Off",
+        "On"
+      ],
+      "type": "Enumeration"
+    },
+    "TransferTriggerSelector": {
+      "entries": [
+        "TransferStart",
+        "TransferStop",
+        "TransferAbort",
+        "TransferPause",
+        "TransferResume",
+        "TransferActive",
+        "TransferBurstStart",
+        "TransferBurstStop"
+      ],
+      "type": "Enumeration"
+    },
+    "TransferTriggerSource": {
+      "entries": [
+        "Line0",
+        "Line1",
+        "Line2",
+        "Counter0Start",
+        "Counter1Start",
+        "Counter2Start",
+        "Counter0End",
+        "Counter1End",
+        "Counter2End",
+        "Timer0Start",
+        "Timer1Start",
+        "Timer2Start",
+        "Timer0End",
+        "Timer1End",
+        "Timer2End",
+        "LogicBlock0",
+        "LogicBlock1",
+        "LogicBlock2",
+        "SoftwareSignal0",
+        "SoftwareSignal1",
+        "SoftwareSignal2",
+        "Action0",
+        "Action1",
+        "Action2"
+      ],
+      "type": "Enumeration"
+    },
+    "TransportLayerControl": {
+      "entries": [],
+      "type": "Category"
+    },
+    "TriggerActivation": {
+      "entries": [
+        "RisingEdge",
+        "FallingEdge",
+        "AnyEdge",
+        "LevelHigh",
+        "LevelLow"
+      ],
+      "type": "Enumeration"
+    },
+    "TriggerDelay": {
+      "entries": [],
+      "type": "Float"
+    },
+    "TriggerDivider": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "TriggerMode": {
+      "entries": [
+        "Off",
+        "On"
+      ],
+      "type": "Enumeration"
+    },
+    "TriggerMultiplier": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "TriggerOverlap": {
+      "entries": [
+        "Off",
+        "ReadOut",
+        "PreviousFrame",
+        "PreviousLine"
+      ],
+      "type": "Enumeration"
+    },
+    "TriggerSelector": {
+      "entries": [
+        "AcquisitionStart",
+        "AcquisitionEnd",
+        "AcquisitionActive",
+        "FrameStart",
+        "FrameEnd",
+        "FrameActive",
+        "FrameBurstStart",
+        "FrameBurstEnd",
+        "FrameBurstActive",
+        "LineStart",
+        "ExposureStart",
+        "ExposureEnd",
+        "ExposureActive",
+        "MultiSlopeExposureLimit1"
+      ],
+      "type": "Enumeration"
+    },
+    "TriggerSoftware": {
+      "entries": [],
+      "type": "Command"
+    },
+    "TriggerSource": {
+      "entries": [
+        "Software",
+        "SoftwareSignal0",
+        "SoftwareSignal1",
+        "SoftwareSignal2",
+        "Line0",
+        "Line1",
+        "Line2",
+        "UserOutput0",
+        "UserOutput1",
+        "UserOutput2",
+        "Counter0Start",
+        "Counter1Start",
+        "Counter2Start",
+        "Counter0End",
+        "Counter1End",
+        "Counter2End",
+        "Timer0Start",
+        "Timer1Start",
+        "Timer2Start",
+        "Timer0End",
+        "Timer1End",
+        "Timer2End",
+        "Encoder0",
+        "Encoder1",
+        "Encoder2",
+        "LogicBlock0",
+        "LogicBlock1",
+        "LogicBlock2",
+        "Action0",
+        "Action1",
+        "Action2",
+        "LinkTrigger0",
+        "LinkTrigger1",
+        "LinkTrigger2",
+        "CC1",
+        "CC2",
+        "CC3",
+        "CC4"
+      ],
+      "type": "Enumeration"
+    },
+    "UserOutputSelector": {
+      "entries": [
+        "UserOutput0",
+        "UserOutput1",
+        "UserOutput2"
+      ],
+      "type": "Enumeration"
+    },
+    "UserOutputValue": {
+      "entries": [],
+      "type": "Boolean"
+    },
+    "UserOutputValueAll": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "UserOutputValueAllMask": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "UserSetControl": {
+      "entries": [],
+      "type": "Category"
+    },
+    "UserSetDefault": {
+      "entries": [
+        "Default",
+        "UserSet0",
+        "UserSet1"
+      ],
+      "type": "Enumeration"
+    },
+    "UserSetDescription": {
+      "entries": [],
+      "type": "String"
+    },
+    "UserSetFeatureEnable": {
+      "entries": [],
+      "type": "Boolean"
+    },
+    "UserSetFeatureSelector": {
+      "entries": [
+        "DeviceSpecificFeatureList"
+      ],
+      "type": "Enumeration"
+    },
+    "UserSetLoad": {
+      "entries": [],
+      "type": "Command"
+    },
+    "UserSetReset": {
+      "entries": [],
+      "type": "Command"
+    },
+    "UserSetSave": {
+      "entries": [],
+      "type": "Command"
+    },
+    "UserSetSelector": {
+      "entries": [
+        "Default",
+        "UserSet0",
+        "UserSet1"
+      ],
+      "type": "Enumeration"
+    },
+    "ValueArrayCandidates": {
+      "entries": [],
+      "type": "String"
+    },
+    "WhiteClip": {
+      "entries": [],
+      "type": "Float"
+    },
+    "WhiteClipSelector": {
+      "entries": [
+        "All",
+        "Red",
+        "Green",
+        "Blue",
+        "Y",
+        "U",
+        "V",
+        "Tap1",
+        "Tap2"
+      ],
+      "type": "Enumeration"
+    },
+    "Width": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "WidthMax": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "aPAUSEMACCtrlFramesReceived": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "aPAUSEMACCtrlFramesTransmitted": {
+      "entries": [],
+      "type": "Integer"
+    },
+    "oMACControlFunctionEntity": {
+      "entries": [],
+      "type": "Category"
+    }
+  },
+  "legacy_pixel_aliases": {
+    "YUV422Packed": "YUV422_8_UYVY",
+    "YUV422_YUYVPacked": "YUV422_8"
+  },
+  "pfnc": {
+    "B10": 17826084,
+    "B10_Deprecated": 17432786,
+    "B12": 17826085,
+    "B12_Deprecated": 17563859,
+    "B16": 17826004,
+    "B8": 17301713,
+    "BGR10": 36700185,
+    "BGR10p": 35520584,
+    "BGR12": 36700187,
+    "BGR12p": 35913801,
+    "BGR14": 36700234,
+    "BGR16": 36700235,
+    "BGR565p": 34603062,
+    "BGR8": 35127317,
+    "BGR8a32": 35651886,
+    "BGRa10": 37748812,
+    "BGRa10p": 36175949,
+    "BGRa12": 37748814,
+    "BGRa12p": 36700239,
+    "BGRa14": 37748816,
+    "BGRa16": 37748817,
+    "BGRa8": 35651607,
+    "BayerBG10": 17825807,
+    "BayerBG10p": 17432658,
+    "BayerBG12": 17825811,
+    "BayerBG12p": 17563731,
+    "BayerBG14": 17826060,
+    "BayerBG14p": 17694984,
+    "BayerBG16": 17825841,
+    "BayerBG4p": 17039632,
+    "BayerBG8": 17301515,
+    "BayerGB10": 17825806,
+    "BayerGB10p": 17432660,
+    "BayerGB12": 17825810,
+    "BayerGB12p": 17563733,
+    "BayerGB14": 17826059,
+    "BayerGB14p": 17694983,
+    "BayerGB16": 17825840,
+    "BayerGB4p": 17039631,
+    "BayerGB8": 17301514,
+    "BayerGR10": 17825804,
+    "BayerGR10p": 17432662,
+    "BayerGR12": 17825808,
+    "BayerGR12p": 17563735,
+    "BayerGR14": 17826057,
+    "BayerGR14p": 17694981,
+    "BayerGR16": 17825838,
+    "BayerGR4p": 17039629,
+    "BayerGR8": 17301512,
+    "BayerRG10": 17825805,
+    "BayerRG10p": 17432664,
+    "BayerRG12": 17825809,
+    "BayerRG12p": 17563737,
+    "BayerRG14": 17826058,
+    "BayerRG14p": 17694982,
+    "BayerRG16": 17825839,
+    "BayerRG4p": 17039630,
+    "BayerRG8": 17301513,
+    "BiColorBGRG10": 35651753,
+    "BiColorBGRG10p": 34865322,
+    "BiColorBGRG12": 35651757,
+    "BiColorBGRG12p": 35127470,
+    "BiColorBGRG8": 34603174,
+    "BiColorRGBG10": 35651751,
+    "BiColorRGBG10p": 34865320,
+    "BiColorRGBG12": 35651755,
+    "BiColorRGBG12p": 35127468,
+    "BiColorRGBG8": 34603173,
+    "COMPONENT_MASK": 2130706432,
+    "CUSTOM": 2147483648,
+    "Confidence1": 17301700,
+    "Confidence16": 17825991,
+    "Confidence1p": 16842949,
+    "Confidence32f": 18874568,
+    "Confidence8": 17301702,
+    "Coord3D_A10p": 17432789,
+    "Coord3D_A12p": 17563864,
+    "Coord3D_A16": 17825974,
+    "Coord3D_A32f": 18874557,
+    "Coord3D_A64f": 20971814,
+    "Coord3D_A8": 17301679,
+    "Coord3D_ABC10p": 35520731,
+    "Coord3D_ABC10p_Planar": 35520732,
+    "Coord3D_ABC12p": 35913950,
+    "Coord3D_ABC12p_Planar": 35913951,
+    "Coord3D_ABC16": 36700345,
+    "Coord3D_ABC16_Planar": 36700346,
+    "Coord3D_ABC32f": 39846080,
+    "Coord3D_ABC32f_Planar": 39846081,
+    "Coord3D_ABC64f": 46137641,
+    "Coord3D_ABC64f_Planar": 46137642,
+    "Coord3D_ABC8": 35127474,
+    "Coord3D_ABC8_Planar": 35127475,
+    "Coord3D_AC10p": 34865392,
+    "Coord3D_AC10p_Planar": 34865393,
+    "Coord3D_AC12p": 35127538,
+    "Coord3D_AC12p_Planar": 35127539,
+    "Coord3D_AC16": 35651771,
+    "Coord3D_AC16_Planar": 35651772,
+    "Coord3D_AC32f": 37748930,
+    "Coord3D_AC32f_Planar": 37748931,
+    "Coord3D_AC64f": 41943339,
+    "Coord3D_AC64f_Planar": 41943340,
+    "Coord3D_AC8": 34603188,
+    "Coord3D_AC8_Planar": 34603189,
+    "Coord3D_B10p": 17432790,
+    "Coord3D_B12p": 17563865,
+    "Coord3D_B16": 17825975,
+    "Coord3D_B32f": 18874558,
+    "Coord3D_B64f": 20971815,
+    "Coord3D_B8": 17301680,
+    "Coord3D_C10p": 17432791,
+    "Coord3D_C12p": 17563866,
+    "Coord3D_C16": 17825976,
+    "Coord3D_C32f": 18874559,
+    "Coord3D_C64f": 20971816,
+    "Coord3D_C8": 17301681,
+    "Data16": 17826072,
+    "Data16s": 17826073,
+    "Data32": 18874650,
+    "Data32f": 18874652,
+    "Data32s": 18874651,
+    "Data64": 20971805,
+    "Data64f": 20971807,
+    "Data64s": 20971806,
+    "Data8": 17301782,
+    "Data8s": 17301783,
+    "G10": 17826082,
+    "G10_Deprecated": 17432782,
+    "G12": 17826083,
+    "G12_Deprecated": 17563855,
+    "G16": 17826000,
+    "G8": 17301709,
+    "MULTIPLE_COMPONENT": 33554432,
+    "Mono10": 17825795,
+    "Mono10p": 17432646,
+    "Mono12": 17825797,
+    "Mono12p": 17563719,
+    "Mono14": 17825829,
+    "Mono14p": 17694980,
+    "Mono16": 17825799,
+    "Mono1p": 16842807,
+    "Mono2p": 16908344,
+    "Mono32": 18874641,
+    "Mono4p": 17039417,
+    "Mono8": 17301505,
+    "Mono8s": 17301506,
+    "OCCUPY10BIT": 655360,
+    "OCCUPY12BIT": 786432,
+    "OCCUPY16BIT": 1048576,
+    "OCCUPY1BIT": 65536,
+    "OCCUPY24BIT": 1572864,
+    "OCCUPY2BIT": 131072,
+    "OCCUPY30BIT": 1966080,
+    "OCCUPY32BIT": 2097152,
+    "OCCUPY36BIT": 2359296,
+    "OCCUPY40BIT": 2621440,
+    "OCCUPY48BIT": 3145728,
+    "OCCUPY4BIT": 262144,
+    "OCCUPY64BIT": 4194304,
+    "OCCUPY8BIT": 524288,
+    "PIXEL_ID_MASK": 65535,
+    "PIXEL_SIZE_MASK": 16711680,
+    "R10": 17826080,
+    "R10_Deprecated": 17432778,
+    "R12": 17826081,
+    "R12_Deprecated": 17563851,
+    "R16": 17825996,
+    "R8": 17301705,
+    "RGB10": 36700184,
+    "RGB10_Planar": 36700194,
+    "RGB10p": 35520604,
+    "RGB10p32": 35651613,
+    "RGB12": 36700186,
+    "RGB12_Planar": 36700195,
+    "RGB12p": 35913821,
+    "RGB14": 36700254,
+    "RGB16": 36700211,
+    "RGB16_Planar": 36700196,
+    "RGB565p": 34603061,
+    "RGB8": 35127316,
+    "RGB8_Planar": 35127329,
+    "RGB8a32": 35651885,
+    "RGBa10": 37748831,
+    "RGBa10p": 36175968,
+    "RGBa12": 37748833,
+    "RGBa12p": 36700258,
+    "RGBa14": 37748835,
+    "RGBa16": 37748836,
+    "RGBa8": 35651606,
+    "SCF1WBWG10": 17825896,
+    "SCF1WBWG10p": 17432681,
+    "SCF1WBWG12": 17825898,
+    "SCF1WBWG12p": 17563755,
+    "SCF1WBWG14": 17825900,
+    "SCF1WBWG16": 17825901,
+    "SCF1WBWG8": 17301607,
+    "SCF1WGWB10": 17825903,
+    "SCF1WGWB10p": 17432688,
+    "SCF1WGWB12": 17825905,
+    "SCF1WGWB12p": 17563762,
+    "SCF1WGWB14": 17825907,
+    "SCF1WGWB16": 17825908,
+    "SCF1WGWB8": 17301614,
+    "SCF1WGWR10": 17825910,
+    "SCF1WGWR10p": 17432695,
+    "SCF1WGWR12": 17825912,
+    "SCF1WGWR12p": 17563769,
+    "SCF1WGWR14": 17825914,
+    "SCF1WGWR16": 17825915,
+    "SCF1WGWR8": 17301621,
+    "SCF1WRWG10": 17825917,
+    "SCF1WRWG10p": 17432702,
+    "SCF1WRWG12": 17825919,
+    "SCF1WRWG12p": 17563776,
+    "SCF1WRWG14": 17825921,
+    "SCF1WRWG16": 17825922,
+    "SCF1WRWG8": 17301628,
+    "SINGLE_COMPONENT": 16777216,
+    "YCbCr10_CbYCr": 36700291,
+    "YCbCr10p_CbYCr": 35520644,
+    "YCbCr12_CbYCr": 36700293,
+    "YCbCr12p_CbYCr": 35913862,
+    "YCbCr2020_10_CbYCr": 36700405,
+    "YCbCr2020_10p_CbYCr": 35520758,
+    "YCbCr2020_12_CbYCr": 36700407,
+    "YCbCr2020_12p_CbYCr": 35913976,
+    "YCbCr2020_411_8_CbYYCrYY": 34341113,
+    "YCbCr2020_422_10": 35651836,
+    "YCbCr2020_422_10_CbYCrY": 35651837,
+    "YCbCr2020_422_10p": 34865406,
+    "YCbCr2020_422_10p_CbYCrY": 34865407,
+    "YCbCr2020_422_12": 35651840,
+    "YCbCr2020_422_12_CbYCrY": 35651841,
+    "YCbCr2020_422_12p": 35127554,
+    "YCbCr2020_422_12p_CbYCrY": 35127555,
+    "YCbCr2020_422_8": 34603258,
+    "YCbCr2020_422_8_CbYCrY": 34603259,
+    "YCbCr2020_8_CbYCr": 35127540,
+    "YCbCr411_8": 34340954,
+    "YCbCr411_8_CbYYCrYY": 34340924,
+    "YCbCr420_8_YY_CbCr_Semiplanar": 34341138,
+    "YCbCr420_8_YY_CrCb_Semiplanar": 34341140,
+    "YCbCr422_10": 35651685,
+    "YCbCr422_10_CbYCrY": 35651737,
+    "YCbCr422_10p": 34865287,
+    "YCbCr422_10p_CbYCrY": 34865306,
+    "YCbCr422_12": 35651686,
+    "YCbCr422_12_CbYCrY": 35651739,
+    "YCbCr422_12p": 35127432,
+    "YCbCr422_12p_CbYCrY": 35127452,
+    "YCbCr422_8": 34603067,
+    "YCbCr422_8_CbYCrY": 34603075,
+    "YCbCr422_8_YY_CbCr_Semiplanar": 34603283,
+    "YCbCr422_8_YY_CrCb_Semiplanar": 34603285,
+    "YCbCr601_10_CbYCr": 36700297,
+    "YCbCr601_10p_CbYCr": 35520650,
+    "YCbCr601_12_CbYCr": 36700299,
+    "YCbCr601_12p_CbYCr": 35913868,
+    "YCbCr601_411_8_CbYYCrYY": 34340927,
+    "YCbCr601_422_10": 35651725,
+    "YCbCr601_422_10_CbYCrY": 35651741,
+    "YCbCr601_422_10p": 34865294,
+    "YCbCr601_422_10p_CbYCrY": 34865310,
+    "YCbCr601_422_12": 35651727,
+    "YCbCr601_422_12_CbYCrY": 35651743,
+    "YCbCr601_422_12p": 35127440,
+    "YCbCr601_422_12p_CbYCrY": 35127456,
+    "YCbCr601_422_8": 34603070,
+    "YCbCr601_422_8_CbYCrY": 34603076,
+    "YCbCr601_8_CbYCr": 35127357,
+    "YCbCr709_10_CbYCr": 36700305,
+    "YCbCr709_10p_CbYCr": 35520658,
+    "YCbCr709_12_CbYCr": 36700307,
+    "YCbCr709_12p_CbYCr": 35913876,
+    "YCbCr709_411_8_CbYYCrYY": 34340930,
+    "YCbCr709_422_10": 35651733,
+    "YCbCr709_422_10_CbYCrY": 35651745,
+    "YCbCr709_422_10p": 34865302,
+    "YCbCr709_422_10p_CbYCrY": 34865314,
+    "YCbCr709_422_12": 35651735,
+    "YCbCr709_422_12_CbYCrY": 35651747,
+    "YCbCr709_422_12p": 35127448,
+    "YCbCr709_422_12p_CbYCrY": 35127460,
+    "YCbCr709_422_8": 34603073,
+    "YCbCr709_422_8_CbYCrY": 34603077,
+    "YCbCr709_8_CbYCr": 35127360,
+    "YCbCr8": 35127387,
+    "YCbCr8_CbYCr": 35127354,
+    "YUV411_8_UYYVYY": 34340894,
+    "YUV422_8": 34603058,
+    "YUV422_8_UYVY": 34603039,
+    "YUV8_UYV": 35127328
+  },
+  "pfnc_sha256": "277be4ce44f48afd87797203a825ffbd34567a7af1a25ee047737ce9f87c0a66",
+  "pfnc_url": "https://www.emva.org/wp-content/uploads/PFNC.h",
+  "reference_sha256": "782365dad3645cbcf891c9043c633fa71f2b2c316f522752adc884bc6949439e",
+  "reference_url": "https://www.emva.org/wp-content/uploads/SFNC_Device_Reference_Version_2_8_0_Schema_1_1.xml_.zip",
+  "sfnc": "2.8.0"
+}

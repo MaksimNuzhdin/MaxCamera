@@ -1,0 +1,20 @@
+[
+  {
+    "filename": "DinxTech_Camera_User_Manual.pdf",
+    "bytes": 17188161,
+    "sha256": "35305ffeae454b1a07753f459626496e6b4cec595ab9b5cf744ee8b24da0518f",
+    "delivery": "Designated optional GitHub release attachment; not committed or uploaded by source preparation"
+  },
+  {
+    "filename": "DinxTech_Camera_Datasheet.pdf",
+    "bytes": 17112316,
+    "sha256": "58875ae2d701448f203c8fda2d4c3962a9e69cfbc4c2a442deb18b868e2a3a39",
+    "delivery": "Designated optional GitHub release attachment; not committed or uploaded by source preparation"
+  },
+  {
+    "filename": "DinxTech_MaxCamera_Vivado_Reports.pdf",
+    "bytes": 3245174,
+    "sha256": "3ce9651973aa118444598abbbafc3703de9ee38f99755ebe3453913199e2de55",
+    "delivery": "Designated optional GitHub release attachment; not committed or uploaded by source preparation"
+  }
+]
