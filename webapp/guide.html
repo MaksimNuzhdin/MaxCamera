@@ -16,7 +16,7 @@
 <p>The username is case sensitive. The login session lasts one hour; restarting the server clears existing sessions. The password is verified against a startup-derived scrypt hash. Passwords and session tokens are not written to access logs.</p>
 <p>The Show button reveals the password field while you are entering it. It does not change the password. Click the AD circle in the upper-right corner to sign out. Sign-out releases a camera controlled by that session.</p>
 <h3 id="public-access">Public access</h3>
-<p>The prepared deployment uses an outbound HTTPS tunnel aimed only at the loopback web server. It does not forward Ethernet or UDP camera ports. The selected external transport provider must be approved before publication in the current execution environment.</p>
+<p>The prepared deployment uses an outbound HTTPS tunnel aimed only at the loopback web server. It does not forward Ethernet or UDP camera ports. The operator explicitly approved Cloudflare as the external transport provider for the current deployment.</p>
 <p>Use the exact HTTPS URL returned by the tunnel. HTTPS encrypts the browser connection, including the requested login credentials and preview. The tunnel provider terminates the public TLS connection, so it is part of the trust boundary. Use <code>--secure-cookie</code> when launching the server for this deployment; session cookies then require HTTPS.</p>
 <p>A Cloudflare Quick Tunnel provides a temporary public hostname, not a reserved IP address. Its URL can change when the tunnel restarts. It has no uptime guarantee, and the gateway computer must stay powered on, awake and online. A fixed public hostname requires a named tunnel and an account/domain configuration. No fixed IP or permanent hostname is implied by this implementation.</p>
 <p>The requested <code>admin/admin</code> credentials grant camera access to anyone who knows them. Network containment restricts that access to the camera application's supported operations. A local operator can supply <code>MAXCAM_PASSWORD</code> at startup to replace the default; there is no remote password-change endpoint.</p>
@@ -168,7 +168,7 @@ python3 launch.py --camera 10.0.0.3 --port 8787
 <p>For an approved public HTTPS tunnel, start with:</p>
 <pre><code class="language-bash">python3 launch.py --camera 10.0.0.3 --port 8787 --secure-cookie
 </code></pre>
-<p>Configure the outbound tunnel to forward HTTP only to <code>http://127.0.0.1:8787</code>. Do not forward the camera address, GVCP port, GVSP stream, shell, SDK tools or host filesystem. Cloudflared must come from Cloudflare's official release source. The tunnel provider is a trusted external transport and requires the stated approval before use here.</p>
+<p>Configure the outbound tunnel to forward HTTP only to <code>http://127.0.0.1:8787</code>. Do not forward the camera address, GVCP port, GVSP stream, shell, SDK tools or host filesystem. Cloudflared must come from Cloudflare's official release source. The tunnel provider is a trusted external transport; the current operator has approved Cloudflare.</p>
 <p>The running local deployment uses the user service <code>maxcamera-web.service</code>. Useful local commands:</p>
 <pre><code class="language-bash">systemctl --user status maxcamera-web
 journalctl --user -u maxcamera-web -n 100 --no-pager

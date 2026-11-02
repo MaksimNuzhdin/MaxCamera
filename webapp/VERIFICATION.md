@@ -35,7 +35,7 @@ The in-app browser verified sign-in, disconnected dashboard, 242-feature renderi
 
 ## Public deployment status
 
-The local isolated service is running at 127.0.0.1:8787. A Cloudflare outbound HTTPS tunnel is prepared, but automatic approval review rejected starting it because the user had not explicitly named Cloudflare as the external destination for camera data. No public address is claimed until that provider approval and public reachability check succeed. No router forwarding, switch VLAN change or permanent public IP allocation has occurred.
+The user explicitly approved Cloudflare Tunnel after the initial provider-approval block. The isolated web service is running with Secure cookies at 127.0.0.1:8787, and an outbound-only Cloudflare Quick Tunnel is active. Public HTTPS checks returned HTTP 200 for the application, successful admin/admin login with Secure cookie, 242 catalogue entries and the authenticated guide; unauthenticated catalogue access returned 401. Camera status remained disconnected throughout those checks. The temporary deployment URL is retained locally rather than advertised in the public source tree. No router forwarding, switch VLAN change or permanent public IP allocation has occurred. Both user services are transient; reboot autostart is not claimed.
 
 ## Evidence handling
 

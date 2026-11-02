@@ -29,7 +29,7 @@ The Show button reveals the password field while you are entering it. It does no
 
 ### Public access
 
-The prepared deployment uses an outbound HTTPS tunnel aimed only at the loopback web server. It does not forward Ethernet or UDP camera ports. The selected external transport provider must be approved before publication in the current execution environment.
+The prepared deployment uses an outbound HTTPS tunnel aimed only at the loopback web server. It does not forward Ethernet or UDP camera ports. The operator explicitly approved Cloudflare as the external transport provider for the current deployment.
 
 Use the exact HTTPS URL returned by the tunnel. HTTPS encrypts the browser connection, including the requested login credentials and preview. The tunnel provider terminates the public TLS connection, so it is part of the trust boundary. Use `--secure-cookie` when launching the server for this deployment; session cookies then require HTTPS.
 
@@ -300,7 +300,7 @@ For an approved public HTTPS tunnel, start with:
 python3 launch.py --camera 10.0.0.3 --port 8787 --secure-cookie
 ```
 
-Configure the outbound tunnel to forward HTTP only to `http://127.0.0.1:8787`. Do not forward the camera address, GVCP port, GVSP stream, shell, SDK tools or host filesystem. Cloudflared must come from Cloudflare's official release source. The tunnel provider is a trusted external transport and requires the stated approval before use here.
+Configure the outbound tunnel to forward HTTP only to `http://127.0.0.1:8787`. Do not forward the camera address, GVCP port, GVSP stream, shell, SDK tools or host filesystem. Cloudflared must come from Cloudflare's official release source. The tunnel provider is a trusted external transport; the current operator has approved Cloudflare.
 
 The running local deployment uses the user service `maxcamera-web.service`. Useful local commands:
 

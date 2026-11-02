@@ -32,6 +32,6 @@ Offline tests use loopback sockets and never access hardware. `tests/live_check.
 
 Use an approved outbound HTTPS reverse tunnel targeting only `http://127.0.0.1:8787`. Start the server with `--secure-cookie` when using that tunnel. Never expose GVCP/GVSP, the camera's own network interface, or an unauthenticated HTTP service through router forwarding.
 
-The prepared Cloudflare Quick Tunnel option requires approval of Cloudflare as the external transport provider before it is started in this environment. A Quick Tunnel URL is temporary and may change on restart. A stable hostname needs a separately configured named tunnel/account; this project does not imply a reserved public IP.
+The current deployment uses Cloudflare Quick Tunnel with the operator's explicit approval; public HTTPS login and protected endpoints have been verified. A Quick Tunnel URL is temporary and may change on restart. A stable hostname needs a separately configured named tunnel/account; this project does not imply a reserved public IP.
 
 No cloud credential is embedded in the project. `MAXCAM_PASSWORD` can override the requested default password at server startup.
