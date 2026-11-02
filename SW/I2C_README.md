@@ -100,8 +100,8 @@ because it can change device state.
 ## Verification
 
 ```sh
-gcc -std=c11 -Wall -Wextra -Werror -Itests/i2c/stubs -I. \
-    MaxIicDriver.c tests/i2c/test_i2c.c -o /tmp/maxcamera-i2c-tests
+gcc -std=c11 -Wall -Wextra -Werror -Itests/i2c/stubs -Isrc -I. \
+    src/MaxIicDriver.c tests/i2c/test_i2c.c -o /tmp/maxcamera-i2c-tests
 /tmp/maxcamera-i2c-tests
 ```
 

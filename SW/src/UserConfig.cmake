@@ -194,6 +194,7 @@ endif()
 
 set(USER_INCLUDE_DIRECTORIES
 "${CMAKE_INCLUDE_PATH}"
+"${CMAKE_CURRENT_SOURCE_DIR}"
 "../drivers/LedsController"
 ".."
 "../drivers/MaxFanController"
@@ -202,7 +203,7 @@ set(USER_INCLUDE_DIRECTORIES
 "../drivers/UART"
 )
 set(USER_COMPILE_SOURCES
-"../main.cpp"
+"main.cpp"
 "../gige/GigeVision.c"
 "../gige/GigeImage.c"
 "../gige/GigeSensorFeatures.c"
@@ -224,17 +225,17 @@ set(USER_COMPILE_SOURCES
 "../drivers/TempController/TempController.c"
 "../drivers/MaxFanController/MaxFanController.c"
 "../drivers/LedsController/LedsController.c"
-"../MaxIicDriver.c"
-"../CameraDiagnostics.cpp"
-"../Ov5640.c"
-"../Ov5640MaxIic.c"
-"../Ov5640Board.cpp"
-"../AxiIicPolled.c"
-"../AxiGpioSccb.c"
-"../AxiGpioSccbAsync.c"
+"MaxIicDriver.c"
+"CameraDiagnostics.cpp"
+"Ov5640.c"
+"Ov5640MaxIic.c"
+"Ov5640Board.cpp"
+"AxiIicPolled.c"
+"AxiGpioSccb.c"
+"AxiGpioSccbAsync.c"
 "../gige/GigeSensorTelemetry.c"
-"../Ov5640TransportExperiment.cpp"
-"../Ov5640VideoCheck.cpp"
+"Ov5640TransportExperiment.cpp"
+"Ov5640VideoCheck.cpp"
 )
 
 # -----------------------------------------

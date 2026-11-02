@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<RegisterDescription ModelName="Camera_MAX_5640" VendorName="Vendor_DINX_Tech_Studio" StandardNameSpace="None" SchemaMajorVersion="1" SchemaMinorVersion="1" SchemaSubMinorVersion="0" MajorVersion="1" MinorVersion="1" SubMinorVersion="1" ProductGuid="d12ac79e-f980-5e65-8e5e-28710411ed0a" VersionGuid="75867aa9-9d4d-583c-bd48-5ae3c4403385" xmlns="http://www.genicam.org/GenApi/Version_1_1">
+<RegisterDescription ModelName="Camera_MAX_5640" VendorName="Vendor_DINX_Tech_Studio" StandardNameSpace="None" SchemaMajorVersion="1" SchemaMinorVersion="1" SchemaSubMinorVersion="0" MajorVersion="1" MinorVersion="1" SubMinorVersion="1" ProductGuid="d12ac79e-f980-5e65-8e5e-28710411ed0a" VersionGuid="fe735127-6437-57a7-a06a-d60ec487b17c" xmlns="http://www.genicam.org/GenApi/Version_1_1">
   <Category Name="Root" NameSpace="Standard">
     <pFeature>DeviceControl</pFeature>
     <pFeature>ImageFormatControl</pFeature>

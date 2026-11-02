@@ -2,8 +2,9 @@
 
 This directory is the R5 bare-metal application plus local drivers. `gige/` owns
 GVCP/GVSP, GenApi metadata, capture and ISP controls; `drivers/` contains LED,
-timer, UART, temperature and fan support. The OV5640 and SCCB transport sources
-remain at this application root. [Driver guides](../docs/drivers) document APIs.
+timer, UART, temperature and fan support. The application entry point, OV5640
+and SCCB transport sources are in `src/`, alongside the firmware CMake
+configuration. [Driver guides](../docs/drivers) document APIs.
 
 ## Platform and firmware
 

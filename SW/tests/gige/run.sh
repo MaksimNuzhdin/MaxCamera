@@ -17,7 +17,7 @@ cc -std=c11 -Wall -Wextra -Werror -g -fsanitize=address,undefined -fno-omit-fram
 ASAN_OPTIONS=detect_leaks=0 build/tests/test_gige
 
 cc -std=c11 -Wall -Wextra -Werror -g -fsanitize=address,undefined -fno-omit-frame-pointer \
-    -Igige -I. tests/gige/test_sensor_features.c gige/GigeSensorFeatures.c gige/GigePreset.c gige/GigeImage.c Ov5640.c -o build/tests/test_sensor_features
+    -Igige -Isrc -I. tests/gige/test_sensor_features.c gige/GigeSensorFeatures.c gige/GigePreset.c gige/GigeImage.c src/Ov5640.c -o build/tests/test_sensor_features
 ASAN_OPTIONS=detect_leaks=0 build/tests/test_sensor_features
 cc -std=c11 -Wall -Wextra -Werror -g -fsanitize=address,undefined -Igige \
     tests/gige/test_image.c gige/GigeImage.c -o build/tests/test_image

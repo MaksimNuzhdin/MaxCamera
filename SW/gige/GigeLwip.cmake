@@ -20,7 +20,7 @@ add_custom_command(
             "${GIGE_SOURCE_DIR}/GigeVisionUnitDefines.h"
             "${GIGE_SOURCE_DIR}/GigeVisionRegisters.h"
             "${GIGE_SOURCE_DIR}/../tools/gige_feature_catalog.py"
-            "${GIGE_SOURCE_DIR}/../Ov5640Registers.h"
+            "${GIGE_SOURCE_DIR}/../src/Ov5640Registers.h"
     COMMENT "Generating GenApi XML and GVCP ROM"
     VERBATIM)
 add_custom_target(gige_xml DEPENDS "${GIGE_SOURCE_DIR}/GigeVisionXmlRom.h" "${GIGE_SOURCE_DIR}/MaxCamera.xml")

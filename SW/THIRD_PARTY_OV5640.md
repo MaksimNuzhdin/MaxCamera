@@ -1,6 +1,6 @@
 # OV5640 source attribution
 
-`Ov5640Tuning.inc` adapts the register/value initialization table from
+`src/Ov5640Tuning.inc` adapts the register/value initialization table from
 Linux 6.6.40 `drivers/media/i2c/ov5640.c`, licensed GPL-2.0-or-later:
 
 Copyright (C) 2011-2013 Freescale Semiconductor, Inc. All Rights Reserved.

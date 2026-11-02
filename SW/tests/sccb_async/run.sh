@@ -4,8 +4,8 @@ export CCACHE_DISABLE=1
 cd "$(dirname "$0")/../.."
 out=$(mktemp -d /tmp/maxcamera-sccb-async.XXXXXX)
 trap 'rm -rf "$out"' EXIT
-flags=(-Wall -Wextra -Werror -g -fsanitize=address,undefined -fno-omit-frame-pointer -Itests/gpio_sccb/stubs -I.)
-sources=(AxiGpioSccb.c AxiGpioSccbAsync.c gige/GigeSensorTelemetry.c)
+flags=(-Wall -Wextra -Werror -g -fsanitize=address,undefined -fno-omit-frame-pointer -Itests/gpio_sccb/stubs -Isrc -I.)
+sources=(src/AxiGpioSccb.c src/AxiGpioSccbAsync.c gige/GigeSensorTelemetry.c)
 objects=()
 for source in "${sources[@]}"; do
     object="$out/$(basename "$source").o"

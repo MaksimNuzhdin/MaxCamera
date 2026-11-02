@@ -1,6 +1,6 @@
 #ifndef GIGE_SENSOR_TELEMETRY_H
 #define GIGE_SENSOR_TELEMETRY_H
-#include "../AxiGpioSccbAsync.h"
+#include "AxiGpioSccbAsync.h"
 #ifdef __cplusplus
 extern "C" {
 #endif

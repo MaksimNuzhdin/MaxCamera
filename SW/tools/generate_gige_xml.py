@@ -52,7 +52,7 @@ def main():
         'SubMinorVersion': '1', 'ProductGuid': d['GIGE_VENDOR_PRODUCT_GUID'],
         'VersionGuid': d['GIGE_VENDOR_XML_VERSION_GUID'],
         'xmlns': 'http://www.genicam.org/GenApi/Version_1_1'})
-    fingerprint = hashlib.sha256((Path(__file__).read_text() + json.dumps(FEATURES, sort_keys=True) + (ROOT/'Ov5640Registers.h').read_text() + json.dumps(d,sort_keys=True)).encode()).hexdigest()
+    fingerprint = hashlib.sha256((Path(__file__).read_text() + json.dumps(FEATURES, sort_keys=True) + (ROOT/'src/Ov5640Registers.h').read_text() + json.dumps(d,sort_keys=True)).encode()).hexdigest()
     root.set('VersionGuid', str(uuid.uuid5(uuid.UUID(d['GIGE_VENDOR_XML_VERSION_GUID']),fingerprint)))
     def node(tag, name, namespace='Custom', **attrs):
         return ET.SubElement(root, tag, Name=name, NameSpace=namespace, **attrs)
@@ -245,7 +245,7 @@ def main():
     n=node('Converter','DeviceLinkHeartbeatTimeoutConverter');child(n,'FormulaTo','FROM/1000');child(n,'FormulaFrom','TO*1000');child(n,'pValue','GevHeartbeatTimeoutRegister');child(n,'Slope','Increasing')
     # Device controls use the same generated metadata as firmware dispatch.
     register_catalogue = re.findall(r'^#define OV5640_REG_(\w+) 0x([0-9A-Fa-f]+)U',
-                                    (ROOT/'Ov5640Registers.h').read_text(), re.M)
+                                    (ROOT/'src/Ov5640Registers.h').read_text(), re.M)
     for group in dict.fromkeys(f['group'] for f in FEATURES):
         if group in groups:cat=next(x for x in root.findall('Category') if x.get('Name')==group)
         else:
