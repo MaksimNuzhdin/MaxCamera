@@ -1,0 +1,1916 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>MaxCamera complete user guide</title><link rel="stylesheet" href="/static/guide.css"></head><body><nav><a href="/">← Return to camera console</a></nav><main><h1 id="maxcamera-vision-console-complete-user-guide">MaxCamera Vision Console — complete user guide</h1>
+<p>Version 1.0 · English interface · Linux gateway · November 2, 2026</p>
+<h2 id="1-purpose-and-operating-model">1. Purpose and operating model</h2>
+<p>MaxCamera Vision Console gives a browser access to the MaxCamera OV5640 GigE Vision camera. The gateway runs on the computer attached to the camera's Ethernet network. A browser communicates with the authenticated web server; only that server communicates with the fixed camera endpoint. The browser never receives a direct GVCP or GVSP connection.</p>
+<p>The workspace contains a live preview, start/stop controls, snapshots, a searchable feature explorer, favorites, runtime setting exports and device diagnostics. Its catalogue is derived from the project's firmware metadata and GenICam XML. It includes 242 named controls and measurements. Features unsupported by the installed FPGA image or unavailable in the present camera mode are disabled or shown without a value.</p>
+<p>The camera is shared with eBUS Player and other tools. Merely opening the website or signing in does not acquire the camera. Connect explicitly requests control if the camera is free. The application refuses to take over an existing controller. Stop ends acquisition while keeping the control lease. Release ends acquisition, restores the stream transport configuration saved at connection time, and relinquishes ownership.</p>
+<p>Camera runtime image settings changed intentionally by an operator remain changed after Release. Release restores transport settings, not every image parameter. No automatic Flash, firmware, factory-preset or boot-policy write occurs. These persistent maintenance controls are excluded from remote writes.</p>
+<h2 id="2-access-and-sign-in">2. Access and sign-in</h2>
+<h3 id="local-access">Local access</h3>
+<p>On the gateway computer open <code>http://127.0.0.1:8787</code>.</p>
+<p>Enter:</p>
+<ul>
+<li>Username: <code>admin</code></li>
+<li>Password: <code>admin</code></li>
+</ul>
+<p>The username is case sensitive. The login session lasts one hour; restarting the server clears existing sessions. The password is verified against a startup-derived scrypt hash. Passwords and session tokens are not written to access logs.</p>
+<p>The Show button reveals the password field while you are entering it. It does not change the password. Click the AD circle in the upper-right corner to sign out. Sign-out releases a camera controlled by that session.</p>
+<h3 id="public-access">Public access</h3>
+<p>The prepared deployment uses an outbound HTTPS tunnel aimed only at the loopback web server. It does not forward Ethernet or UDP camera ports. The operator explicitly approved Cloudflare as the external transport provider for the current deployment.</p>
+<p>Use the exact HTTPS URL returned by the tunnel. HTTPS encrypts the browser connection, including the requested login credentials and preview. The tunnel provider terminates the public TLS connection, so it is part of the trust boundary. Use <code>--secure-cookie</code> when launching the server for this deployment; session cookies then require HTTPS.</p>
+<p>A Cloudflare Quick Tunnel provides a temporary public hostname, not a reserved IP address. Its URL can change when the tunnel restarts. It has no uptime guarantee, and the gateway computer must stay powered on, awake and online. A fixed public hostname requires a named tunnel and an account/domain configuration. No fixed IP or permanent hostname is implied by this implementation.</p>
+<p>The requested <code>admin/admin</code> credentials grant camera access to anyone who knows them. Network containment restricts that access to the camera application's supported operations. A local operator can supply <code>MAXCAM_PASSWORD</code> at startup to replace the default; there is no remote password-change endpoint.</p>
+<h2 id="3-your-first-acquisition">3. Your first acquisition</h2>
+<ol>
+<li>Ensure eBUS Player and other camera tools are not controlling the camera. Leave their firmware, Flash and boot configuration alone.</li>
+<li>Sign in and press <strong>Connect camera</strong>.</li>
+<li>Wait for the state to become Connected and for the feature values to populate. The console reads available parameters; it does not automatically load a different image preset.</li>
+<li>Check Width, Height and Pixel Format in Quick controls. The tested native configuration is 2592×1944 YUV422 YUYV on FPGA v13. Do not assume the full-resolution preview reaches the sensor's nominal frame rate.</li>
+<li>Press <strong>Start stream</strong>. The server configures a private UDP receiver, MTU-sized packets and temporary packet pacing, then starts acquisition.</li>
+<li>Wait for sensor exposure and gain to settle. An initial black frame was observed during verification; later frames contained the scene. The viewer displays only complete frames, not partially received images.</li>
+<li>Press <strong>Stop</strong> before changing image settings.</li>
+<li>Press <strong>Release</strong> when finished. The camera becomes available to other applications.</li>
+</ol>
+<p>If the camera is busy, the console displays a message and leaves ownership unchanged. Continue offline work or wait for the other application to finish. Retry Connect later. Repeatedly forcing a connection is unnecessary; no ForceIP, reset or controller-stealing operation is exposed.</p>
+<h2 id="4-understanding-camera-sharing">4. Understanding camera sharing</h2>
+<p>The server maintains one camera owner at a time, associated with one authenticated session. Another signed-in session cannot modify or release that owner's camera. Multiple tabs sharing the same browser session share that ownership identity; avoid competing controls from several tabs.</p>
+<p>The maximum lease is 15 minutes. This prevents a long-lived page from keeping the shared camera indefinitely. A visible page refreshes its status every two seconds. If the server does not receive activity for 30 seconds, it automatically stops and releases the camera. A hidden tab does not keep polling. Returning to a tab may therefore require Connect again.</p>
+<p>Closing or navigating away from the page sends a best-effort Release request. Browser termination or a lost network cannot guarantee delivery, so the server timeout remains the fallback. A streaming receive or conversion fault also triggers release. A gateway process killed without cleanup relies on the camera's own controller heartbeat timeout; do not immediately force ownership from another tool.</p>
+<p><strong>Stop</strong> keeps your lease so you can adjust settings and restart. <strong>Release</strong> gives up the lease. <strong>Sign out</strong> releases your lease and clears the browser's login cookie. The application does not continuously rediscover or reconnect to the camera in the background while disconnected.</p>
+<h2 id="5-workspace-layout">5. Workspace layout</h2>
+<h3 id="header-and-navigation">Header and navigation</h3>
+<p>The header identifies MaxCamera and offers Guide and sign-out. The desktop sidebar provides Live acquisition, Feature explorer and Diagnostics shortcuts. Smaller layouts hide the sidebar and retain the same core tools in the main workspace.</p>
+<p>Live acquisition selects Quick controls and brings the preview into view. Feature explorer selects the full catalogue. Diagnostics selects the diagnostic group. These shortcuts do not open an additional camera connection.</p>
+<h3 id="connection-controls">Connection controls</h3>
+<p>The state chip reads Disconnected, Connected or Busy. Connect obtains a free camera. Release relinquishes it. Buttons become disabled while a request is in progress, or when the action is not appropriate for the current state.</p>
+<p>A notice above the viewer displays camera or network errors. Read its message before retrying. Firmware rejection is distinct from a web login failure: camera validation may reject a value because a mode, dependency or capability requirement is not met.</p>
+<h3 id="live-view">Live view</h3>
+<p>The viewer fits the camera image inside its available space while preserving aspect ratio. Empty areas can appear when the image and viewport have different proportions.</p>
+<ul>
+<li><strong>Composition grid:</strong> overlays a rule-of-thirds grid. It changes only the display.</li>
+<li><strong>1:1 / Fit:</strong> toggles between actual preview pixel dimensions and fitting the viewport. The JPEG preview may already be smaller than the camera's native output.</li>
+<li><strong>Fullscreen:</strong> asks the browser to expand the preview. Browser support and platform policies apply. Escape exits fullscreen.</li>
+<li><strong>Start stream:</strong> starts the fixed camera's acquisition.</li>
+<li><strong>Stop:</strong> stops acquisition and clears the displayed preview.</li>
+<li><strong>Snapshot:</strong> downloads the most recent displayed JPEG. It is a preview snapshot, not an original sensor payload or a lossless measurement file.</li>
+</ul>
+<p>The composition grid, zoom behavior and fullscreen never modify sensor geometry or image-processing registers.</p>
+<h3 id="status-cards">Status cards</h3>
+<p><strong>Preview rate</strong> is the number of complete, converted previews produced by the web gateway divided by elapsed acquisition time. It includes startup and conversion overhead. It is not the nominal sensor rate, a network packet rate, or a guaranteed delivery rate to every browser.</p>
+<p><strong>Output size</strong> reports the configured camera Width×Height. The browser preview is downscaled to fit within 1440×1080, preserving aspect ratio. The configured output and downloaded preview can therefore have different dimensions.</p>
+<p><strong>Complete previews</strong> counts frames that passed the receiver's complete-payload checks and were converted for the browser. The incomplete count covers frames observed by this bounded preview receiver. Intentional skipping of frames during conversion and packets discarded between preview calls are not a complete sensor or network loss metric. Inspect camera DroppedFrames, CsiErrorEvents and related diagnostics when investigating transport quality.</p>
+<p><strong>Control lease</strong> counts down the maximum 15-minute ownership interval. It does not show the separate one-hour login timeout or the 30-second inactivity timeout.</p>
+<h2 id="6-finding-and-organizing-features">6. Finding and organizing features</h2>
+<h3 id="quick-controls">Quick controls</h3>
+<p>Quick controls collect common acquisition and image settings: frame rate, automatic/manual exposure, automatic/manual gain, white balance mode, FPGA processing enable, FPGA black level, Width, Height and Pixel Format.</p>
+<h3 id="all-features">All features</h3>
+<p>Choose All features for the complete catalogue. The group dropdown filters the current view. A search matches feature names, readable labels, descriptions and group names. A nonempty search spans the whole catalogue, even when Quick controls or Starred is selected. Clear the search to return to the selected tab and group.</p>
+<p>Press <code>/</code> while focus is outside an input to jump to search. Use Tab to move through controls, Enter to apply a numeric value and Escape to dismiss the guide dialog.</p>
+<h3 id="starred">Starred</h3>
+<p>Use the star beside a feature to add or remove it from Starred. Favorites are stored in that browser's local storage. They persist through ordinary page reloads and sign-out, but do not synchronize to other computers or browsers. Clearing site data removes them. Favorites contain feature names only, not passwords or camera ownership tokens.</p>
+<h3 id="reading-current-values">Reading current values</h3>
+<p>Connect reads available values. <strong>Read</strong> refreshes them while stopped. Each successful write also refreshes stopped-state values, because changing a mode or selector may affect other settings. This produces a short burst of control reads; it does not create an additional camera owner.</p>
+<p>Values shown while streaming are the last stopped-state settings. They are not continuously sampled hardware telemetry. The frame count and preview rate update independently. Stop and Read for a new diagnostic snapshot.</p>
+<p>An em dash means no current value was obtained. A disabled control can mean disconnected, streaming, an operation is running, a hardware dependency is unavailable, or the control is restricted. Read-only and Local-only badges explain access restrictions.</p>
+<h2 id="7-editing-parameters-safely">7. Editing parameters safely</h2>
+<ol>
+<li>Stop acquisition.</li>
+<li>Find the parameter.</li>
+<li>Check its description by hovering its name or using the full catalogue description.</li>
+<li>Select a dropdown entry, enter a number, move a slider, or change a checkbox.</li>
+<li>Press that feature's <strong>Apply</strong> button. Moving a slider changes the pending input only; it does not issue camera writes continuously.</li>
+<li>Wait for the updated readback or the error notice.</li>
+<li>Restart acquisition when the configuration is ready.</li>
+</ol>
+<p>Changes are sent one feature at a time. There is no multi-feature transaction or automatic rollback of earlier successful edits. When configuring related geometry, choose an order that remains valid after each write. Firmware performs the final validation at write or acquisition start.</p>
+<p>Numeric bounds come from firmware metadata. Float controls convert engineering units to the camera's underlying fixed-point registers. Exposure uses the active sensor line period rather than a hard-coded time increment. Temperature thresholds convert between degrees Celsius and the hardware ADC representation. Quantization can cause the readback to differ slightly from the requested decimal value.</p>
+<p>The server rejects non-finite values, unknown enum numbers, fractional integer inputs, unknown feature names, unsupported booleans, out-of-range values and remote writes to restricted controls. Width uses the current firmware increment and maximum; Height uses an even increment and the current maximum. A value accepted by the input field may still be rejected by firmware because of coupled mode constraints.</p>
+<p>All web writes require stopped acquisition, including the live-capable FPGA black-level feature. This conservative web policy avoids interrupting shared acquisition unexpectedly. Advanced frame-latched live-black tests in the camera firmware documentation do not imply live editing support in this UI version.</p>
+<h2 id="8-feature-families-and-workflows">8. Feature families and workflows</h2>
+<h3 id="image-format-and-geometry">Image format and geometry</h3>
+<p>Width and Height select output dimensions. Pixel Format selects the camera's transport representation. Some modes require specific FPGA capabilities or sensor paths. A smaller output can reduce Ethernet, conversion and browser load, but changing geometry can also alter the sensor's field of view and cadence depending on the active path.</p>
+<p>The browser preview currently supports uncompressed RGB8, BGR8, Mono8, BayerBG8, BayerBG10 and supported 422 YUV byte-order variants. Bayer previews show intensity; they are not demosaiced color images. Other catalogue formats remain selectable, but Start rejects them with an explanation when a preview converter is unavailable. Compressed JPEG acquisition is not supported by the fixed-size preview receiver in this version.</p>
+<p>Do not confuse sensor resolution, FPGA input size, FPGA ROI, output size and preview size. They can all differ. Use the camera project's ISP and scaler documentation when configuring complex resampling.</p>
+<h3 id="exposure-and-gain">Exposure and gain</h3>
+<p>For automatic exposure choose ExposureAuto=Continuous. For manual exposure set ExposureAuto=Off first, then edit ExposureTime in microseconds. The gateway converts time using the current sensor line period. Exposure values are quantized to line units.</p>
+<p>For manual gain set GainAuto=Off, then edit GainFactor. Gain is a multiplicative factor; higher gain can increase noise. AutoGainLimit and exposure limit controls bound the sensor's automatic behavior. ExposureMaximumLines and SensorLinePeriod help explain the active range. SensorBanding chooses Off, Auto, 50 Hz or 60 Hz behavior where supported.</p>
+<p>Changing frame rate can change the available exposure interval. Do not assume a long exposure and a high frame rate are simultaneously possible. The camera's ResultingFrameRate is nominal sensor timing; the delivered preview may be slower.</p>
+<h3 id="white-balance-and-orientation">White balance and orientation</h3>
+<p>BalanceWhiteAuto controls the sensor's automatic white balance. Set it Off before changing WhiteBalanceRed, Green or Blue. RAW and FPGA-derived processing paths have different white-balance and orientation constraints. A sensor RAW path may have no valid sensor AWB statistics, and ReverseX/ReverseY can be locked to preserve Bayer phase.</p>
+<p>FPGA manual gains and FPGA AWB are distinct from sensor white balance. Use the available capability and active-state controls to determine which pipeline applies. Do not enable two automatic systems without understanding their interaction.</p>
+<h3 id="fpga-image-processing">FPGA image processing</h3>
+<p>FpgaProcessingAvailable, FpgaProcessingVersion and FpgaProcessingCapabilities describe the installed hardware image. Availability flags identify individual blocks. A parameter in the catalogue is not proof that a block exists or is active.</p>
+<p>The family includes RAW black-level correction, Bayer bad-pixel correction, channel gains, demosaic/color adjustments, color matrix coefficients, gamma, median/bilateral processing, sharpening, lens-shading grids, ROI/scaling, scene statistics, local contrast, adaptive display tone and distortion-map controls where implemented.</p>
+<p>Most settings are staged while stopped and take effect at the next acquisition. If an image does not change, inspect enable flags, format, input path, block availability and active-state diagnostics. Sharpening can amplify noise and halos. Gamma or adaptive display curves do not recover clipped sensor information. Upscaling interpolates existing pixels; it does not create optical resolution.</p>
+<p>ROI must fit the selected FPGA input dimensions. Area scaling reduces dimensions. Polyphase supports bounded enlargement, subject to the firmware's geometry and throughput limits. The qualified RGB4x example in the source project is bounded; arbitrary large 4x modes are not guaranteed by this application.</p>
+<p>Distortion-map staging is an advanced, volatile operation. Index/data controls and Begin/Commit/Abort commands expose the existing firmware mechanism, but this UI does not provide a calibration or map-file upload workflow. Follow the camera project's map encoding, CRC, geometry, lease and drain rules. An identity or synthetic translation map is not optical lens calibration.</p>
+<h3 id="sensor-isp-effects-and-calibration-tables">Sensor ISP, effects and calibration tables</h3>
+<p>Sensor ISP control bits configure supported masked sensor processing functions. Effects, gamma tables, lens-correction tables and overlay parameters can be staged. Their named Apply commands commit the staged settings after acquisition is stopped.</p>
+<p>A selector chooses the element being edited. Changing a selector can change the interpretation of its associated value field. Apply one selector, inspect the new readback, then edit the value. Do not assume a table-value control edits the whole table at once.</p>
+<p>Read the per-feature description before executing an Apply command. The command button asks for confirmation because it changes camera runtime. This is an in-app camera operation, not a Flash or firmware update.</p>
+<h3 id="test-controls">Test controls</h3>
+<p>TestPattern and related sensor pattern controls help distinguish optical, sensor and transport problems. They replace or modify the scene on the camera. Record the original values, stop acquisition before changes, and restore them after testing. The application does not automatically replace a dark scene with synthetic imagery.</p>
+<h3 id="diagnostics-and-board-controls">Diagnostics and board controls</h3>
+<p>Diagnostics show sensor state/errors, capture/transmit/drop counters, CSI errors, Ethernet errors, uptime, clocks, capabilities and recovery status. These are snapshots refreshed while stopped. Some telemetry is intentionally cached or deferred by firmware under bandwidth pressure.</p>
+<p>DeviceTemperature is the FPGA die temperature, not the OV5640 sensor temperature. FanStartTemperature and FanStopTemperature implement thermal hysteresis; the start threshold must be above the stop threshold. FanDutyCycle is commanded PWM duty, not measured fan RPM. StatusLEDs reports logical bits; it does not prove the physical LEDs were visually observed.</p>
+<h3 id="actuator-identity-and-otp">Actuator, identity and OTP</h3>
+<p>VCM controls are available only on a module with a wired, supported actuator. The tested unit reports VCM unavailable; these controls remain disabled. Do not enable actuator functions based only on catalogue presence.</p>
+<p>OTP values are read-only shadow data and can be unavailable until the existing refresh command succeeds. The console does not program OTP. An unavailable OTP shadow must not prevent connecting to the rest of the camera.</p>
+<h3 id="usersets-and-persistent-maintenance">UserSets and persistent maintenance</h3>
+<p>UserSetSelector chooses the profile. UserSetLoad loads the selected existing profile into runtime while stopped. It can change many settings; review the profile before loading, then inspect refreshed values.</p>
+<p>UserSetSave, factory saving, UserSetDefault/startup selection, device reset, raw masked sensor writes and network configuration are restricted to local maintenance. The web application has no factory-password entry, Flash upload, firmware loader, arbitrary register endpoint, ForceIP, network scan or destination-address field.</p>
+<h2 id="9-snapshots-and-settings-export">9. Snapshots and settings export</h2>
+<p>Snapshot downloads the latest browser JPEG at the current preview size. It may have been resized and color converted. It is not appropriate as a lossless RAW dataset, a calibrated color reference or a frame-tagged exposure measurement.</p>
+<p>Export downloads <code>maxcamera-settings.json</code> with schema version 1 and the currently cached writable runtime values. It excludes commands and controls restricted to local maintenance. It is a record for review and manual reapplication. This version does not implement settings-file import or an atomic restore operation.</p>
+<p>Keep the export together with firmware/FPGA identity, lighting, optical setup and test notes when comparing experiments. Export before changing a complex configuration. Loading a UserSet and changing a selector can make an old export's values context dependent.</p>
+<h2 id="10-troubleshooting">10. Troubleshooting</h2>
+<h3 id="sign-in-fails">Sign-in fails</h3>
+<p>Check case, username and password. The default is admin/admin unless the local operator supplied MAXCAM_PASSWORD. Ten failed or successful login attempts per peer within five minutes, and a global cap, limit repeated attempts. Wait for the window to expire. Restarting the service clears in-memory sessions and rate-limit state.</p>
+<h3 id="page-signs-out-after-restart">Page signs out after restart</h3>
+<p>Sessions are intentionally memory-only. Sign in again. An old camera lease is not restored from disk.</p>
+<h3 id="connected-in-one-tab-blocked-in-another-browser">Connected in one tab, blocked in another browser</h3>
+<p>The first session owns the camera. Release in that session or wait for its idle/maximum lease timeout. A separate browser does not share its session cookie.</p>
+<h3 id="camera-is-busy">Camera is busy</h3>
+<p>Stop and disconnect the camera in the application that owns it when that work is finished. Do not kill another user's process or reset the camera. This console will not steal control.</p>
+<h3 id="camera-does-not-respond">Camera does not respond</h3>
+<p>Check camera power, switch link, cable, configured camera IP and host routing. Discovery, DHCP reconfiguration and camera readdressing are intentionally not available over the public API. The gateway's local operator must resolve these conditions.</p>
+<h3 id="connected-but-start-fails">Connected, but Start fails</h3>
+<p>Check the error notice. Unsupported browser formats or compression are rejected before acquisition. Invalid ROI/scaler geometry, absent FPGA blocks, pending sensor state or firmware mode constraints can also prevent start. Choose a known supported runtime profile while stopped, or coordinate with the local camera operator.</p>
+<h3 id="preview-is-black">Preview is black</h3>
+<p>Allow initial auto-exposure/gain settling. Verify lighting, lens/cap and TestPattern. Inspect exposure/gain mode and active pipeline. Do not assume black pixels mean a transport failure: complete black frames can be valid camera output. The console never substitutes a sample photograph for a live frame.</p>
+<h3 id="preview-freezes-or-disappears">Preview freezes or disappears</h3>
+<p>Stale frames are not presented as live indefinitely. A frame older than three seconds causes the frame endpoint to report staleness. Eight seconds without a complete frame stops the receiver and releases the camera. Reconnect only after checking the reported error and ensuring the camera is free.</p>
+<h3 id="preview-is-slower-than-expected">Preview is slower than expected</h3>
+<p>Check output dimensions, host CPU load, Ethernet capacity and browser/network latency. Conversion of full-resolution YUV is expensive. This receiver prioritizes complete previews and bounded memory, skips frames while processing, and does not request retransmission. Its incomplete metric is not a full transport qualification. A smaller known-good camera output may improve responsiveness, with the associated geometry/cadence tradeoffs.</p>
+<h3 id="manual-exposure-gain-or-white-balance-is-rejected">Manual exposure, gain or white balance is rejected</h3>
+<p>Set the corresponding automatic mode Off first. A RAW path or another mode can impose additional constraints. Stop acquisition before all edits.</p>
+<h3 id="value-changes-slightly-after-apply">Value changes slightly after Apply</h3>
+<p>Hardware uses integers and fixed-point representations. Rounding and the current sensor line period determine the readback. The displayed value is the accepted readback rather than an unverified echo of your input.</p>
+<h3 id="slider-moved-image-did-not-change">Slider moved, image did not change</h3>
+<p>Press Apply. If acquisition was running, stop first. Some staged parameters also need the family's Apply command; most FPGA settings need the next acquisition. Confirm that the block is available and enabled in the active image path.</p>
+<h3 id="setting-is-local-only">Setting is Local only</h3>
+<p>The restriction is intentional. Perform network, firmware, startup-preset and protected maintenance work using an appropriate local tool. The public API does not accept a bypass flag or arbitrary register address.</p>
+<h3 id="public-url-stops-working">Public URL stops working</h3>
+<p>Check the local server first, then the tunnel service and Internet connection. A Quick Tunnel URL can change after restart. Do not fix this by opening camera UDP ports on the router. A named tunnel is required for a managed stable hostname.</p>
+<h2 id="11-keyboard-mobile-and-browser-behavior">11. Keyboard, mobile and browser behavior</h2>
+<p>Use current browsers with JavaScript, Fetch, CSS Grid/Flexbox and secure cookies. The layout adapts to narrow screens: the feature panel moves beneath the viewer, the sidebar is hidden, and connection/acquisition controls remain available. Landscape mode gives more room for the image.</p>
+<p>Keyboard focus is visible. Labels are associated with controls. Error/status notices use live roles. Reduced-motion preferences disable transitions. Fullscreen and download behavior can vary by browser and mobile platform. iOS, Firefox, Safari and Android devices have not all been physically verified; responsive CSS is not a claim of exhaustive device certification.</p>
+<h2 id="12-local-installation-and-operation">12. Local installation and operation</h2>
+<p>The gateway is deliberately Linux-specific because it uses bubblewrap namespaces and libseccomp. It needs Python 3.10, a C compiler, Pillow, NumPy, FastAPI, Uvicorn, bubblewrap and libseccomp. These are gateway dependencies, not camera firmware build dependencies.</p>
+<p>From the repository's webapp directory:</p>
+<pre><code class="language-bash">mkdir -p .runtime
+python3 -m pip install --target .runtime/python -r requirements.txt
+cc -O2 -shared -fPIC -Wall -Wextra receiver.c -o .runtime/receiver.so
+python3 launch.py --camera 10.0.0.3 --port 8787
+</code></pre>
+<p>The project-local pip directory avoids changes to the system Python. The existing portable launcher also mounts the gateway's Python 3.10 user site directory read-only; adapt that deployment path when moving to another Python layout. No eBUS license or Aravis runtime is required by the implemented gateway.</p>
+<p>The listener binds only 127.0.0.1. The launcher opens fixed sockets before entering isolation, mounts code and dependencies read-only, hides the host home directory and enters a private network namespace. The server then loads syscall restrictions before accepting operations.</p>
+<p>For an approved public HTTPS tunnel, start with:</p>
+<pre><code class="language-bash">python3 launch.py --camera 10.0.0.3 --port 8787 --secure-cookie
+</code></pre>
+<p>Configure the outbound tunnel to forward HTTP only to <code>http://127.0.0.1:8787</code>. Do not forward the camera address, GVCP port, GVSP stream, shell, SDK tools or host filesystem. Cloudflared must come from Cloudflare's official release source. The tunnel provider is a trusted external transport; the current operator has approved Cloudflare.</p>
+<p>The running local deployment uses the user service <code>maxcamera-web.service</code>. Useful local commands:</p>
+<pre><code class="language-bash">systemctl --user status maxcamera-web
+journalctl --user -u maxcamera-web -n 100 --no-pager
+systemctl --user stop maxcamera-web
+systemctl --user restart maxcamera-web
+</code></pre>
+<p>A transient systemd-run service is not an installed boot-time unit. It survives the chat process but is not promised to start after reboot. The repository includes example service units and installation notes in deploy/. Installing a persistent user unit and enabling lingering must follow the gateway's local administration policy. No root password or router credentials are included.</p>
+<p>Stop and release through the UI before planned service maintenance. A normal SIGTERM to Uvicorn performs lifespan cleanup. A sudden power loss or SIGKILL relies on the camera heartbeat timeout.</p>
+<h2 id="13-api-and-integration-boundaries">13. API and integration boundaries</h2>
+<p>All API routes except login and health require an authenticated cookie. Mutations require both a matching Origin and the session's CSRF header. The server accepts JSON bodies with a 4096-byte limit. Login, session and camera state are kept in memory.</p>
+<ul>
+<li>GET /healthz: liveness and declared isolation mode, no camera connection.</li>
+<li>POST /api/login: authenticate and obtain the CSRF token; sets the session cookie.</li>
+<li>GET /api/session: recover the current session's CSRF token after reload.</li>
+<li>GET /api/catalog: bounded feature metadata, no raw address inputs.</li>
+<li>GET /api/status: lease, cached feature values, preview counters and feature availability errors.</li>
+<li>POST /api/connect: obtain a free camera lease.</li>
+<li>POST /api/start and /api/stop: acquisition lifecycle.</li>
+<li>POST /api/feature: apply one named allowlisted value while stopped.</li>
+<li>POST /api/refresh: refresh stopped-state values.</li>
+<li>GET /api/frame: latest complete JPEG; unavailable/stale frames return an error.</li>
+<li>GET /api/settings: cached writable settings export.</li>
+<li>POST /api/release: release the session's camera lease.</li>
+<li>POST /api/logout: release owned camera and invalidate session.</li>
+</ul>
+<p>This is not a generic GenICam proxy, HTTP proxy, file manager or remote shell. There is no endpoint for arbitrary hosts, URLs, shell commands, register addresses, files or firmware images. A settings export is not a programmable script.</p>
+<h2 id="14-verification-and-known-limits">14. Verification and known limits</h2>
+<p>The bounded live check on November 2, 2026 connected to the free FPGA v13 camera, read 219 currently available values, started native 2592×1944 YUYV acquisition, produced 13 complete JPEG previews in about 5.4 seconds with zero observed incomplete previews, stopped, performed a same-value FanDutyCycle write, and released ownership. The last saved preview had nonzero color content. This is a short functional check, not endurance, packet-loss certification or all-feature validation.</p>
+<p>The offline test suite covers authentication, Origin/CSRF checks, input limits, login throttling, restricted feature writes, invalid numeric values, ownership checks, streaming write locks, image conversion, frame assembly with reordered packets, partial-frame rejection and the actual Linux syscall restrictions against new network sockets and inherited-socket retargeting.</p>
+<p>Known limitations include fixed-camera addressing, one camera lease, fixed-size uncompressed preview formats, intensity-only Bayer display, sequential single-feature edits, no settings import, no video recording/audio, no WebRTC, no lossless RAW download, no automatic optical calibration and no complete browser/device qualification. UserSet persistence, factory access, network configuration and generic sensor-register writes remain local-only.</p>
+<p>The feature appendix below lists the source catalogue, including controls not currently available on the installed mode or hardware. Firmware and FPGA versions must remain compatible with the catalogue. Review metadata changes when upgrading firmware; this gateway does not download or interpret arbitrary camera-supplied executable code.</p>
+<h2 id="appendix-a-full-feature-reference">Appendix A. Full feature reference</h2>
+<p>Access describes camera metadata. Web access can be more restrictive. Numeric raw bounds below are firmware register bounds; the UI converts Float, exposure and temperature values to engineering units. Availability depends on the installed camera image and active mode.</p>
+<h3 id="diagnostics">Diagnostics</h3>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Camera access / web</th>
+<th>Type and range</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SensorInitialized</td>
+<td>RO / read-only or local</td>
+<td>Boolean; raw 0 to 1</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+<tr>
+<td>SensorBusy</td>
+<td>RO / read-only or local</td>
+<td>Boolean; raw 0 to 1</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+<tr>
+<td>SensorState</td>
+<td>RO / read-only or local</td>
+<td>Bound, Ready, Configured, Streaming, Fault</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+<tr>
+<td>SensorLastError</td>
+<td>RO / read-only or local</td>
+<td>Integer; raw -1000 to 0</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+<tr>
+<td>SensorTransportError</td>
+<td>RO / read-only or local</td>
+<td>Integer; raw -1000 to 0</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+<tr>
+<td>SensorErrorRegister</td>
+<td>RO / read-only or local</td>
+<td>Integer; raw 0 to 65535</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+<tr>
+<td>GigEVisionReady</td>
+<td>RO / read-only or local</td>
+<td>Boolean; raw 0 to 1</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+<tr>
+<td>EthernetLinkUp</td>
+<td>RO / read-only or local</td>
+<td>Boolean; raw 0 to 1</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+<tr>
+<td>DeviceUptime</td>
+<td>RO / read-only or local</td>
+<td>Integer; raw 0 to 4294967295; s</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+<tr>
+<td>CapturedFrames</td>
+<td>RO / read-only or local</td>
+<td>Integer; raw 0 to 4294967295</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+<tr>
+<td>DroppedFrames</td>
+<td>RO / read-only or local</td>
+<td>Integer; raw 0 to 4294967295</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+<tr>
+<td>CsiErrorEvents</td>
+<td>RO / read-only or local</td>
+<td>Integer; raw 0 to 4294967295</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+<tr>
+<td>TransmittedFrames</td>
+<td>RO / read-only or local</td>
+<td>Integer; raw 0 to 4294967295</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+<tr>
+<td>StreamSendRetries</td>
+<td>RO / read-only or local</td>
+<td>Integer; raw 0 to 4294967295</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+<tr>
+<td>EthernetReceivedPackets</td>
+<td>RO / read-only or local</td>
+<td>Integer; raw 0 to 4294967295</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+<tr>
+<td>EthernetTransmittedPackets</td>
+<td>RO / read-only or local</td>
+<td>Integer; raw 0 to 4294967295</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+<tr>
+<td>EthernetErrors</td>
+<td>RO / read-only or local</td>
+<td>Integer; raw 0 to 4294967295</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+<tr>
+<td>EthernetReceiveDrops</td>
+<td>RO / read-only or local</td>
+<td>Integer; raw 0 to 4294967295</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+<tr>
+<td>DiagnosticUartBaudRate</td>
+<td>RO / read-only or local</td>
+<td>Integer; raw 0 to 4294967295</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+<tr>
+<td>SystemTimerFrequency</td>
+<td>RO / read-only or local</td>
+<td>Integer; raw 0 to 4294967295; Hz</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+<tr>
+<td>SensorI2cFrequency</td>
+<td>RO / read-only or local</td>
+<td>Integer; raw 0 to 4294967295; Hz</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+<tr>
+<td>SensorChipID</td>
+<td>RO / read-only or local</td>
+<td>Integer; raw 0 to 65535</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+<tr>
+<td>SensorAverageLuminance</td>
+<td>RO / read-only or local</td>
+<td>Integer; raw 0 to 255</td>
+<td>Sensor AEC weighted luminance readout; refreshed with live telemetry.</td>
+</tr>
+<tr>
+<td>NativePixelFormatsAvailable</td>
+<td>RO / read-only or local</td>
+<td>Boolean; raw 0 to 1</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+<tr>
+<td>RawPixelFormatActive</td>
+<td>RO / read-only or local</td>
+<td>Boolean; raw 0 to 1</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+<tr>
+<td>PacketResendRequests</td>
+<td>RO / read-only or local</td>
+<td>Integer; raw 0 to 4294967295</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+<tr>
+<td>RetransmittedPackets</td>
+<td>RO / read-only or local</td>
+<td>Integer; raw 0 to 4294967295</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+<tr>
+<td>PacketResendUnavailable</td>
+<td>RO / read-only or local</td>
+<td>Integer; raw 0 to 4294967295</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+<tr>
+<td>PacketResendQueueOverflows</td>
+<td>RO / read-only or local</td>
+<td>Integer; raw 0 to 4294967295</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+<tr>
+<td>CameraRecoveryCount</td>
+<td>RO / read-only or local</td>
+<td>Integer; raw 0 to 4294967295</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+<tr>
+<td>SensorTelemetryDeferred</td>
+<td>RO / read-only or local</td>
+<td>Boolean; raw 0 to 1</td>
+<td>High-bandwidth streaming defers SCCB telemetry above 105 MB/s to preserve delivered FPS. Cached values refresh during supported active acquisition or synchronous sensor operations; stopped background reads are disabled.</td>
+</tr>
+<tr>
+<td>SensorRawActive</td>
+<td>RO / read-only or local</td>
+<td>Boolean; raw 0 to 1</td>
+<td>The sensor uses its Bayer RAW tap, including FPGA RGB conversion. Sensor AWB and orientation are unavailable in this mode.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="boardcontrol">BoardControl</h3>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Camera access / web</th>
+<th>Type and range</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DeviceTemperature</td>
+<td>RO / read-only or local</td>
+<td>Float; raw -273150 to 230000; C</td>
+<td>FPGA die temperature from board ADC, not the image sensor temperature.</td>
+</tr>
+<tr>
+<td>FanStartTemperature</td>
+<td>RW / editable</td>
+<td>TemperatureADC; raw 0 to 1023</td>
+<td>Hardware hysteresis upper threshold. Must exceed FanStopTemperature.</td>
+</tr>
+<tr>
+<td>FanStopTemperature</td>
+<td>RW / editable</td>
+<td>TemperatureADC; raw 0 to 1023</td>
+<td>Hardware hysteresis lower threshold. Must be below FanStartTemperature.</td>
+</tr>
+<tr>
+<td>FanDutyCycle</td>
+<td>RW / editable</td>
+<td>Integer; raw 0 to 100; %</td>
+<td>PWM duty when hardware thermal hysteresis enables the fan. No tachometer/RPM feedback is wired.</td>
+</tr>
+<tr>
+<td>StatusLEDs</td>
+<td>RO / read-only or local</td>
+<td>Integer; raw 0 to 15</td>
+<td>Logical active-high status bits: 0 heartbeat, 1 sensor ready, 2 GigE ready, 3 streaming blink on images with independent video reset (version 10 and later). Physical LEDs are active-low.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="sensortiming">SensorTiming</h3>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Camera access / web</th>
+<th>Type and range</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SensorInputClock</td>
+<td>RO / read-only or local</td>
+<td>Integer; raw 0 to 4294967295; Hz</td>
+<td>Configured 12MHz module XCLK assumption, supported by measured frame timing.</td>
+</tr>
+<tr>
+<td>SensorSystemClock</td>
+<td>RO / read-only or local</td>
+<td>Integer; raw 0 to 4294967295; Hz</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+<tr>
+<td>SensorLineLength</td>
+<td>RO / read-only or local</td>
+<td>Integer; raw 0 to 65535</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+<tr>
+<td>SensorFrameLength</td>
+<td>RO / read-only or local</td>
+<td>Integer; raw 0 to 65535</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+<tr>
+<td>AcquisitionFrameRate</td>
+<td>RW / editable</td>
+<td>Float; raw 200 to 30000; Hz</td>
+<td>Sensor frame rate limit through vertical blanking only; clocks remain unchanged. Actual transmitted rate can be lower because of conversion or network bandwidth.</td>
+</tr>
+<tr>
+<td>SensorLinePeriod</td>
+<td>RO / read-only or local</td>
+<td>Float; raw 0 to 4294967295; us</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+<tr>
+<td>ExposureMaximumLines</td>
+<td>RO / read-only or local</td>
+<td>Integer; raw 1 to 65531</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+<tr>
+<td>AcquisitionFrameRateEnable</td>
+<td>RW / editable</td>
+<td>Boolean; raw 0 to 1</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+<tr>
+<td>AcquisitionFrameRateMinimum</td>
+<td>RO / read-only or local</td>
+<td>Float; raw 1 to 30000; Hz</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+<tr>
+<td>AcquisitionFrameRateMaximum</td>
+<td>RO / read-only or local</td>
+<td>Float; raw 1 to 30000; Hz</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+<tr>
+<td>ResultingFrameRate</td>
+<td>RO / read-only or local</td>
+<td>Float; raw 0 to 30000; Hz</td>
+<td>Nominal sensor rate from current HTS/VTS, not network delivery FPS.</td>
+</tr>
+<tr>
+<td>WidthIncrement</td>
+<td>RO / read-only or local</td>
+<td>Integer; raw 2 to 16</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+<tr>
+<td>WidthMaximum</td>
+<td>RO / read-only or local</td>
+<td>Integer; raw 160 to 2592</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+<tr>
+<td>HeightMaximum</td>
+<td>RO / read-only or local</td>
+<td>Integer; raw 120 to 1944</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="sensorcontrol">SensorControl</h3>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Camera access / web</th>
+<th>Type and range</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ExposureAuto</td>
+<td>RW / editable</td>
+<td>Off, Continuous</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+<tr>
+<td>GainAuto</td>
+<td>RW / editable</td>
+<td>Off, Continuous</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+<tr>
+<td>ExposureTime</td>
+<td>RW / editable</td>
+<td>Float; raw 1 to 65531; us</td>
+<td>Exposure in microseconds; Line period follows the active image mode. Stop acquisition and set ExposureAuto=Off to change.</td>
+</tr>
+<tr>
+<td>GainFactor</td>
+<td>RW / editable</td>
+<td>Float; raw 16 to 1023; x</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+<tr>
+<td>ExposureLimit50Hz</td>
+<td>RW / editable</td>
+<td>Integer; raw 1 to 65531; lines</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+<tr>
+<td>ExposureLimit60Hz</td>
+<td>RW / editable</td>
+<td>Integer; raw 1 to 65531; lines</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+<tr>
+<td>AutoGainLimit</td>
+<td>RW / editable</td>
+<td>Float; raw 16 to 1023; x</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+<tr>
+<td>SensorNightMode</td>
+<td>RW / editable</td>
+<td>Boolean; raw 0 to 1</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+<tr>
+<td>SensorBanding</td>
+<td>RW / editable</td>
+<td>Off, Auto, Hz50, Hz60</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+<tr>
+<td>ReverseX</td>
+<td>RW / editable</td>
+<td>Boolean; raw 0 to 1</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+<tr>
+<td>ReverseY</td>
+<td>RW / editable</td>
+<td>Boolean; raw 0 to 1</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+<tr>
+<td>AutoExposureTarget</td>
+<td>RW / editable</td>
+<td>Integer; raw 8 to 240</td>
+<td>Average-luminance target in sensor units; updates stable and fast AEC thresholds.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="whitebalance">WhiteBalance</h3>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Camera access / web</th>
+<th>Type and range</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BalanceWhiteAuto</td>
+<td>RW / editable</td>
+<td>Off, Continuous</td>
+<td>Continuous AWB is available in ISP formats. RAW has no valid AWB statistics; entering RAW seeds manual unity gains. Legacy RAW presets load with AWB Off and their saved gains.</td>
+</tr>
+<tr>
+<td>WhiteBalanceRed</td>
+<td>RW / editable</td>
+<td>Float; raw 1 to 4095; x</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+<tr>
+<td>WhiteBalanceGreen</td>
+<td>RW / editable</td>
+<td>Float; raw 1 to 4095; x</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+<tr>
+<td>WhiteBalanceBlue</td>
+<td>RW / editable</td>
+<td>Float; raw 1 to 4095; x</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="testcontrol">TestControl</h3>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Camera access / web</th>
+<th>Type and range</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TestPattern</td>
+<td>RW / editable</td>
+<td>Off, ColorBars, Random, Square, Black</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+<tr>
+<td>SensorTestPatternStyle</td>
+<td>RW / editable</td>
+<td>Integer; raw 0 to 3</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+<tr>
+<td>SensorTestRolling</td>
+<td>RW / editable</td>
+<td>Boolean; raw 0 to 1</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+<tr>
+<td>SensorTestTransparent</td>
+<td>RW / editable</td>
+<td>Boolean; raw 0 to 1</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+<tr>
+<td>SensorTestMonochrome</td>
+<td>RW / editable</td>
+<td>Boolean; raw 0 to 1</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ispcontrol">IspControl</h3>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Camera access / web</th>
+<th>Type and range</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SensorIspControl0</td>
+<td>RW / editable</td>
+<td>Integer; raw 0 to 167</td>
+<td>Masked sensor ISP control. Reserved bits are preserved.</td>
+</tr>
+<tr>
+<td>SensorIspControl1</td>
+<td>RW / editable</td>
+<td>Integer; raw 0 to 167</td>
+<td>Masked sensor ISP control. Reserved bits are preserved.</td>
+</tr>
+<tr>
+<td>SensorIspControl3</td>
+<td>RW / editable</td>
+<td>Integer; raw 0 to 7</td>
+<td>Masked sensor ISP control. Reserved bits are preserved.</td>
+</tr>
+<tr>
+<td>SensorSharpness</td>
+<td>RW / editable</td>
+<td>Integer; raw 0 to 255</td>
+<td>Manual CIP strength in sensor register units. Has no effect on RAW output.</td>
+</tr>
+<tr>
+<td>SensorDenoise</td>
+<td>RW / editable</td>
+<td>Integer; raw 0 to 255</td>
+<td>Manual CIP strength in sensor register units. Has no effect on RAW output.</td>
+</tr>
+<tr>
+<td>SensorSharpnessAuto</td>
+<td>RW / editable</td>
+<td>Off, Continuous</td>
+<td>Selects automatic CIP threshold; manual strength takes effect when Off.</td>
+</tr>
+<tr>
+<td>SensorDenoiseAuto</td>
+<td>RW / editable</td>
+<td>Off, Continuous</td>
+<td>Selects automatic CIP threshold; manual strength takes effect when Off.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="imageeffects">ImageEffects</h3>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Camera access / web</th>
+<th>Type and range</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>EffectEnableBits</td>
+<td>RW / editable</td>
+<td>Integer; raw 0 to 255</td>
+<td>Staged setting. Stop acquisition then execute EffectApply to commit all effect parameters.</td>
+</tr>
+<tr>
+<td>EffectHueCos</td>
+<td>RW / editable</td>
+<td>Integer; raw 0 to 255</td>
+<td>Staged setting. Stop acquisition then execute EffectApply to commit all effect parameters.</td>
+</tr>
+<tr>
+<td>EffectHueSin</td>
+<td>RW / editable</td>
+<td>Integer; raw 0 to 255</td>
+<td>Staged setting. Stop acquisition then execute EffectApply to commit all effect parameters.</td>
+</tr>
+<tr>
+<td>EffectU</td>
+<td>RW / editable</td>
+<td>Integer; raw 0 to 255</td>
+<td>Staged setting. Stop acquisition then execute EffectApply to commit all effect parameters.</td>
+</tr>
+<tr>
+<td>EffectV</td>
+<td>RW / editable</td>
+<td>Integer; raw 0 to 255</td>
+<td>Staged setting. Stop acquisition then execute EffectApply to commit all effect parameters.</td>
+</tr>
+<tr>
+<td>EffectYOffset</td>
+<td>RW / editable</td>
+<td>Integer; raw 0 to 255</td>
+<td>Staged setting. Stop acquisition then execute EffectApply to commit all effect parameters.</td>
+</tr>
+<tr>
+<td>EffectContrast</td>
+<td>RW / editable</td>
+<td>Integer; raw 0 to 255</td>
+<td>Staged setting. Stop acquisition then execute EffectApply to commit all effect parameters.</td>
+</tr>
+<tr>
+<td>EffectBrightness</td>
+<td>RW / editable</td>
+<td>Integer; raw 0 to 255</td>
+<td>Staged setting. Stop acquisition then execute EffectApply to commit all effect parameters.</td>
+</tr>
+<tr>
+<td>EffectSigns</td>
+<td>RW / editable</td>
+<td>Integer; raw 0 to 63</td>
+<td>Staged setting. Stop acquisition then execute EffectApply to commit all effect parameters.</td>
+</tr>
+<tr>
+<td>EffectManualSaturation</td>
+<td>RW / editable</td>
+<td>Integer; raw 0 to 1</td>
+<td>Staged setting. Stop acquisition then execute EffectApply to commit all effect parameters.</td>
+</tr>
+<tr>
+<td>EffectUvThreshold1</td>
+<td>RW / editable</td>
+<td>Integer; raw 0 to 255</td>
+<td>Staged setting. Stop acquisition then execute EffectApply to commit all effect parameters.</td>
+</tr>
+<tr>
+<td>EffectUvThreshold2</td>
+<td>RW / editable</td>
+<td>Integer; raw 0 to 511</td>
+<td>Staged setting. Stop acquisition then execute EffectApply to commit all effect parameters.</td>
+</tr>
+<tr>
+<td>EffectApply</td>
+<td>WO / editable</td>
+<td>Command; raw 0 to 1</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="imagecalibration">ImageCalibration</h3>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Camera access / web</th>
+<th>Type and range</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GammaPointSelector</td>
+<td>RW / editable</td>
+<td>Integer; raw 0 to 15</td>
+<td>Staged table setting; execute the corresponding Apply command while stopped.</td>
+</tr>
+<tr>
+<td>GammaPointValue</td>
+<td>RW / editable</td>
+<td>Integer; raw 0 to 255</td>
+<td>Staged table setting; execute the corresponding Apply command while stopped.</td>
+</tr>
+<tr>
+<td>GammaControl</td>
+<td>RW / editable</td>
+<td>Integer; raw 0 to 3</td>
+<td>Staged table setting; execute the corresponding Apply command while stopped.</td>
+</tr>
+<tr>
+<td>LensCorrectionSelector</td>
+<td>RW / editable</td>
+<td>Integer; raw 0 to 61</td>
+<td>Staged table setting; execute the corresponding Apply command while stopped.</td>
+</tr>
+<tr>
+<td>LensCorrectionValue</td>
+<td>RW / editable</td>
+<td>Integer; raw 0 to 255</td>
+<td>Staged table setting; execute the corresponding Apply command while stopped.</td>
+</tr>
+<tr>
+<td>LensCorrectionEnable</td>
+<td>RW / editable</td>
+<td>Integer; raw 0 to 1</td>
+<td>Staged table setting; execute the corresponding Apply command while stopped.</td>
+</tr>
+<tr>
+<td>GammaApply</td>
+<td>WO / editable</td>
+<td>Command; raw 0 to 1</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+<tr>
+<td>LensCorrectionApply</td>
+<td>WO / editable</td>
+<td>Command; raw 0 to 1</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="sensoroverlay">SensorOverlay</h3>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Camera access / web</th>
+<th>Type and range</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OverlayLeft</td>
+<td>RW / editable</td>
+<td>Integer; raw 0 to 4095</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+<tr>
+<td>OverlayRight</td>
+<td>RW / editable</td>
+<td>Integer; raw 0 to 4095</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+<tr>
+<td>OverlayTop</td>
+<td>RW / editable</td>
+<td>Integer; raw 0 to 2047</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+<tr>
+<td>OverlayBottom</td>
+<td>RW / editable</td>
+<td>Integer; raw 0 to 2047</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+<tr>
+<td>OverlayU</td>
+<td>RW / editable</td>
+<td>Integer; raw 0 to 255</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+<tr>
+<td>OverlayV</td>
+<td>RW / editable</td>
+<td>Integer; raw 0 to 255</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+<tr>
+<td>OverlayEnable</td>
+<td>RW / editable</td>
+<td>Integer; raw 0 to 1</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+<tr>
+<td>OverlayApply</td>
+<td>WO / editable</td>
+<td>Command; raw 0 to 1</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="sensoractuator">SensorActuator</h3>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Camera access / web</th>
+<th>Type and range</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SensorVcmAvailable</td>
+<td>RO / read-only or local</td>
+<td>Boolean; raw 0 to 1</td>
+<td>Per-unit capability. Enable only for a module with a wired VCM actuator.</td>
+</tr>
+<tr>
+<td>VcmTarget</td>
+<td>RW / editable</td>
+<td>Integer; raw 0 to 1023</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+<tr>
+<td>VcmSlew</td>
+<td>RW / editable</td>
+<td>Integer; raw 0 to 15</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+<tr>
+<td>VcmDivider</td>
+<td>RW / editable</td>
+<td>Integer; raw 0 to 4095</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+<tr>
+<td>VcmCurrent</td>
+<td>RW / editable</td>
+<td>Integer; raw 0 to 7</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+<tr>
+<td>VcmRih</td>
+<td>RW / editable</td>
+<td>Integer; raw 0 to 1</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+<tr>
+<td>VcmPowerDown</td>
+<td>RW / editable</td>
+<td>Integer; raw 0 to 1</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+<tr>
+<td>VcmApply</td>
+<td>WO / editable</td>
+<td>Command; raw 0 to 1</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="sensorregisters">SensorRegisters</h3>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Camera access / web</th>
+<th>Type and range</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SensorRegisterSelector</td>
+<td>RW / read-only or local</td>
+<td>RegisterSelector; raw 0 to 65535</td>
+<td>Named register catalogue from Ov5640Registers.h. Register values require stopped acquisition.</td>
+</tr>
+<tr>
+<td>SensorRegisterValue</td>
+<td>RO / read-only or local</td>
+<td>Integer; raw 0 to 255</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+<tr>
+<td>SensorFeatureMask</td>
+<td>RW / read-only or local</td>
+<td>Integer; raw 0 to 255</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+<tr>
+<td>SensorFeatureValue</td>
+<td>RW / read-only or local</td>
+<td>Integer; raw 0 to 255</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+<tr>
+<td>SensorFeatureApply</td>
+<td>WO / read-only or local</td>
+<td>Command; raw 0 to 1</td>
+<td>Stopped-only masked write to supported ISP/analog image-control ranges. Clock/reset/format/OTP/MCU registers are write-protected.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="sensoridentity">SensorIdentity</h3>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Camera access / web</th>
+<th>Type and range</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SensorOtpSelector</td>
+<td>RW / editable</td>
+<td>Integer; raw 0 to 31</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+<tr>
+<td>SensorOtpValue</td>
+<td>RO / read-only or local</td>
+<td>Integer; raw 0 to 255</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+<tr>
+<td>SensorOtpRefresh</td>
+<td>WO / editable</td>
+<td>Command; raw 0 to 1</td>
+<td>Refresh the 32-byte OTP shadow. Read only; never programs OTP.</td>
+</tr>
+<tr>
+<td>SensorOtpValid</td>
+<td>RO / read-only or local</td>
+<td>Boolean; raw 0 to 1</td>
+<td>The OTP read shadow becomes valid after SensorOtpRefresh succeeds.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="sensorcapabilities">SensorCapabilities</h3>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Camera access / web</th>
+<th>Type and range</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SensorJpegAvailable</td>
+<td>RO / read-only or local</td>
+<td>Boolean; raw 0 to 1</td>
+<td>JPEG transport is implemented in the matching CSI-byte production image; select VGA YUYV and ImageCompressionMode=JPEG.</td>
+</tr>
+<tr>
+<td>SensorFrexAvailable</td>
+<td>RO / read-only or local</td>
+<td>Boolean; raw 0 to 1</td>
+<td>Unavailable until the corresponding board/transport integration is qualified.</td>
+</tr>
+<tr>
+<td>SensorMcuFirmwareAvailable</td>
+<td>RO / read-only or local</td>
+<td>Boolean; raw 0 to 1</td>
+<td>Unavailable until the corresponding board/transport integration is qualified.</td>
+</tr>
+<tr>
+<td>ImageCompressionMode</td>
+<td>RW / editable</td>
+<td>Off, JPEG</td>
+<td>JPEG requires VGA YUYV. Select 640x480 YUV422_YUYVPacked first. GVSP payload type JPEG; PayloadSize is maximum allocation, each leader carries actual encoded length.</td>
+</tr>
+<tr>
+<td>SensorJpegQuality</td>
+<td>RW / editable</td>
+<td>Integer; raw 0 to 63</td>
+<td>OV5640 quantization scale, smaller values give higher quality/larger encoded frames.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="usersetcontrol">UserSetControl</h3>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Camera access / web</th>
+<th>Type and range</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>UserSetStorageAvailable</td>
+<td>RO / read-only or local</td>
+<td>Boolean; raw 0 to 1</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+<tr>
+<td>UserSetBusy</td>
+<td>RO / read-only or local</td>
+<td>Boolean; raw 0 to 1</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+<tr>
+<td>UserSetLastError</td>
+<td>RO / read-only or local</td>
+<td>Integer; raw -1000 to 0</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+<tr>
+<td>UserSetSelector</td>
+<td>RW / editable</td>
+<td>Default, UserSet1, UserSet2, UserSet3, UserSet4, UserSet5, UserSet6, UserSet7</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+<tr>
+<td>UserSetLoad</td>
+<td>RW / editable</td>
+<td>Command; raw 0 to 1</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+<tr>
+<td>UserSetSave</td>
+<td>RW / read-only or local</td>
+<td>Command; raw 0 to 1</td>
+<td>Save UserSet1..7. Default is read-only through this standard command; factory provisioning uses the password-protected FactoryUserSetSave command.</td>
+</tr>
+<tr>
+<td>UserSetDefault</td>
+<td>RW / read-only or local</td>
+<td>Default, UserSet1, UserSet2, UserSet3, UserSet4, UserSet5, UserSet6, UserSet7</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+<tr>
+<td>UserSetValid</td>
+<td>RO / read-only or local</td>
+<td>Boolean; raw 0 to 1</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+<tr>
+<td>UserSetSavedMask</td>
+<td>RO / read-only or local</td>
+<td>Integer; raw 0 to 255</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+<tr>
+<td>FactoryAccessUnlocked</td>
+<td>RO / read-only or local</td>
+<td>Boolean; raw 0 to 1</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+<tr>
+<td>FeatureAccessLock</td>
+<td>WO / read-only or local</td>
+<td>Command; raw 0 to 1</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+<tr>
+<td>FactoryUserSetSave</td>
+<td>RW / read-only or local</td>
+<td>Command; raw 0 to 1</td>
+<td>Factory maintenance only: save the current profile into the factory slot. Requires UserSetSelector=Default and an unlocked factory password. Not part of standard UserSetSave.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="networkcontrol">NetworkControl</h3>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Camera access / web</th>
+<th>Type and range</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DeviceConfigurationPending</td>
+<td>RO / read-only or local</td>
+<td>Boolean; raw 0 to 1</td>
+<td>Network/identity changes are journaled automatically while stopped. IP mode and identity apply on the next firmware boot.</td>
+</tr>
+<tr>
+<td>DeviceConfigurationLastError</td>
+<td>RO / read-only or local</td>
+<td>Integer; raw -1000 to 0</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+<tr>
+<td>DeviceIdentityProvisioned</td>
+<td>RO / read-only or local</td>
+<td>Boolean; raw 0 to 1</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="devicecontrol">DeviceControl</h3>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Camera access / web</th>
+<th>Type and range</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DeviceReset</td>
+<td>WO / read-only or local</td>
+<td>Command; raw 0 to 1</td>
+<td>Asynchronously return to the power-up configuration: reset sensor/video and protocol, load UserSetDefault, and apply saved network/identity. Acquisition and ownership are released. Rediscover/reconnect after completion.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="devicemaintenance">DeviceMaintenance</h3>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Camera access / web</th>
+<th>Type and range</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DeviceResetBusy</td>
+<td>RO / read-only or local</td>
+<td>Boolean; raw 0 to 1</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+<tr>
+<td>DeviceResetLastError</td>
+<td>RO / read-only or local</td>
+<td>Integer; raw -1000 to 0</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="fpgaimageprocessing">FpgaImageProcessing</h3>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Camera access / web</th>
+<th>Type and range</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FpgaProcessingVersion</td>
+<td>RO / read-only or local</td>
+<td>Integer; raw 0 to 4294967295</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+<tr>
+<td>FpgaProcessingCapabilities</td>
+<td>RO / read-only or local</td>
+<td>Integer; raw 0 to 4294967295</td>
+<td>Integrated PL capabilities: bit 0 black-level subtraction, bit 1 Bayer bad-pixel correction, bit 2 manual gains, bit 3 RGB demosaic, bit 4 RGB median, bit 5 ROI/area downscale, bit 6 CCM, bit 7 gamma, bit 8 FPGA AWB/statistics, bit 9 bilateral filtering, bit 10 sharpening, bit 11 RAW lens shading, bit 12 focus/motion analysis, bit 13 RGB-to-YUV output, bit 14 Xilinx polyphase resampling, bit 15 local contrast with shared RAW preprocessing, bit 16 adaptive RGB display tone mapping, bit 17 bounded integer-map remapping, bit 18 four-byte-per-clock framebuffer writer. Capability bits describe the installed FPGA image.</td>
+</tr>
+<tr>
+<td>FpgaProcessingAvailable</td>
+<td>RO / read-only or local</td>
+<td>Boolean; raw 0 to 1</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+<tr>
+<td>FpgaProcessingEnable</td>
+<td>RW / editable</td>
+<td>Boolean; raw 0 to 1</td>
+<td>Applied at the next AcquisitionStart while stopped. Processing supports BayerBG10/BayerBG10p and, when color capability is present, RGB8/BGR8. Other formats use byte bypass.</td>
+</tr>
+<tr>
+<td>FpgaBadPixelCorrectionEnable</td>
+<td>RW / editable</td>
+<td>Boolean; raw 0 to 1</td>
+<td>Applied at the next AcquisitionStart while stopped. Processing supports BayerBG10/BayerBG10p and, when color capability is present, RGB8/BGR8. Other formats use byte bypass.</td>
+</tr>
+<tr>
+<td>FpgaBlackLevel</td>
+<td>RW / editable</td>
+<td>Integer; raw 0 to 1023; DN</td>
+<td>10-bit RAW black offset before BPC and gains. On audited v9/v10 active RAW processing, a live write applies to a subsequent complete HLS frame without restarting acquisition. Readback is the requested setting, not a frame-tagged applied value. Otherwise configure while stopped; applies at next AcquisitionStart.</td>
+</tr>
+<tr>
+<td>FpgaBalanceRed</td>
+<td>RW / editable</td>
+<td>Float; raw 0 to 4096; x</td>
+<td>Q8.8 Bayer gain, unity 1.0. Applied after BPC, saturated to 10 bits. Applies at next AcquisitionStart.</td>
+</tr>
+<tr>
+<td>FpgaBalanceGreen</td>
+<td>RW / editable</td>
+<td>Float; raw 0 to 4096; x</td>
+<td>Q8.8 Bayer gain, unity 1.0. Applied after BPC, saturated to 10 bits. Applies at next AcquisitionStart.</td>
+</tr>
+<tr>
+<td>FpgaBalanceBlue</td>
+<td>RW / editable</td>
+<td>Float; raw 0 to 4096; x</td>
+<td>Q8.8 Bayer gain, unity 1.0. Applied after BPC, saturated to 10 bits. Applies at next AcquisitionStart.</td>
+</tr>
+<tr>
+<td>FpgaProcessingActive</td>
+<td>RO / read-only or local</td>
+<td>Boolean; raw 0 to 1</td>
+<td>True during acquisition when a supported RAW10 or RGB processing path is selected.</td>
+</tr>
+<tr>
+<td>FpgaMedianAvailable</td>
+<td>RO / read-only or local</td>
+<td>Boolean; raw 0 to 1</td>
+<td>Reports whether the installed FPGA image includes this RGB processing block.</td>
+</tr>
+<tr>
+<td>FpgaScalerAvailable</td>
+<td>RO / read-only or local</td>
+<td>Boolean; raw 0 to 1</td>
+<td>Reports whether the installed FPGA image includes this RGB processing block.</td>
+</tr>
+<tr>
+<td>FpgaMedianEnable</td>
+<td>RW / editable</td>
+<td>Boolean; raw 0 to 1</td>
+<td>Applied at the next AcquisitionStart. Requires FPGA processing and RGB8/BGR8 or supported FPGA YUV output.</td>
+</tr>
+<tr>
+<td>FpgaScalerEnable</td>
+<td>RW / editable</td>
+<td>Boolean; raw 0 to 1</td>
+<td>Applied at the next AcquisitionStart. Requires FPGA processing and RGB8/BGR8 or supported FPGA YUV output.</td>
+</tr>
+<tr>
+<td>FpgaRoiEnable</td>
+<td>RW / editable</td>
+<td>Boolean; raw 0 to 1</td>
+<td>Applied at the next AcquisitionStart. Requires FPGA processing and RGB8/BGR8 or supported FPGA YUV output.</td>
+</tr>
+<tr>
+<td>FpgaInputWidth</td>
+<td>RW / editable</td>
+<td>Integer; raw 16 to 2592; px</td>
+<td>Input and ROI dimensions for FPGA color resampling. Width/Height select output size. ROI must fit the RAW input. Area mode only reduces; Polyphase permits up to 4x enlargement per ROI axis within the 2592x1944 output bounds. Mixed up/down axes are supported. Validated at AcquisitionStart.</td>
+</tr>
+<tr>
+<td>FpgaInputHeight</td>
+<td>RW / editable</td>
+<td>Integer; raw 8 to 1944; px</td>
+<td>Input and ROI dimensions for FPGA color resampling. Width/Height select output size. ROI must fit the RAW input. Area mode only reduces; Polyphase permits up to 4x enlargement per ROI axis within the 2592x1944 output bounds. Mixed up/down axes are supported. Validated at AcquisitionStart.</td>
+</tr>
+<tr>
+<td>FpgaRoiOffsetX</td>
+<td>RW / editable</td>
+<td>Integer; raw 0 to 2591; px</td>
+<td>Input and ROI dimensions for FPGA color resampling. Width/Height select output size. ROI must fit the RAW input. Area mode only reduces; Polyphase permits up to 4x enlargement per ROI axis within the 2592x1944 output bounds. Mixed up/down axes are supported. Validated at AcquisitionStart.</td>
+</tr>
+<tr>
+<td>FpgaRoiOffsetY</td>
+<td>RW / editable</td>
+<td>Integer; raw 0 to 1943; px</td>
+<td>Input and ROI dimensions for FPGA color resampling. Width/Height select output size. ROI must fit the RAW input. Area mode only reduces; Polyphase permits up to 4x enlargement per ROI axis within the 2592x1944 output bounds. Mixed up/down axes are supported. Validated at AcquisitionStart.</td>
+</tr>
+<tr>
+<td>FpgaRoiWidth</td>
+<td>RW / editable</td>
+<td>Integer; raw 1 to 2592; px</td>
+<td>Input and ROI dimensions for FPGA color resampling. Width/Height select output size. ROI must fit the RAW input. Area mode only reduces; Polyphase permits up to 4x enlargement per ROI axis within the 2592x1944 output bounds. Mixed up/down axes are supported. Validated at AcquisitionStart.</td>
+</tr>
+<tr>
+<td>FpgaRoiHeight</td>
+<td>RW / editable</td>
+<td>Integer; raw 1 to 1944; px</td>
+<td>Input and ROI dimensions for FPGA color resampling. Width/Height select output size. ROI must fit the RAW input. Area mode only reduces; Polyphase permits up to 4x enlargement per ROI axis within the 2592x1944 output bounds. Mixed up/down axes are supported. Validated at AcquisitionStart.</td>
+</tr>
+<tr>
+<td>FpgaColorAdjustmentAvailable</td>
+<td>RO / read-only or local</td>
+<td>Boolean; raw 0 to 1</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+<tr>
+<td>FpgaColorTransformationEnable</td>
+<td>RW / editable</td>
+<td>Boolean; raw 0 to 1</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+<tr>
+<td>FpgaGammaEnable</td>
+<td>RW / editable</td>
+<td>Boolean; raw 0 to 1</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+<tr>
+<td>FpgaBalanceWhiteAuto</td>
+<td>RW / editable</td>
+<td>Off, Continuous</td>
+<td>FPGA gray-world AWB: previous-frame admitted samples, gains 0.25x to 4x, quarter-step smoothing, green reference unity. Dark/saturated frames hold gains. Restart resets AWB to unity.</td>
+</tr>
+<tr>
+<td>FpgaColorTransformationSelector</td>
+<td>RW / editable</td>
+<td>Integer; raw 0 to 8</td>
+<td>Stopped-only table selector. Matrix order is RGB rows then RGB columns. Channel order is red, green, blue.</td>
+</tr>
+<tr>
+<td>FpgaColorOffsetSelector</td>
+<td>RW / editable</td>
+<td>Integer; raw 0 to 2</td>
+<td>Stopped-only table selector. Matrix order is RGB rows then RGB columns. Channel order is red, green, blue.</td>
+</tr>
+<tr>
+<td>FpgaGammaChannel</td>
+<td>RW / editable</td>
+<td>Integer; raw 0 to 2</td>
+<td>Stopped-only table selector. Matrix order is RGB rows then RGB columns. Channel order is red, green, blue.</td>
+</tr>
+<tr>
+<td>FpgaGammaIndex</td>
+<td>RW / editable</td>
+<td>Integer; raw 0 to 255</td>
+<td>Stopped-only table selector. Matrix order is RGB rows then RGB columns. Channel order is red, green, blue.</td>
+</tr>
+<tr>
+<td>FpgaColorTransformationValue</td>
+<td>RW / editable</td>
+<td>Float; raw -8388608 to 8388607</td>
+<td>Signed Q20 coefficient or DN offset in [-8,8). Applied before RGB8 conversion; vendor Q8 product intermediates and truncation apply.</td>
+</tr>
+<tr>
+<td>FpgaColorOffsetValue</td>
+<td>RW / editable</td>
+<td>Float; raw -8388608 to 8388607</td>
+<td>Signed Q20 coefficient or DN offset in [-8,8). Applied before RGB8 conversion; vendor Q8 product intermediates and truncation apply.</td>
+</tr>
+<tr>
+<td>FpgaGammaValue</td>
+<td>RW / editable</td>
+<td>Integer; raw 0 to 255</td>
+<td>Selected channel/index RGB8 LUT value. Default is identity. All 768 LUT bytes persist in UserSet.</td>
+</tr>
+<tr>
+<td>FpgaStatisticsLatch</td>
+<td>WO / editable</td>
+<td>Command; raw 0 to 1</td>
+<td>Snapshot the latest complete FPGA frame statistics. Allowed during acquisition; read fields remain stable until the next latch.</td>
+</tr>
+<tr>
+<td>FpgaStatisticsSequence</td>
+<td>RO / read-only or local</td>
+<td>Integer; raw 0 to 4294967295</td>
+<td>Latched complete-frame statistics. Sequence restarts at acquisition reset and is not the GVSP FrameID.</td>
+</tr>
+<tr>
+<td>FpgaStatisticsValidPixels</td>
+<td>RO / read-only or local</td>
+<td>Integer; raw 0 to 5038848</td>
+<td>Latched complete-frame statistics. Sequence restarts at acquisition reset and is not the GVSP FrameID.</td>
+</tr>
+<tr>
+<td>FpgaClippedPixels</td>
+<td>RO / read-only or local</td>
+<td>Integer; raw 0 to 5038848</td>
+<td>Latched complete-frame statistics. Sequence restarts at acquisition reset and is not the GVSP FrameID.</td>
+</tr>
+<tr>
+<td>FpgaDarkPixels</td>
+<td>RO / read-only or local</td>
+<td>Integer; raw 0 to 5038848</td>
+<td>Latched complete-frame statistics. Sequence restarts at acquisition reset and is not the GVSP FrameID.</td>
+</tr>
+<tr>
+<td>FpgaBalanceMeanRed</td>
+<td>RO / read-only or local</td>
+<td>Float; raw 0 to 67043328; DN</td>
+<td>Latched Q16 mean. Color means precede gains/CCM and exclude samples with any channel below 8 or at least 1000 DN. Intensity is output RGB8 luma.</td>
+</tr>
+<tr>
+<td>FpgaBalanceMeanGreen</td>
+<td>RO / read-only or local</td>
+<td>Float; raw 0 to 67043328; DN</td>
+<td>Latched Q16 mean. Color means precede gains/CCM and exclude samples with any channel below 8 or at least 1000 DN. Intensity is output RGB8 luma.</td>
+</tr>
+<tr>
+<td>FpgaBalanceMeanBlue</td>
+<td>RO / read-only or local</td>
+<td>Float; raw 0 to 67043328; DN</td>
+<td>Latched Q16 mean. Color means precede gains/CCM and exclude samples with any channel below 8 or at least 1000 DN. Intensity is output RGB8 luma.</td>
+</tr>
+<tr>
+<td>FpgaIntensityMean</td>
+<td>RO / read-only or local</td>
+<td>Float; raw 0 to 67043328; DN</td>
+<td>Latched Q16 mean. Color means precede gains/CCM and exclude samples with any channel below 8 or at least 1000 DN. Intensity is output RGB8 luma.</td>
+</tr>
+<tr>
+<td>FpgaAppliedBalanceRed</td>
+<td>RO / read-only or local</td>
+<td>Float; raw 0 to 4096; x</td>
+<td>Latched gains actually applied to the completed frame, independent of configured manual gains during AWB.</td>
+</tr>
+<tr>
+<td>FpgaAppliedBalanceGreen</td>
+<td>RO / read-only or local</td>
+<td>Float; raw 0 to 4096; x</td>
+<td>Latched gains actually applied to the completed frame, independent of configured manual gains during AWB.</td>
+</tr>
+<tr>
+<td>FpgaAppliedBalanceBlue</td>
+<td>RO / read-only or local</td>
+<td>Float; raw 0 to 4096; x</td>
+<td>Latched gains actually applied to the completed frame, independent of configured manual gains during AWB.</td>
+</tr>
+<tr>
+<td>FpgaDetailProcessingAvailable</td>
+<td>RO / read-only or local</td>
+<td>Boolean; raw 0 to 1</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+<tr>
+<td>FpgaBilateralEnable</td>
+<td>RW / editable</td>
+<td>Boolean; raw 0 to 1</td>
+<td>AMD 3x3 RGB bilateral filter after gamma/median and before ROI/scaling. Replicate border; disabled by default.</td>
+</tr>
+<tr>
+<td>FpgaBilateralSigmaColor</td>
+<td>RW / editable</td>
+<td>Integer; raw 1 to 255; DN</td>
+<td>RGB bilateral range sigma; default 24 DN.</td>
+</tr>
+<tr>
+<td>FpgaBilateralSigmaSpace</td>
+<td>RW / editable</td>
+<td>Float; raw 64 to 1024; px</td>
+<td>RGB bilateral spatial sigma; Q8 value, default 1 pixel.</td>
+</tr>
+<tr>
+<td>FpgaSharpenStrength</td>
+<td>RW / editable</td>
+<td>Float; raw 0 to 256</td>
+<td>RGB cross-Laplacian strength [0,1] using AMD filter2D, saturated per channel. Zero bypasses. Constant-zero filter border can brighten image edges; assess halos and noise amplification.</td>
+</tr>
+<tr>
+<td>FpgaLensShadingAvailable</td>
+<td>RO / read-only or local</td>
+<td>Boolean; raw 0 to 1</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+<tr>
+<td>FpgaLensShadingEnable</td>
+<td>RW / editable</td>
+<td>Boolean; raw 0 to 1</td>
+<td>Programmable RAW10 lens shading after black/BPC and before demosaic or RAW manual gains. Four-phase 7x9 bilinear Q12 grid; default disabled with unity table. A real uniform-field calibration is required for optical correction.</td>
+</tr>
+<tr>
+<td>FpgaLensShadingPhase</td>
+<td>RW / editable</td>
+<td>Blue, GreenBlueRow, GreenRedRow, Red</td>
+<td>BGGR calibration plane; the two green CFA phases have independent tables.</td>
+</tr>
+<tr>
+<td>FpgaLensShadingRow</td>
+<td>RW / editable</td>
+<td>Integer; raw 0 to 6</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+<tr>
+<td>FpgaLensShadingColumn</td>
+<td>RW / editable</td>
+<td>Integer; raw 0 to 8</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+<tr>
+<td>FpgaLensShadingGain</td>
+<td>RW / editable</td>
+<td>Float; raw 0 to 16384; x</td>
+<td>Selected grid gain in [0,4], Q12 rounded interpolation and saturated RAW10 output. Default 1x. All 252 gains persist in UserSet; selectors do not.</td>
+</tr>
+<tr>
+<td>FpgaSceneAnalysisAvailable</td>
+<td>RO / read-only or local</td>
+<td>Boolean; raw 0 to 1</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+<tr>
+<td>FpgaSceneAnalysisEnable</td>
+<td>RW / editable</td>
+<td>Boolean; raw 0 to 1</td>
+<td>Post-ROI RGB luma focus/motion diagnostics. Both output dimensions must be at least 32 for analysis; smaller images pass with zero/invalid metrics. First frame after acquisition restart has invalid motion. Illumination changes can trigger motion, and noise can increase focus.</td>
+</tr>
+<tr>
+<td>FpgaFocusMean</td>
+<td>RO / read-only or local</td>
+<td>Float; raw 0 to 66846720; DN</td>
+<td>Mean absolute four-neighbor luma Laplacian over the output interior, Q16 DN. Sensitive to ISP settings and noise. Latched with the common completed-frame statistics sequence.</td>
+</tr>
+<tr>
+<td>FpgaMotionMean</td>
+<td>RO / read-only or local</td>
+<td>Float; raw 0 to 16711680; DN</td>
+<td>Mean absolute difference of current/previous 32x32 luma-bin means, Q16 DN. First frame is invalid. Latched with the common completed-frame statistics sequence.</td>
+</tr>
+<tr>
+<td>FpgaMotionValid</td>
+<td>RO / read-only or local</td>
+<td>Boolean; raw 0 to 1</td>
+<td>Latched valid preceding-frame comparison. False when analysis is disabled, dimensions are below 32, or history was reset.</td>
+</tr>
+<tr>
+<td>FpgaYuvOutputAvailable</td>
+<td>RO / read-only or local</td>
+<td>Boolean; raw 0 to 1</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+<tr>
+<td>FpgaYuvRange</td>
+<td>RW / editable</td>
+<td>Limited, Full</td>
+<td>BT.601 output levels for the FPGA RGB-to-YUV path. PixelFormat selects YUV444, four averaged-chroma YUV422 orders or legacy 2x2-chroma YUV420. Requires FPGA processing enabled and RAW10 sensor acquisition; native sensor YUV bypass retains its own timing and levels. RGB/BGR bypass is unchanged. Default Limited.</td>
+</tr>
+<tr>
+<td>FpgaPolyphaseAvailable</td>
+<td>RO / read-only or local</td>
+<td>Boolean; raw 0 to 1</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+<tr>
+<td>FpgaScalerInterpolation</td>
+<td>RW / editable</td>
+<td>Area, Polyphase</td>
+<td>Resample RGB/BGR or FPGA YUV using Area (default, downscale only) or six-tap, 64-phase Xilinx VPSS. Polyphase allows up to 4x enlargement per ROI axis, within 2592x1944 output and PixelFormat alignment limits. Larger downscale ratios use an area prefilter. Mixed up/down axes are supported. Equal geometry bypasses VPSS; an unchanged axis uses identity coefficients. Configure while stopped; output pixel rate and Ethernet payload can limit FPS.</td>
+</tr>
+<tr>
+<td>FpgaLocalContrastAvailable</td>
+<td>RO / read-only or local</td>
+<td>Boolean; raw 0 to 1</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+<tr>
+<td>FpgaLocalContrastEnable</td>
+<td>RW / editable</td>
+<td>Boolean; raw 0 to 1</td>
+<td>Four-by-four-tile Xilinx CLAHE on RGB value, after optional scaling. Preserves RGB ratios with bounded fixed-point rounding; black remains black. Requires color FPGA processing, output dimensions at least 32, height multiple of 4 and width multiple of 8. Uses the preceding frame histogram; first frame after Start, geometry/clip change or reset bypasses. Can amplify noise or react to illumination changes. Default off; no optical calibration is implied.</td>
+</tr>
+<tr>
+<td>FpgaLocalContrastClipLimit</td>
+<td>RW / editable</td>
+<td>Integer; raw 1 to 8</td>
+<td>Integer Xilinx CLAHE histogram clip multiplier, 1 through 8, default 4. Higher values allow stronger contrast/noise amplification. Configure while stopped.</td>
+</tr>
+<tr>
+<td>FpgaBlackLevelLiveActive</td>
+<td>RO / read-only or local</td>
+<td>Boolean; raw 0 to 1</td>
+<td>True only while healthy audited v9/v10 FPGA RAW processing accepts frame-latched live Black Level writes. False during stop/drain/recovery, bypass and legacy processing. Other controls retain their existing locks.</td>
+</tr>
+<tr>
+<td>FpgaUpscaleAvailable</td>
+<td>RO / read-only or local</td>
+<td>Boolean; raw 0 to 1</td>
+<td>Firmware supports bounded enlargement using the installed VPSS (processing v8 or later). Requires processing/scaler enabled and Polyphase selected. No additional FPGA resources; camera FPS acceptance is separate.</td>
+</tr>
+<tr>
+<td>FpgaUpscaleMaximum</td>
+<td>RO / read-only or local</td>
+<td>Integer; raw 1 to 4; x</td>
+<td>Maximum supported enlargement per ROI axis: 4 with VPSS, otherwise 1 (no enlargement). Output remains at most 2592x1944 and subject to PixelFormat alignment and link bandwidth. Area never enlarges.</td>
+</tr>
+<tr>
+<td>FpgaAdaptiveToneAvailable</td>
+<td>RO / read-only or local</td>
+<td>Boolean; raw 0 to 1</td>
+<td>Matching v11 image includes the adaptive RGB display curve after CLAHE and before final scene statistics/output packing. This is not HDR radiance reconstruction.</td>
+</tr>
+<tr>
+<td>FpgaAdaptiveToneEnable</td>
+<td>RW / editable</td>
+<td>Boolean; raw 0 to 1</td>
+<td>Opt-in shared per-channel rational RGB8 curve driven by preceding input-frame weighted luma. Black/white endpoints fixed; gain 0.5x to 2x changes by at most 1/16 per frame. Can change color ratios and temporal brightness. First/start/reset/dimension/target-change frame bypasses. Configure while stopped. Default off; requires color FPGA processing.</td>
+</tr>
+<tr>
+<td>FpgaAdaptiveToneTarget</td>
+<td>RW / editable</td>
+<td>Integer; raw 16 to 224; DN</td>
+<td>Desired preceding-input weighted-luma mean, (R+2G+B)/4, default 128. Target is a bounded adaptation reference, not guaranteed output brightness. Configure while stopped; new acquisition resets history.</td>
+</tr>
+<tr>
+<td>FpgaAdaptiveToneAppliedGain</td>
+<td>RO / read-only or local</td>
+<td>Float; raw 128 to 512; x</td>
+<td>Unlatched current HLS invocation gain; unity before first valid invocation. Not associated with a specific GVSP frame or common statistics latch.</td>
+</tr>
+<tr>
+<td>FpgaAdaptiveTonePreviousMean</td>
+<td>RO / read-only or local</td>
+<td>Integer; raw 0 to 255; DN</td>
+<td>Unlatched preceding input-frame weighted-luma mean used by the current HLS invocation. First/reset invocation reports zero. Not frame-tagged; gain/mean reads are not an atomic pair.</td>
+</tr>
+<tr>
+<td>FpgaDistortionAvailable</td>
+<td>RO / read-only or local</td>
+<td>Boolean; raw 0 to 1</td>
+<td>Matching image/control support for bounded640x480 nearest correction, +/-7 source rows. Does not imply calibrated lens parameters.</td>
+</tr>
+<tr>
+<td>FpgaDistortionEnable</td>
+<td>RW / editable</td>
+<td>Boolean; raw 0 to 1</td>
+<td>Volatile correction enable. Requires a completely validated map matching current color geometry. Default off; full-resolution bypass remains supported. Not saved in UserSet.</td>
+</tr>
+<tr>
+<td>FpgaDistortionMapWidth</td>
+<td>RW / editable</td>
+<td>Integer; raw 1 to 640</td>
+<td>Staged map dimension. Set only after Abort, before Begin, with correction disabled. Must match output geometry; no implicit scaling.</td>
+</tr>
+<tr>
+<td>FpgaDistortionMapHeight</td>
+<td>RW / editable</td>
+<td>Integer; raw 1 to 480</td>
+<td>Staged map dimension. Set only after Abort, before Begin, with correction disabled. Must match output geometry; no implicit scaling.</td>
+</tr>
+<tr>
+<td>FpgaDistortionExpectedCrc32</td>
+<td>RW / editable</td>
+<td>Integer; raw 0 to 4294967295</td>
+<td>CRC32 of raster little-endian32-bit map words, polynomial0xedb88320, standard initial/final XOR. Set before Begin; integrity check is not optical calibration.</td>
+</tr>
+<tr>
+<td>FpgaDistortionMapBegin</td>
+<td>WO / editable</td>
+<td>Command; raw 0 to 1</td>
+<td>Volatile map transfer command. Begin selects a staging bank; Commit starts bounded asynchronous validation; Abort invalidates staging without releasing a bank the reader may still access. Configure while stopped and disabled.</td>
+</tr>
+<tr>
+<td>FpgaDistortionMapCommit</td>
+<td>WO / editable</td>
+<td>Command; raw 0 to 1</td>
+<td>Volatile map transfer command. Begin selects a staging bank; Commit starts bounded asynchronous validation; Abort invalidates staging without releasing a bank the reader may still access. Configure while stopped and disabled.</td>
+</tr>
+<tr>
+<td>FpgaDistortionMapAbort</td>
+<td>WO / editable</td>
+<td>Command; raw 0 to 1</td>
+<td>Volatile map transfer command. Begin selects a staging bank; Commit starts bounded asynchronous validation; Abort invalidates staging without releasing a bank the reader may still access. Configure while stopped and disabled.</td>
+</tr>
+<tr>
+<td>FpgaDistortionMapIndex</td>
+<td>RW / editable</td>
+<td>Integer; raw 0 to 307199</td>
+<td>Raster map word index. Upload sequentially; explicit index/value pairs make identical retries idempotent.</td>
+</tr>
+<tr>
+<td>FpgaDistortionMapData</td>
+<td>RW / editable</td>
+<td>Integer; raw 0 to 4294967295</td>
+<td>Map word: valid bit31, source x bits9:0, source y bits18:10, reserved bits30:19 zero. Zero means black. Coordinates must be in bounds and within seven source rows; unsupported entries fail validation.</td>
+</tr>
+<tr>
+<td>FpgaDistortionMapState</td>
+<td>RO / read-only or local</td>
+<td>Empty, Uploading, Validating, Ready, Error</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+<tr>
+<td>FpgaDistortionWordsUploaded</td>
+<td>RO / read-only or local</td>
+<td>Integer; raw 0 to 307200</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+<tr>
+<td>FpgaDistortionWordsValidated</td>
+<td>RO / read-only or local</td>
+<td>Integer; raw 0 to 307200</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+<tr>
+<td>FpgaDistortionMapError</td>
+<td>RO / read-only or local</td>
+<td>None, InvalidCoordinate, ChecksumMismatch</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+<tr>
+<td>FpgaDistortionHardwareStatus</td>
+<td>RO / read-only or local</td>
+<td>Integer; raw 0 to 7</td>
+<td>Last observed reader status: bit0 geometry, bit1 map encoding/window, bit2 input framing. Zero alone does not prove successful acquisition.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="imageformatcontrol">ImageFormatControl</h3>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Camera access / web</th>
+<th>Type and range</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Width</td>
+<td>RW / editable</td>
+<td>Integer; raw 160 to 2592</td>
+<td>Output dimensions. With FPGA processing/scaler enabled, InputWidth/InputHeight and ROI select sensor input; Polyphase supports bounded enlargement. Otherwise uses native sensor geometry/scaling. Stop before changes.</td>
+</tr>
+<tr>
+<td>Height</td>
+<td>RW / editable</td>
+<td>Integer; raw 120 to 1944</td>
+<td>Output dimensions. With FPGA processing/scaler enabled, InputWidth/InputHeight and ROI select sensor input; Polyphase supports bounded enlargement. Otherwise uses native sensor geometry/scaling. Stop before changes.</td>
+</tr>
+<tr>
+<td>PayloadSize</td>
+<td>RO / read-only or local</td>
+<td>Integer; raw 0 to 16000000</td>
+<td>See current readback, capability and firmware constraints.</td>
+</tr>
+<tr>
+<td>PixelFormat</td>
+<td>RW / editable</td>
+<td>Mono8, YUV422Packed, YUV422_YUYVPacked, RGB8, BGR8, RGB565p, BayerBG8, BayerBG10, BayerBG10p, YUV8_UYV, RGB555_16BE, RGB444_16BE, YUV420Legacy, YUV422_YVYU, YUV422_VYUY, YUV422_8_UYVY, YUV422_8</td>
+<td>Native CSI capture or optional FPGA RAW10-derived RGB/BGR and YUV processing on available hardware. With FPGA processing disabled, RGB8/BGR8 use sensor YUV422 and CPU conversion. YUV444 remains limited to 640x480. Custom formats are documented byte layouts, not standard PFNC. RAW uses an unbinned crop with fixed BG phase; ReverseX/Y are locked in RAW. Output format and payload can change sensor cadence and Ethernet limits.</td>
+</tr>
+</tbody>
+</table></main></body></html>

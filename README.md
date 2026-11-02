@@ -37,3 +37,7 @@ fresh full HLS/synthesis/routing/board qualification. See the validation report.
 The original development trees, captured originals and rollback images remain
 outside this source export. Existing per-file licenses are preserved; no new
 project-wide license has been selected.
+
+## Browser camera console
+
+The optional [MaxCamera Vision Console](webapp/README.md) provides authenticated browser preview and named runtime controls through an isolated Linux gateway. See the [complete user guide](webapp/USER_GUIDE.md), [security model](webapp/SECURITY.md) and [bounded verification](webapp/VERIFICATION.md). It does not replace camera firmware or expose GigE ports to the Internet.
