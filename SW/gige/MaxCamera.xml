@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<RegisterDescription ModelName="Camera_MAX_5640" VendorName="Vendor_DINX_Tech_Studio" StandardNameSpace="None" SchemaMajorVersion="1" SchemaMinorVersion="1" SchemaSubMinorVersion="0" MajorVersion="1" MinorVersion="1" SubMinorVersion="1" ProductGuid="d12ac79e-f980-5e65-8e5e-28710411ed0a" VersionGuid="fe735127-6437-57a7-a06a-d60ec487b17c" xmlns="http://www.genicam.org/GenApi/Version_1_1">
+<RegisterDescription ModelName="Camera_MAX_5640" VendorName="Vendor_DINX_Tech_Studio" StandardNameSpace="None" SchemaMajorVersion="1" SchemaMinorVersion="1" SchemaSubMinorVersion="0" MajorVersion="1" MinorVersion="1" SubMinorVersion="1" ProductGuid="d12ac79e-f980-5e65-8e5e-28710411ed0a" VersionGuid="ee88df79-1bf0-5798-9f2e-7b6320c8dd84" xmlns="http://www.genicam.org/GenApi/Version_1_1">
   <Category Name="Root" NameSpace="Standard">
     <pFeature>DeviceControl</pFeature>
     <pFeature>ImageFormatControl</pFeature>
@@ -24,6 +24,7 @@
     <pFeature>NetworkControl</pFeature>
     <pFeature>DeviceMaintenance</pFeature>
     <pFeature>FpgaImageProcessing</pFeature>
+    <pFeature>MaxAI</pFeature>
   </Category>
   <Category Name="DeviceControl" NameSpace="Standard">
     <pFeature>DeviceVendorName</pFeature>
@@ -1220,6 +1221,48 @@
     <pFeature>FpgaDistortionWordsValidated</pFeature>
     <pFeature>FpgaDistortionMapError</pFeature>
     <pFeature>FpgaDistortionHardwareStatus</pFeature>
+  </Category>
+  <Category Name="MaxAI" NameSpace="Custom">
+    <pFeature>MaxAIAvailable</pFeature>
+    <pFeature>MaxAISupportedFeatures</pFeature>
+    <pFeature>MaxAIEnabledFeatures</pFeature>
+    <pFeature>MaxAIWorkerState</pFeature>
+    <pFeature>MaxAIErrorCode</pFeature>
+    <pFeature>MaxAIConfigGeneration</pFeature>
+    <pFeature>MaxAIInferenceTimeUs</pFeature>
+    <pFeature>MaxAIMinimumScore</pFeature>
+    <pFeature>MaxAISamplePeriodUs</pFeature>
+    <pFeature>MaxAIFaceCosineThreshold</pFeature>
+    <pFeature>MaxAIResultLatch</pFeature>
+    <pFeature>MaxAIResultRelease</pFeature>
+    <pFeature>MaxAIResultValid</pFeature>
+    <pFeature>MaxAIObjectCount</pFeature>
+    <pFeature>MaxAIResultSequence</pFeature>
+    <pFeature>MaxAICaptureSequence</pFeature>
+    <pFeature>MaxAITimestampLow</pFeature>
+    <pFeature>MaxAITimestampHigh</pFeature>
+    <pFeature>MaxAIObjectSelector</pFeature>
+    <pFeature>MaxAIObjectFeature</pFeature>
+    <pFeature>MaxAIObjectClass</pFeature>
+    <pFeature>MaxAIObjectScore</pFeature>
+    <pFeature>MaxAIObjectX</pFeature>
+    <pFeature>MaxAIObjectY</pFeature>
+    <pFeature>MaxAIObjectWidth</pFeature>
+    <pFeature>MaxAIObjectHeight</pFeature>
+    <pFeature>MaxAIObjectTrackID</pFeature>
+    <pFeature>MaxAIObjectTextWord0</pFeature>
+    <pFeature>MaxAIObjectTextWord1</pFeature>
+    <pFeature>MaxAIObjectTextWord2</pFeature>
+    <pFeature>MaxAIObjectTextWord3</pFeature>
+    <pFeature>MaxAIObjectTextWord4</pFeature>
+    <pFeature>MaxAIObjectTextWord5</pFeature>
+    <pFeature>MaxAIObjectTextWord6</pFeature>
+    <pFeature>MaxAIObjectTextWord7</pFeature>
+    <pFeature>MaxAIResultWidth</pFeature>
+    <pFeature>MaxAIResultHeight</pFeature>
+    <pFeature>MaxAIResultPixelFormat</pFeature>
+    <pFeature>MaxAIResultConfigGeneration</pFeature>
+    <pFeature>MaxAIResultAgeUs</pFeature>
   </Category>
   <IntSwissKnife Name="SensorIdle" NameSpace="Custom">
     <pVariable Name="R">SensorInitializedRegister</pVariable>
@@ -7310,6 +7353,633 @@
   </Integer>
   <IntReg Name="FpgaDistortionHardwareStatusRegister" NameSpace="Custom">
     <Address>0x113b4</Address>
+    <Length>4</Length>
+    <AccessMode>RO</AccessMode>
+    <pPort>Device</pPort>
+    <Cachable>NoCache</Cachable>
+    <Sign>Unsigned</Sign>
+    <Endianess>BigEndian</Endianess>
+  </IntReg>
+  <Boolean Name="MaxAIAvailable" NameSpace="Custom">
+    <pValue>MaxAIAvailableRegister</pValue>
+    <OnValue>1</OnValue>
+    <OffValue>0</OffValue>
+  </Boolean>
+  <IntReg Name="MaxAIAvailableRegister" NameSpace="Custom">
+    <Address>0x113b8</Address>
+    <Length>4</Length>
+    <AccessMode>RO</AccessMode>
+    <pPort>Device</pPort>
+    <Cachable>NoCache</Cachable>
+    <Sign>Unsigned</Sign>
+    <Endianess>BigEndian</Endianess>
+  </IntReg>
+  <Integer Name="MaxAISupportedFeatures" NameSpace="Custom">
+    <pValue>MaxAISupportedFeaturesRegister</pValue>
+    <Min>0</Min>
+    <Max>255</Max>
+    <Inc>1</Inc>
+  </Integer>
+  <IntReg Name="MaxAISupportedFeaturesRegister" NameSpace="Custom">
+    <Address>0x113bc</Address>
+    <Length>4</Length>
+    <AccessMode>RO</AccessMode>
+    <pPort>Device</pPort>
+    <Cachable>NoCache</Cachable>
+    <Sign>Unsigned</Sign>
+    <Endianess>BigEndian</Endianess>
+  </IntReg>
+  <Integer Name="MaxAIEnabledFeatures" NameSpace="Custom">
+    <Description>Volatile bitmask: face detection, face recognition, objects, plate candidates/OCR, motion, person HOG, QR, tracking. Unsupported bits are rejected. Defaults off. Results use the captured output image coordinates; no accuracy or real-time guarantee.</Description>
+    <pValue>MaxAIEnabledFeaturesRegister</pValue>
+    <Min>0</Min>
+    <Max>255</Max>
+    <Inc>1</Inc>
+  </Integer>
+  <IntReg Name="MaxAIEnabledFeaturesRegister" NameSpace="Custom">
+    <Address>0x113c0</Address>
+    <Length>4</Length>
+    <AccessMode>RW</AccessMode>
+    <pPort>Device</pPort>
+    <Cachable>NoCache</Cachable>
+    <Sign>Unsigned</Sign>
+    <Endianess>BigEndian</Endianess>
+  </IntReg>
+  <Enumeration Name="MaxAIWorkerState" NameSpace="Custom">
+    <EnumEntry Name="Unavailable" NameSpace="Custom">
+      <Value>0</Value>
+    </EnumEntry>
+    <EnumEntry Name="Idle" NameSpace="Custom">
+      <Value>1</Value>
+    </EnumEntry>
+    <EnumEntry Name="Ready" NameSpace="Custom">
+      <Value>2</Value>
+    </EnumEntry>
+    <EnumEntry Name="Copying" NameSpace="Custom">
+      <Value>3</Value>
+    </EnumEntry>
+    <pValue>MaxAIWorkerStateRegister</pValue>
+  </Enumeration>
+  <IntReg Name="MaxAIWorkerStateRegister" NameSpace="Custom">
+    <Address>0x113c4</Address>
+    <Length>4</Length>
+    <AccessMode>RO</AccessMode>
+    <pPort>Device</pPort>
+    <Cachable>NoCache</Cachable>
+    <Sign>Unsigned</Sign>
+    <Endianess>BigEndian</Endianess>
+  </IntReg>
+  <Integer Name="MaxAIErrorCode" NameSpace="Custom">
+    <pValue>MaxAIErrorCodeRegister</pValue>
+    <Min>0</Min>
+    <Max>4294967295</Max>
+    <Inc>1</Inc>
+  </Integer>
+  <IntReg Name="MaxAIErrorCodeRegister" NameSpace="Custom">
+    <Address>0x113c8</Address>
+    <Length>4</Length>
+    <AccessMode>RO</AccessMode>
+    <pPort>Device</pPort>
+    <Cachable>NoCache</Cachable>
+    <Sign>Unsigned</Sign>
+    <Endianess>BigEndian</Endianess>
+  </IntReg>
+  <Integer Name="MaxAIConfigGeneration" NameSpace="Custom">
+    <pValue>MaxAIConfigGenerationRegister</pValue>
+    <Min>0</Min>
+    <Max>4294967295</Max>
+    <Inc>1</Inc>
+  </Integer>
+  <IntReg Name="MaxAIConfigGenerationRegister" NameSpace="Custom">
+    <Address>0x113cc</Address>
+    <Length>4</Length>
+    <AccessMode>RO</AccessMode>
+    <pPort>Device</pPort>
+    <Cachable>NoCache</Cachable>
+    <Sign>Unsigned</Sign>
+    <Endianess>BigEndian</Endianess>
+  </IntReg>
+  <Integer Name="MaxAIInferenceTimeUs" NameSpace="Custom">
+    <pValue>MaxAIInferenceTimeUsRegister</pValue>
+    <Min>0</Min>
+    <Max>4294967295</Max>
+    <Inc>1</Inc>
+  </Integer>
+  <IntReg Name="MaxAIInferenceTimeUsRegister" NameSpace="Custom">
+    <Address>0x113d0</Address>
+    <Length>4</Length>
+    <AccessMode>RO</AccessMode>
+    <pPort>Device</pPort>
+    <Cachable>NoCache</Cachable>
+    <Sign>Unsigned</Sign>
+    <Endianess>BigEndian</Endianess>
+  </IntReg>
+  <Integer Name="MaxAIMinimumScore" NameSpace="Custom">
+    <Description>Score threshold in millionths. Model confidence is not calibrated probability.</Description>
+    <pValue>MaxAIMinimumScoreRegister</pValue>
+    <Min>1</Min>
+    <Max>1000000</Max>
+    <Inc>1</Inc>
+  </Integer>
+  <IntReg Name="MaxAIMinimumScoreRegister" NameSpace="Custom">
+    <Address>0x113d4</Address>
+    <Length>4</Length>
+    <AccessMode>RW</AccessMode>
+    <pPort>Device</pPort>
+    <Cachable>NoCache</Cachable>
+    <Sign>Unsigned</Sign>
+    <Endianess>BigEndian</Endianess>
+  </IntReg>
+  <Integer Name="MaxAISamplePeriodUs" NameSpace="Custom">
+    <pValue>MaxAISamplePeriodUsRegister</pValue>
+    <Min>100000</Min>
+    <Max>60000000</Max>
+    <Inc>1</Inc>
+  </Integer>
+  <IntReg Name="MaxAISamplePeriodUsRegister" NameSpace="Custom">
+    <Address>0x113d8</Address>
+    <Length>4</Length>
+    <AccessMode>RW</AccessMode>
+    <pPort>Device</pPort>
+    <Cachable>NoCache</Cachable>
+    <Sign>Unsigned</Sign>
+    <Endianess>BigEndian</Endianess>
+  </IntReg>
+  <Integer Name="MaxAIFaceCosineThreshold" NameSpace="Custom">
+    <Description>Cosine similarity threshold in millionths; default0.45 is a starting point requiring validation on your enrollment data.</Description>
+    <pValue>MaxAIFaceCosineThresholdRegister</pValue>
+    <Min>1</Min>
+    <Max>1000000</Max>
+    <Inc>1</Inc>
+  </Integer>
+  <IntReg Name="MaxAIFaceCosineThresholdRegister" NameSpace="Custom">
+    <Address>0x113dc</Address>
+    <Length>4</Length>
+    <AccessMode>RW</AccessMode>
+    <pPort>Device</pPort>
+    <Cachable>NoCache</Cachable>
+    <Sign>Unsigned</Sign>
+    <Endianess>BigEndian</Endianess>
+  </IntReg>
+  <Command Name="MaxAIResultLatch" NameSpace="Custom">
+    <pValue>MaxAIResultLatchRegister</pValue>
+    <CommandValue>1</CommandValue>
+  </Command>
+  <IntReg Name="MaxAIResultLatchRegister" NameSpace="Custom">
+    <Address>0x113e0</Address>
+    <Length>4</Length>
+    <AccessMode>WO</AccessMode>
+    <pPort>Device</pPort>
+    <Cachable>NoCache</Cachable>
+    <Sign>Unsigned</Sign>
+    <Endianess>BigEndian</Endianess>
+  </IntReg>
+  <Command Name="MaxAIResultRelease" NameSpace="Custom">
+    <pValue>MaxAIResultReleaseRegister</pValue>
+    <CommandValue>1</CommandValue>
+  </Command>
+  <IntReg Name="MaxAIResultReleaseRegister" NameSpace="Custom">
+    <Address>0x113e4</Address>
+    <Length>4</Length>
+    <AccessMode>WO</AccessMode>
+    <pPort>Device</pPort>
+    <Cachable>NoCache</Cachable>
+    <Sign>Unsigned</Sign>
+    <Endianess>BigEndian</Endianess>
+  </IntReg>
+  <Boolean Name="MaxAIResultValid" NameSpace="Custom">
+    <pValue>MaxAIResultValidRegister</pValue>
+    <OnValue>1</OnValue>
+    <OffValue>0</OffValue>
+  </Boolean>
+  <IntReg Name="MaxAIResultValidRegister" NameSpace="Custom">
+    <Address>0x113e8</Address>
+    <Length>4</Length>
+    <AccessMode>RO</AccessMode>
+    <pPort>Device</pPort>
+    <Cachable>NoCache</Cachable>
+    <Sign>Unsigned</Sign>
+    <Endianess>BigEndian</Endianess>
+  </IntReg>
+  <Integer Name="MaxAIObjectCount" NameSpace="Custom">
+    <pValue>MaxAIObjectCountRegister</pValue>
+    <Min>0</Min>
+    <Max>32</Max>
+    <Inc>1</Inc>
+  </Integer>
+  <IntReg Name="MaxAIObjectCountRegister" NameSpace="Custom">
+    <Address>0x113ec</Address>
+    <Length>4</Length>
+    <AccessMode>RO</AccessMode>
+    <pPort>Device</pPort>
+    <Cachable>NoCache</Cachable>
+    <Sign>Unsigned</Sign>
+    <Endianess>BigEndian</Endianess>
+  </IntReg>
+  <Integer Name="MaxAIResultSequence" NameSpace="Custom">
+    <pValue>MaxAIResultSequenceRegister</pValue>
+    <Min>0</Min>
+    <Max>4294967295</Max>
+    <Inc>1</Inc>
+  </Integer>
+  <IntReg Name="MaxAIResultSequenceRegister" NameSpace="Custom">
+    <Address>0x113f0</Address>
+    <Length>4</Length>
+    <AccessMode>RO</AccessMode>
+    <pPort>Device</pPort>
+    <Cachable>NoCache</Cachable>
+    <Sign>Unsigned</Sign>
+    <Endianess>BigEndian</Endianess>
+  </IntReg>
+  <Integer Name="MaxAICaptureSequence" NameSpace="Custom">
+    <pValue>MaxAICaptureSequenceRegister</pValue>
+    <Min>0</Min>
+    <Max>4294967295</Max>
+    <Inc>1</Inc>
+  </Integer>
+  <IntReg Name="MaxAICaptureSequenceRegister" NameSpace="Custom">
+    <Address>0x113f4</Address>
+    <Length>4</Length>
+    <AccessMode>RO</AccessMode>
+    <pPort>Device</pPort>
+    <Cachable>NoCache</Cachable>
+    <Sign>Unsigned</Sign>
+    <Endianess>BigEndian</Endianess>
+  </IntReg>
+  <Integer Name="MaxAITimestampLow" NameSpace="Custom">
+    <pValue>MaxAITimestampLowRegister</pValue>
+    <Min>0</Min>
+    <Max>4294967295</Max>
+    <Inc>1</Inc>
+  </Integer>
+  <IntReg Name="MaxAITimestampLowRegister" NameSpace="Custom">
+    <Address>0x113f8</Address>
+    <Length>4</Length>
+    <AccessMode>RO</AccessMode>
+    <pPort>Device</pPort>
+    <Cachable>NoCache</Cachable>
+    <Sign>Unsigned</Sign>
+    <Endianess>BigEndian</Endianess>
+  </IntReg>
+  <Integer Name="MaxAITimestampHigh" NameSpace="Custom">
+    <pValue>MaxAITimestampHighRegister</pValue>
+    <Min>0</Min>
+    <Max>4294967295</Max>
+    <Inc>1</Inc>
+  </Integer>
+  <IntReg Name="MaxAITimestampHighRegister" NameSpace="Custom">
+    <Address>0x113fc</Address>
+    <Length>4</Length>
+    <AccessMode>RO</AccessMode>
+    <pPort>Device</pPort>
+    <Cachable>NoCache</Cachable>
+    <Sign>Unsigned</Sign>
+    <Endianess>BigEndian</Endianess>
+  </IntReg>
+  <Integer Name="MaxAIObjectSelector" NameSpace="Custom">
+    <pValue>MaxAIObjectSelectorRegister</pValue>
+    <Min>0</Min>
+    <Max>31</Max>
+    <Inc>1</Inc>
+  </Integer>
+  <IntReg Name="MaxAIObjectSelectorRegister" NameSpace="Custom">
+    <Address>0x11400</Address>
+    <Length>4</Length>
+    <AccessMode>RW</AccessMode>
+    <pPort>Device</pPort>
+    <Cachable>NoCache</Cachable>
+    <Sign>Unsigned</Sign>
+    <Endianess>BigEndian</Endianess>
+  </IntReg>
+  <Integer Name="MaxAIObjectFeature" NameSpace="Custom">
+    <pValue>MaxAIObjectFeatureRegister</pValue>
+    <Min>0</Min>
+    <Max>7</Max>
+    <Inc>1</Inc>
+  </Integer>
+  <IntReg Name="MaxAIObjectFeatureRegister" NameSpace="Custom">
+    <Address>0x11404</Address>
+    <Length>4</Length>
+    <AccessMode>RO</AccessMode>
+    <pPort>Device</pPort>
+    <Cachable>NoCache</Cachable>
+    <Sign>Unsigned</Sign>
+    <Endianess>BigEndian</Endianess>
+  </IntReg>
+  <Integer Name="MaxAIObjectClass" NameSpace="Custom">
+    <pValue>MaxAIObjectClassRegister</pValue>
+    <Min>0</Min>
+    <Max>4294967295</Max>
+    <Inc>1</Inc>
+  </Integer>
+  <IntReg Name="MaxAIObjectClassRegister" NameSpace="Custom">
+    <Address>0x11408</Address>
+    <Length>4</Length>
+    <AccessMode>RO</AccessMode>
+    <pPort>Device</pPort>
+    <Cachable>NoCache</Cachable>
+    <Sign>Unsigned</Sign>
+    <Endianess>BigEndian</Endianess>
+  </IntReg>
+  <Integer Name="MaxAIObjectScore" NameSpace="Custom">
+    <pValue>MaxAIObjectScoreRegister</pValue>
+    <Min>0</Min>
+    <Max>1000000</Max>
+    <Inc>1</Inc>
+  </Integer>
+  <IntReg Name="MaxAIObjectScoreRegister" NameSpace="Custom">
+    <Address>0x1140c</Address>
+    <Length>4</Length>
+    <AccessMode>RO</AccessMode>
+    <pPort>Device</pPort>
+    <Cachable>NoCache</Cachable>
+    <Sign>Unsigned</Sign>
+    <Endianess>BigEndian</Endianess>
+  </IntReg>
+  <Integer Name="MaxAIObjectX" NameSpace="Custom">
+    <pValue>MaxAIObjectXRegister</pValue>
+    <Min>0</Min>
+    <Max>2592</Max>
+    <Inc>1</Inc>
+  </Integer>
+  <IntReg Name="MaxAIObjectXRegister" NameSpace="Custom">
+    <Address>0x11410</Address>
+    <Length>4</Length>
+    <AccessMode>RO</AccessMode>
+    <pPort>Device</pPort>
+    <Cachable>NoCache</Cachable>
+    <Sign>Unsigned</Sign>
+    <Endianess>BigEndian</Endianess>
+  </IntReg>
+  <Integer Name="MaxAIObjectY" NameSpace="Custom">
+    <pValue>MaxAIObjectYRegister</pValue>
+    <Min>0</Min>
+    <Max>1944</Max>
+    <Inc>1</Inc>
+  </Integer>
+  <IntReg Name="MaxAIObjectYRegister" NameSpace="Custom">
+    <Address>0x11414</Address>
+    <Length>4</Length>
+    <AccessMode>RO</AccessMode>
+    <pPort>Device</pPort>
+    <Cachable>NoCache</Cachable>
+    <Sign>Unsigned</Sign>
+    <Endianess>BigEndian</Endianess>
+  </IntReg>
+  <Integer Name="MaxAIObjectWidth" NameSpace="Custom">
+    <pValue>MaxAIObjectWidthRegister</pValue>
+    <Min>0</Min>
+    <Max>2592</Max>
+    <Inc>1</Inc>
+  </Integer>
+  <IntReg Name="MaxAIObjectWidthRegister" NameSpace="Custom">
+    <Address>0x11418</Address>
+    <Length>4</Length>
+    <AccessMode>RO</AccessMode>
+    <pPort>Device</pPort>
+    <Cachable>NoCache</Cachable>
+    <Sign>Unsigned</Sign>
+    <Endianess>BigEndian</Endianess>
+  </IntReg>
+  <Integer Name="MaxAIObjectHeight" NameSpace="Custom">
+    <pValue>MaxAIObjectHeightRegister</pValue>
+    <Min>0</Min>
+    <Max>1944</Max>
+    <Inc>1</Inc>
+  </Integer>
+  <IntReg Name="MaxAIObjectHeightRegister" NameSpace="Custom">
+    <Address>0x1141c</Address>
+    <Length>4</Length>
+    <AccessMode>RO</AccessMode>
+    <pPort>Device</pPort>
+    <Cachable>NoCache</Cachable>
+    <Sign>Unsigned</Sign>
+    <Endianess>BigEndian</Endianess>
+  </IntReg>
+  <Integer Name="MaxAIObjectTrackID" NameSpace="Custom">
+    <pValue>MaxAIObjectTrackIDRegister</pValue>
+    <Min>0</Min>
+    <Max>4294967295</Max>
+    <Inc>1</Inc>
+  </Integer>
+  <IntReg Name="MaxAIObjectTrackIDRegister" NameSpace="Custom">
+    <Address>0x11420</Address>
+    <Length>4</Length>
+    <AccessMode>RO</AccessMode>
+    <pPort>Device</pPort>
+    <Cachable>NoCache</Cachable>
+    <Sign>Unsigned</Sign>
+    <Endianess>BigEndian</Endianess>
+  </IntReg>
+  <Integer Name="MaxAIObjectTextWord0" NameSpace="Custom">
+    <Description>Four UTF-8 bytes packed least-significant-byte first. Eight words form a NUL-terminated32-byte label. Applies to identity, OCR or QR; labels may be truncated.</Description>
+    <pValue>MaxAIObjectTextWord0Register</pValue>
+    <Min>0</Min>
+    <Max>4294967295</Max>
+    <Inc>1</Inc>
+    <Representation>HexNumber</Representation>
+  </Integer>
+  <IntReg Name="MaxAIObjectTextWord0Register" NameSpace="Custom">
+    <Address>0x11424</Address>
+    <Length>4</Length>
+    <AccessMode>RO</AccessMode>
+    <pPort>Device</pPort>
+    <Cachable>NoCache</Cachable>
+    <Sign>Unsigned</Sign>
+    <Endianess>BigEndian</Endianess>
+  </IntReg>
+  <Integer Name="MaxAIObjectTextWord1" NameSpace="Custom">
+    <Description>Four UTF-8 bytes packed least-significant-byte first. Eight words form a NUL-terminated32-byte label. Applies to identity, OCR or QR; labels may be truncated.</Description>
+    <pValue>MaxAIObjectTextWord1Register</pValue>
+    <Min>0</Min>
+    <Max>4294967295</Max>
+    <Inc>1</Inc>
+    <Representation>HexNumber</Representation>
+  </Integer>
+  <IntReg Name="MaxAIObjectTextWord1Register" NameSpace="Custom">
+    <Address>0x11428</Address>
+    <Length>4</Length>
+    <AccessMode>RO</AccessMode>
+    <pPort>Device</pPort>
+    <Cachable>NoCache</Cachable>
+    <Sign>Unsigned</Sign>
+    <Endianess>BigEndian</Endianess>
+  </IntReg>
+  <Integer Name="MaxAIObjectTextWord2" NameSpace="Custom">
+    <Description>Four UTF-8 bytes packed least-significant-byte first. Eight words form a NUL-terminated32-byte label. Applies to identity, OCR or QR; labels may be truncated.</Description>
+    <pValue>MaxAIObjectTextWord2Register</pValue>
+    <Min>0</Min>
+    <Max>4294967295</Max>
+    <Inc>1</Inc>
+    <Representation>HexNumber</Representation>
+  </Integer>
+  <IntReg Name="MaxAIObjectTextWord2Register" NameSpace="Custom">
+    <Address>0x1142c</Address>
+    <Length>4</Length>
+    <AccessMode>RO</AccessMode>
+    <pPort>Device</pPort>
+    <Cachable>NoCache</Cachable>
+    <Sign>Unsigned</Sign>
+    <Endianess>BigEndian</Endianess>
+  </IntReg>
+  <Integer Name="MaxAIObjectTextWord3" NameSpace="Custom">
+    <Description>Four UTF-8 bytes packed least-significant-byte first. Eight words form a NUL-terminated32-byte label. Applies to identity, OCR or QR; labels may be truncated.</Description>
+    <pValue>MaxAIObjectTextWord3Register</pValue>
+    <Min>0</Min>
+    <Max>4294967295</Max>
+    <Inc>1</Inc>
+    <Representation>HexNumber</Representation>
+  </Integer>
+  <IntReg Name="MaxAIObjectTextWord3Register" NameSpace="Custom">
+    <Address>0x11430</Address>
+    <Length>4</Length>
+    <AccessMode>RO</AccessMode>
+    <pPort>Device</pPort>
+    <Cachable>NoCache</Cachable>
+    <Sign>Unsigned</Sign>
+    <Endianess>BigEndian</Endianess>
+  </IntReg>
+  <Integer Name="MaxAIObjectTextWord4" NameSpace="Custom">
+    <Description>Four UTF-8 bytes packed least-significant-byte first. Eight words form a NUL-terminated32-byte label. Applies to identity, OCR or QR; labels may be truncated.</Description>
+    <pValue>MaxAIObjectTextWord4Register</pValue>
+    <Min>0</Min>
+    <Max>4294967295</Max>
+    <Inc>1</Inc>
+    <Representation>HexNumber</Representation>
+  </Integer>
+  <IntReg Name="MaxAIObjectTextWord4Register" NameSpace="Custom">
+    <Address>0x11434</Address>
+    <Length>4</Length>
+    <AccessMode>RO</AccessMode>
+    <pPort>Device</pPort>
+    <Cachable>NoCache</Cachable>
+    <Sign>Unsigned</Sign>
+    <Endianess>BigEndian</Endianess>
+  </IntReg>
+  <Integer Name="MaxAIObjectTextWord5" NameSpace="Custom">
+    <Description>Four UTF-8 bytes packed least-significant-byte first. Eight words form a NUL-terminated32-byte label. Applies to identity, OCR or QR; labels may be truncated.</Description>
+    <pValue>MaxAIObjectTextWord5Register</pValue>
+    <Min>0</Min>
+    <Max>4294967295</Max>
+    <Inc>1</Inc>
+    <Representation>HexNumber</Representation>
+  </Integer>
+  <IntReg Name="MaxAIObjectTextWord5Register" NameSpace="Custom">
+    <Address>0x11438</Address>
+    <Length>4</Length>
+    <AccessMode>RO</AccessMode>
+    <pPort>Device</pPort>
+    <Cachable>NoCache</Cachable>
+    <Sign>Unsigned</Sign>
+    <Endianess>BigEndian</Endianess>
+  </IntReg>
+  <Integer Name="MaxAIObjectTextWord6" NameSpace="Custom">
+    <Description>Four UTF-8 bytes packed least-significant-byte first. Eight words form a NUL-terminated32-byte label. Applies to identity, OCR or QR; labels may be truncated.</Description>
+    <pValue>MaxAIObjectTextWord6Register</pValue>
+    <Min>0</Min>
+    <Max>4294967295</Max>
+    <Inc>1</Inc>
+    <Representation>HexNumber</Representation>
+  </Integer>
+  <IntReg Name="MaxAIObjectTextWord6Register" NameSpace="Custom">
+    <Address>0x1143c</Address>
+    <Length>4</Length>
+    <AccessMode>RO</AccessMode>
+    <pPort>Device</pPort>
+    <Cachable>NoCache</Cachable>
+    <Sign>Unsigned</Sign>
+    <Endianess>BigEndian</Endianess>
+  </IntReg>
+  <Integer Name="MaxAIObjectTextWord7" NameSpace="Custom">
+    <Description>Four UTF-8 bytes packed least-significant-byte first. Eight words form a NUL-terminated32-byte label. Applies to identity, OCR or QR; labels may be truncated.</Description>
+    <pValue>MaxAIObjectTextWord7Register</pValue>
+    <Min>0</Min>
+    <Max>4294967295</Max>
+    <Inc>1</Inc>
+    <Representation>HexNumber</Representation>
+  </Integer>
+  <IntReg Name="MaxAIObjectTextWord7Register" NameSpace="Custom">
+    <Address>0x11440</Address>
+    <Length>4</Length>
+    <AccessMode>RO</AccessMode>
+    <pPort>Device</pPort>
+    <Cachable>NoCache</Cachable>
+    <Sign>Unsigned</Sign>
+    <Endianess>BigEndian</Endianess>
+  </IntReg>
+  <Integer Name="MaxAIResultWidth" NameSpace="Custom">
+    <Description>Latched source geometry/configuration, or live elapsed microseconds since that capture was offered. Age saturates at32-bit maximum and is not wall-clock time.</Description>
+    <pValue>MaxAIResultWidthRegister</pValue>
+    <Min>0</Min>
+    <Max>2592</Max>
+    <Inc>1</Inc>
+  </Integer>
+  <IntReg Name="MaxAIResultWidthRegister" NameSpace="Custom">
+    <Address>0x11444</Address>
+    <Length>4</Length>
+    <AccessMode>RO</AccessMode>
+    <pPort>Device</pPort>
+    <Cachable>NoCache</Cachable>
+    <Sign>Unsigned</Sign>
+    <Endianess>BigEndian</Endianess>
+  </IntReg>
+  <Integer Name="MaxAIResultHeight" NameSpace="Custom">
+    <Description>Latched source geometry/configuration, or live elapsed microseconds since that capture was offered. Age saturates at32-bit maximum and is not wall-clock time.</Description>
+    <pValue>MaxAIResultHeightRegister</pValue>
+    <Min>0</Min>
+    <Max>1944</Max>
+    <Inc>1</Inc>
+  </Integer>
+  <IntReg Name="MaxAIResultHeightRegister" NameSpace="Custom">
+    <Address>0x11448</Address>
+    <Length>4</Length>
+    <AccessMode>RO</AccessMode>
+    <pPort>Device</pPort>
+    <Cachable>NoCache</Cachable>
+    <Sign>Unsigned</Sign>
+    <Endianess>BigEndian</Endianess>
+  </IntReg>
+  <Integer Name="MaxAIResultPixelFormat" NameSpace="Custom">
+    <Description>Latched source geometry/configuration, or live elapsed microseconds since that capture was offered. Age saturates at32-bit maximum and is not wall-clock time.</Description>
+    <pValue>MaxAIResultPixelFormatRegister</pValue>
+    <Min>0</Min>
+    <Max>4294967295</Max>
+    <Inc>1</Inc>
+  </Integer>
+  <IntReg Name="MaxAIResultPixelFormatRegister" NameSpace="Custom">
+    <Address>0x1144c</Address>
+    <Length>4</Length>
+    <AccessMode>RO</AccessMode>
+    <pPort>Device</pPort>
+    <Cachable>NoCache</Cachable>
+    <Sign>Unsigned</Sign>
+    <Endianess>BigEndian</Endianess>
+  </IntReg>
+  <Integer Name="MaxAIResultConfigGeneration" NameSpace="Custom">
+    <Description>Latched source geometry/configuration, or live elapsed microseconds since that capture was offered. Age saturates at32-bit maximum and is not wall-clock time.</Description>
+    <pValue>MaxAIResultConfigGenerationRegister</pValue>
+    <Min>0</Min>
+    <Max>4294967295</Max>
+    <Inc>1</Inc>
+  </Integer>
+  <IntReg Name="MaxAIResultConfigGenerationRegister" NameSpace="Custom">
+    <Address>0x11450</Address>
+    <Length>4</Length>
+    <AccessMode>RO</AccessMode>
+    <pPort>Device</pPort>
+    <Cachable>NoCache</Cachable>
+    <Sign>Unsigned</Sign>
+    <Endianess>BigEndian</Endianess>
+  </IntReg>
+  <Integer Name="MaxAIResultAgeUs" NameSpace="Custom">
+    <Description>Latched source geometry/configuration, or live elapsed microseconds since that capture was offered. Age saturates at32-bit maximum and is not wall-clock time.</Description>
+    <pValue>MaxAIResultAgeUsRegister</pValue>
+    <Min>0</Min>
+    <Max>4294967295</Max>
+    <Inc>1</Inc>
+  </Integer>
+  <IntReg Name="MaxAIResultAgeUsRegister" NameSpace="Custom">
+    <Address>0x11454</Address>
     <Length>4</Length>
     <AccessMode>RO</AccessMode>
     <pPort>Device</pPort>

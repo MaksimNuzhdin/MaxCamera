@@ -24,8 +24,12 @@ url = re.search(r'#define GIGE_XML_URL "([^"]+)"', header)[1]
 filename, address, length = url.removeprefix('Local:').split(';')
 assert filename.startswith('MaxCamera-') and filename.endswith('.xml')
 assert int(length, 16) == len(xml)
-rom = header.split('= {', 1)[1].split('};', 1)[0]
-assert bytes(int(x, 16) for x in re.findall(r'0x([0-9a-f]{2})', rom)) == xml
+# Verify actual compiled bytes rather than depending on initializer formatting.
+with tempfile.TemporaryDirectory(prefix='maxcamera-rom-') as directory:
+    executable = str(Path(directory) / 'rom')
+    source = '#include <stdio.h>\n#include "GigeVisionXmlRom.h"\nint main(void){fwrite(gige_xml_rom,1,sizeof(gige_xml_rom),stdout);return 0;}\n'
+    subprocess.run(['cc','-x','c','-std=c11','-Wall','-Wextra','-Werror','-I',str(root/'gige'),'-','-o',executable],input=source.encode(),check=True)
+    assert subprocess.check_output([executable]) == xml+b'\0'
 ns = {'g': 'http://www.genicam.org/GenApi/Version_1_1'}
 tree = ET.fromstring(xml)
 nodes = {n.attrib['Name']: n for n in tree if 'Name' in n.attrib}
@@ -57,7 +61,7 @@ source = '''#include "GigeVisionDefaults.h"
 #include "GigeVisionXmlRom.h"
 typedef char valid_payload[GIGE_UNIT_PAYLOAD_SIZE == 2592U*1944U*2U ? 1 : -1];
 typedef char valid_stride[GIGE_UNIT_INPUT_STRIDE >= GIGE_UNIT_WIDTH*2U ? 1 : -1];
-typedef char valid_xml[sizeof(gige_xml_rom) == GIGE_XML_LENGTH ? 1 : -1];
+typedef char valid_xml[sizeof(gige_xml_rom) == GIGE_XML_LENGTH+1U ? 1 : -1];
 int main(void) { return gige_xml_rom[0] != '<'; }
 '''
 with tempfile.TemporaryDirectory() as tmp:

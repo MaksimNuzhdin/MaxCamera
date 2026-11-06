@@ -20,6 +20,11 @@ set(USER_COMPILE_DEFINITIONS
 "MAX_CAMERA_VIDEO_BARS=0"
 )
 
+option(MAX_CAMERA_AI_IPC "Enable experimental A53 shared mailbox" OFF)
+if(MAX_CAMERA_AI_IPC)
+    list(APPEND USER_COMPILE_DEFINITIONS "MAX_CAMERA_AI_IPC=1")
+endif()
+
 # Undefine any previously specified compiler definitions, either built in or provided with a -D option
 # Example : Adding MY_SYMBOL will pass -UMY_SYMBOL to the compiler.
 set(USER_UNDEFINED_SYMBOLS
@@ -210,6 +215,7 @@ set(USER_COMPILE_SOURCES
 "../gige/GigeFpgaIsp.c"
 "../gige/GigeRemapMap.c"
 "../gige/GigeRemapControl.c"
+"../gige/GigeAI.c"
 "../gige/GigeRemapReader.c"
 "../gige/GigeFpgaOutput.c"
 "../gige/GigeGem.c"
@@ -327,6 +333,9 @@ set(USER_LINK_DIRECTORIES
 # -----------------------------------------
 
 set(USER_LINKER_SCRIPT "${CMAKE_SOURCE_DIR}/lscript.ld")
+if(MAX_CAMERA_AI_IPC)
+    set(USER_LINKER_SCRIPT "${CMAKE_SOURCE_DIR}/lscript_ai.ld")
+endif()
 
 # Add linker options to be passed, they will be added as extra linker options
 # Example : Adding -s will pass -s to the linker.

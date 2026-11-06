@@ -1,0 +1,52 @@
+{
+  "date": "2026-11-06",
+  "tf_a_source_revision": "14cea4616b6edaceabb607c7c92332436a1699e5",
+  "tf_a_options": {
+    "BL33": "0x20000000",
+    "console": "cadence1",
+    "DTB": "0x22000000"
+  },
+  "artifacts": {
+    "firmware": {
+      "bytes": 2666392,
+      "sha256": "67a07d2778924011c846c9de81823abf7177d6b48d9d36715f8fe20ebdf3f866"
+    },
+    "fpga_bit": {
+      "bytes": 4369091,
+      "sha256": "d897a5eb2282bbc944c532b5996d5ca1076d1c002cb7d4743158b05ad19248ea"
+    },
+    "fpga_xsa": {
+      "bytes": 950066,
+      "sha256": "4c93e54d70d55478270bc8fac51d27af4ddfc06063d39f681255c45753b3d34e"
+    },
+    "kernel": {
+      "bytes": 25020928,
+      "sha256": "f4db3b05bab8e59e8cf5d1343a23c0ad2133548eb9d3530d3c74e440aeffd90e"
+    },
+    "tf_a": {
+      "bytes": 110648,
+      "sha256": "e997be2d99b66b7879b6f8d90e389ff3b849b6654c73dd0453ab3a9f45303c2d"
+    },
+    "rootfs": {
+      "bytes": 158855271,
+      "sha256": "a5e85c6d0ca969a26b096e608cc40e2cebb6c89a398cbe5af6c5d16c9dd19ee2"
+    },
+    "boot_bin": {
+      "bytes": 189290084,
+      "sha256": "6ea921eb44246ccbdc6d03c9482c6ecc74eea44e505061d91dc2045c740f0c18"
+    },
+    "microsd_disk": {
+      "bytes": 537919488,
+      "sha256": "f38443569263e82ea19908f034d7a18da902dfd8b3e19dc2db52aed9b0e51ca8"
+    }
+  },
+  "runtime_source": {
+    "__init__.py": "26d4b110196b7bd8fcc8a7b3842df560b4f79a091ea550c72c7b02ec14b0e288",
+    "selftest.py": "f13889a7b39758a49f20807bff79d9801f7f6ae57bdd0cfca58aa1462afe6252",
+    "worker.py": "fabd541d5536523bf64a62634dbe288a0261aa9948c28171b86fda760125d591",
+    "runtime.py": "fb63f093b5d2318c6247ad500dec3494cec7548209d917659f731aaeece11068"
+  },
+  "native_source_sha256": "cce4a4f302980b985f0443e5d1801b8b448289bf5f4b25285b11306a2ef616fd",
+  "main_camera_series_rootfs_sha256": "5f6b1407a709a3638a51e4e91f1285797bfce7136d3b63c3f9a1a47d551a96ce",
+  "final_rootfs_change": "Enrollment images are resized before DNN input; normal live inference, native I/O and R5 firmware unchanged. High-resolution gallery host test passes."
+}

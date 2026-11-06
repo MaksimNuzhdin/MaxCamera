@@ -1,0 +1,40 @@
+#!/bin/sh
+export PATH=/bin:/sbin:/usr/bin:/usr/sbin
+export LD_LIBRARY_PATH=/usr/lib:/lib
+export OPENBLAS_NUM_THREADS=1
+export OMP_NUM_THREADS=1
+export MAXCAMERA_RELEASE_BOOT_MODELS=1
+mount -t proc proc /proc
+mount -t sysfs sysfs /sys
+mount -t devtmpfs devtmpfs /dev
+mount -t tmpfs tmpfs /tmp
+mount -t tmpfs tmpfs /run
+echo 'MaxCamera A53 Linux analytics booting'
+# Emulation validates the target runtime without touching physical IPC.
+case "$(cat /proc/cmdline)" in
+  *maxcamera.selftest=1*)
+    cd /opt/maxcamera
+    python3 -u -m ai.selftest
+    echo "MAXCAMERA_SELFTEST_EXIT=$?"
+    python3 -c 'import ctypes; ctypes.CDLL(None).reboot(0x4321fedc)'
+    while :; do sleep 60; done
+    ;;
+esac
+for disk in /dev/mmcblk1p1 /dev/mmcblk0p1; do
+    if mount -t vfat -o ro "$disk" /media/sd; then
+        if [ -d /media/sd/presets/faces ]; then
+            export MAXCAMERA_AI_PRESETS=/media/sd/presets
+        fi
+        break
+    fi
+done
+# Keep a local diagnostic shell while inference owns no console input.
+sh < /dev/console > /dev/console 2>&1 &
+console_pid=$!
+python3 -X faulthandler -u /opt/maxcamera/ai/worker.py
+worker_status=$?
+kill "$console_pid" 2>/dev/null || true
+echo "AI worker exit status=$worker_status"
+# A failed worker must remain failed; restarting could acknowledge a stale lease.
+echo 'AI worker stopped; reboot is required to establish a new IPC session'
+exec sh

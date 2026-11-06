@@ -1,0 +1,3 @@
+*.onnx
+haarcascade_russian_plate_number.xml
+*.partial

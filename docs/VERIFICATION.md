@@ -33,3 +33,15 @@ labels and limitations, not v13 optical testing. Raw captures, full diagnostics,
 bitstreams and rollback pairs remain preserved locally but are not committed.
 Historical guides may name those archived evidence paths; such references are
 provenance identifiers rather than files promised in this source-only repository.
+
+
+## November6 Linux/AI bounded extension
+
+The preceding qualification remains unchanged. A separate0.3.16/v13 series
+boots A53 Linux through JTAG and passes RGB640x480 asynchronous analytics cases.
+See [exact AI scope](../SW/ai/README.md) and [numeric results](../SW/tests/ai_runtime/evidence/board-summary.json).
+This extension includes static-pattern DDR/GVSP CRC equality after acquisition
+stops, native I/O/lease tests, GenApi/GVSP regression and Cortex-A53 QEMU model
+checks. It does not qualify optical model accuracy, real plate/identity matching,
+physical SD boot, arbitrary geometry, full concurrent coherency or endurance.
+The earlier statement excluding AI applies to the November2 release scope.

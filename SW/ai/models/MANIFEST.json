@@ -1,0 +1,35 @@
+{
+  "download_date": "2026-11-05",
+  "models": [
+    {
+      "file": "face_detection_yunet_2023mar.onnx",
+      "bytes": 232589,
+      "sha256": "8f2383e4dd3cfbb4553ea8718107fc0423210dc964f9f4280604804ed2552fa4",
+      "source": "https://media.githubusercontent.com/media/opencv/opencv_zoo/main/models/face_detection_yunet/face_detection_yunet_2023mar.onnx"
+    },
+    {
+      "file": "face_recognition_sface_2021dec.onnx",
+      "bytes": 38696353,
+      "sha256": "0ba9fbfa01b5270c96627c4ef784da859931e02f04419c829e83484087c34e79",
+      "source": "https://media.githubusercontent.com/media/opencv/opencv_zoo/main/models/face_recognition_sface/face_recognition_sface_2021dec.onnx"
+    },
+    {
+      "file": "haarcascade_russian_plate_number.xml",
+      "bytes": 75482,
+      "sha256": "814cb5954682af570e58361f9e5f8b5b513a4112776bb9ecacef9f0e4ca6c2d7",
+      "source": "https://github.com/opencv/opencv/blob/4.12.0/data/haarcascades/haarcascade_russian_plate_number.xml"
+    },
+    {
+      "file": "object_detection_yolox_2022nov.onnx",
+      "bytes": 35858002,
+      "sha256": "c5c2d13e59ae883e6af3b45daea64af4833a4951c92d116ec270d9ddbe998063",
+      "source": "https://media.githubusercontent.com/media/opencv/opencv_zoo/main/models/object_detection_yolox/object_detection_yolox_2022nov.onnx"
+    },
+    {
+      "file": "text_recognition_CRNN_EN_2021sep.onnx",
+      "bytes": 33823087,
+      "sha256": "a84b1f6e11a65c2d733cb0cc1f014aae3f99051e3f11447dc282faa678eee544",
+      "source": "https://media.githubusercontent.com/media/opencv/opencv_zoo/main/models/text_recognition_crnn/text_recognition_CRNN_EN_2021sep.onnx"
+    }
+  ]
+}

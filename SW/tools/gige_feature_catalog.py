@@ -266,3 +266,29 @@ for key,name in [('REMAP_UPLOADED','FpgaDistortionWordsUploaded'),('REMAP_CHECKE
     add(key,name,'FpgaImageProcessing',access='RO',maximum=307200,available='FpgaDistortionAvailableRegister')
 add('REMAP_ERROR','FpgaDistortionMapError','FpgaImageProcessing',access='RO',maximum=2,entries={'None':0,'InvalidCoordinate':1,'ChecksumMismatch':2},available='FpgaDistortionAvailableRegister')
 add('REMAP_HARDWARE_STATUS','FpgaDistortionHardwareStatus','FpgaImageProcessing',access='RO',maximum=7,available='FpgaDistortionAvailableRegister',description='Last observed reader status: bit0 geometry, bit1 map encoding/window, bit2 input framing. Zero alone does not prove successful acquisition.')
+
+
+# Append-only experimental A53 analytics controls; bitmask order is documented.
+add('AI_AVAILABLE','MaxAIAvailable','MaxAI',access='RO',maximum=1,kind='Boolean')
+add('AI_SUPPORTED','MaxAISupportedFeatures','MaxAI',access='RO',maximum=255)
+add('AI_ENABLE','MaxAIEnabledFeatures','MaxAI',maximum=255,description='Volatile bitmask: face detection, face recognition, objects, plate candidates/OCR, motion, person HOG, QR, tracking. Unsupported bits are rejected. Defaults off. Results use the captured output image coordinates; no accuracy or real-time guarantee.')
+add('AI_STATE','MaxAIWorkerState','MaxAI',access='RO',maximum=3,entries={'Unavailable':0,'Idle':1,'Ready':2,'Copying':3})
+for key,name in [('ERROR','ErrorCode'),('CONFIG','ConfigGeneration'),('LATENCY','InferenceTimeUs')]:
+    add('AI_'+key,'MaxAI'+name,'MaxAI',access='RO',maximum=4294967295)
+add('AI_SCORE','MaxAIMinimumScore','MaxAI',minimum=1,maximum=1000000,description='Score threshold in millionths. Model confidence is not calibrated probability.')
+add('AI_PERIOD','MaxAISamplePeriodUs','MaxAI',minimum=100000,maximum=60000000,unit='us')
+add('AI_FACE_THRESHOLD','MaxAIFaceCosineThreshold','MaxAI',minimum=1,maximum=1000000,description='Cosine similarity threshold in millionths; default0.45 is a starting point requiring validation on your enrollment data.')
+for key,name in [('LATCH','ResultLatch'),('RELEASE','ResultRelease')]:
+    add('AI_'+key,'MaxAI'+name,'MaxAI',access='WO',maximum=1,kind='Command')
+add('AI_VALID','MaxAIResultValid','MaxAI',access='RO',maximum=1,kind='Boolean')
+add('AI_COUNT','MaxAIObjectCount','MaxAI',access='RO',maximum=32)
+for key,name in [('SEQUENCE','ResultSequence'),('CAPTURE','CaptureSequence'),('TIMESTAMP_LOW','TimestampLow'),('TIMESTAMP_HIGH','TimestampHigh')]:
+    add('AI_'+key,'MaxAI'+name,'MaxAI',access='RO',maximum=4294967295)
+add('AI_SELECTOR','MaxAIObjectSelector','MaxAI',maximum=31)
+for key,name,maximum in [('OBJECT_FEATURE','ObjectFeature',7),('OBJECT_CLASS','ObjectClass',4294967295),('OBJECT_SCORE','ObjectScore',1000000),('OBJECT_X','ObjectX',2592),('OBJECT_Y','ObjectY',1944),('OBJECT_WIDTH','ObjectWidth',2592),('OBJECT_HEIGHT','ObjectHeight',1944),('OBJECT_TRACK','ObjectTrackID',4294967295)]:
+    add('AI_'+key,'MaxAI'+name,'MaxAI',access='RO',maximum=maximum)
+for i in range(8):
+    add('AI_TEXT_'+str(i),'MaxAIObjectTextWord'+str(i),'MaxAI',access='RO',maximum=4294967295,representation='HexNumber',description='Four UTF-8 bytes packed least-significant-byte first. Eight words form a NUL-terminated32-byte label. Applies to identity, OCR or QR; labels may be truncated.')
+
+for key,name,maximum in [('RESULT_WIDTH','ResultWidth',2592),('RESULT_HEIGHT','ResultHeight',1944),('RESULT_PFNC','ResultPixelFormat',4294967295),('RESULT_CONFIG','ResultConfigGeneration',4294967295),('RESULT_AGE','ResultAgeUs',4294967295)]:
+    add('AI_'+key,'MaxAI'+name,'MaxAI',access='RO',maximum=maximum,description='Latched source geometry/configuration, or live elapsed microseconds since that capture was offered. Age saturates at32-bit maximum and is not wall-clock time.')

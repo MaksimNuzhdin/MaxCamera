@@ -3,6 +3,9 @@
 #include "GigeGem.h"
 #include "GigeCamera.h"
 #include "GigeRemapControl.h"
+#include "GigeAI.h"
+#include "xil_mpu.h"
+#include "xreg_cortexr5.h"
 #include "GigeFlash.h"
 #include "GigeUserSets.h"
 #include "GigeFeatureRegisters.h"
@@ -76,6 +79,7 @@ int GigeVisionBoard_Ready(void)
 }
 static uint16_t feature_read(void *,uint32_t a,uint32_t *v)
 {
+    if(GigeAI_Address(a))return GigeAI_Read(a,v);
     if(GigeUserSets_Address(a))return GigeUserSets_Read(a,v);
     switch(a) {
     case GIGE_F_FPGA_BLACK_LIVE_ACTIVE:
@@ -131,6 +135,7 @@ static uint16_t feature_write(void *,uint32_t a,uint32_t v)
         reset_pending=1;return 0;
     }
     if(reset_pending)return GIGE_STATUS_BUSY;
+    if(GigeAI_Address(a))return GigeAI_Write(a,v);
     if(GigeUserSets_Address(a))return GigeUserSets_Write(a,v);
     if(GigeUserSets_Busy())return GIGE_STATUS_BUSY;
     uint32_t black_live=0;
@@ -195,6 +200,12 @@ static int acquisition(void *user,int enable)
 }
 int GigeVisionBoard_Init(void)
 {
+#if MAX_CAMERA_AI_IPC
+    if(Xil_SetMPURegion(GIGE_AI_PHYS,GIGE_AI_BYTES,NORM_SHARED_NCACHE|PRIV_RW_USER_RW)!=XST_SUCCESS)return -1;
+    GigeAI_Init((volatile uint32_t *)GIGE_AI_PHYS);
+#else
+    GigeAI_Init(0);
+#endif
     (void)GigeVisionBoard_NowUs();
     GigeIO io={&camera,acquisition,send_stream,feature_read,feature_write,stream_buffer};GigeVision_Init(&camera,&io);
     int flash_status=GigeFlash_Init();
@@ -239,6 +250,8 @@ void GigeVisionBoard_Mac(uint8_t *mac)
 {Gige_Put16(mac,(uint16_t)camera.config.mac_high);Gige_Put32(mac+2,camera.config.mac_low);}
 void GigeVisionBoard_Poll(void)
 {
+    GigeAI_Poll(GigeVisionBoard_NowUs());
+    if(!camera.privilege)GigeAI_RevokeControl();
     GigeCamera_ServiceTelemetry(); /* Also drain without network/sensor readiness. */
     if(!network_ready)return;
     uint64_t now=GigeVisionBoard_NowUs();GigeVision_Tick(&camera,now);

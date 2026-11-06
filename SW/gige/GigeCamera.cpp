@@ -1,4 +1,5 @@
 #include "GigeCamera.h"
+#include "GigeAI.h"
 #include "GigeTiming.h"
 #include "GigeSensorFeatures.h"
 #include "GigeFpgaIsp.h"
@@ -360,6 +361,16 @@ static int setup_video(uint32_t w,uint32_t h,bool restart_receiver=false)
 }
 static int arm(void)
 {
+    /* Restart/recovery may reset capture_index while a crashed worker retains a lease. */
+    if(GigeAI_Pinned(raw[capture_index])) {
+        for(unsigned k=1;k<6;++k) {
+            unsigned next=(capture_index+k)%6;
+            if(!GigeAI_Pinned(raw[next]) && (!transport || transport->frame!=raw[next])) {
+                capture_index=next;break;
+            }
+        }
+        if(GigeAI_Pinned(raw[capture_index]))return -19;
+    }
     dma_completed_pending=false;
     if(transport)GigeVision_ForgetBuffer(transport,raw[capture_index]);
     wr(dma,0xc,rd(dma,0xc)); /* toggle-on-write interrupt status */
@@ -512,7 +523,7 @@ void GigeCamera_Poll(GigeVision *g)
         if(requested) {
             for(unsigned k=1;k<=6;++k) {
                 unsigned next=(completed+k)%6;
-                if(next!=completed && g->frame!=raw[next]) {capture_index=next;break;}
+                if(next!=completed && g->frame!=raw[next] && !GigeAI_Pinned(raw[next])) {capture_index=next;break;}
             }
             if(arm())return;
         }
@@ -528,6 +539,7 @@ void GigeCamera_Poll(GigeVision *g)
             Xil_DCacheInvalidateRange((INTPTR)raw[completed],stride(width)*height);
 #if MAX_CAMERA_GIGE_RAW10_HW
             if(!compression && (format==GIGE_PIXEL_BG10 || format==GIGE_PIXEL_BG10P || color_selected(format))) {
+                GigeAI_Offer(raw[completed],width,height,stride(width),format,timestamp,g_camera_completed);
                 GigeVision_SubmitFrameStrided(g,raw[completed],GigeImage_RowBytes(width,format),stride(width),timestamp);
             } else {
 #endif

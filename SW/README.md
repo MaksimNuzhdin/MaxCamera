@@ -53,3 +53,12 @@ coherence tests must pass before committing changes. `tools/gige_probe.py`, the
 UDP receiver and map uploader are explicit host diagnostics: running acquisition
 or upload is a separate action requiring exclusive camera ownership. Calibration
 maps are not supplied as if they were measured for the user's lens.
+
+## Experimental A53 Linux/AI
+
+See [analytics controls, presets, build and measured limits](ai/README.md).
+Enable firmware integration with `MAX_CAMERA_AI_IPC=ON` when running `build.sh`.
+The default remains disabled. Exact models are fetched with
+`python3 tools/fetch_ai_models.py --fixtures`; target wheels and the external
+AMD/PetaLinux artifacts are documented separately. The tested JTAG deployment
+uses0.3.16-ai-linux-dev with the original v13 PL image, not a regenerated FPGA.

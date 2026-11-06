@@ -245,6 +245,46 @@ Fan thresholds use the hardware10-bit thermal ADC. PWM applies when thermal hyst
 | FpgaDistortionWordsValidated | FpgaImageProcessing | 0x000113AC | RO | 0…307200 raw |
 | FpgaDistortionMapError | FpgaImageProcessing | 0x000113B0 | RO | None, InvalidCoordinate, ChecksumMismatch |
 | FpgaDistortionHardwareStatus | FpgaImageProcessing | 0x000113B4 | RO | Last observed reader status: bit0 geometry, bit1 map encoding/window, bit2 input framing. Zero alone does not prove successful acquisition. |
+| MaxAIAvailable | MaxAI | 0x000113B8 | RO | 0…1 raw |
+| MaxAISupportedFeatures | MaxAI | 0x000113BC | RO | 0…255 raw |
+| MaxAIEnabledFeatures | MaxAI | 0x000113C0 | RW | Volatile bitmask: face detection, face recognition, objects, plate candidates/OCR, motion, person HOG, QR, tracking. Unsupported bits are rejected. Defaults off. Results use the captured output image coordinates; no accuracy or real-time guarantee. |
+| MaxAIWorkerState | MaxAI | 0x000113C4 | RO | Unavailable, Idle, Ready, Copying |
+| MaxAIErrorCode | MaxAI | 0x000113C8 | RO | 0…4294967295 raw |
+| MaxAIConfigGeneration | MaxAI | 0x000113CC | RO | 0…4294967295 raw |
+| MaxAIInferenceTimeUs | MaxAI | 0x000113D0 | RO | 0…4294967295 raw |
+| MaxAIMinimumScore | MaxAI | 0x000113D4 | RW | Score threshold in millionths. Model confidence is not calibrated probability. |
+| MaxAISamplePeriodUs | MaxAI | 0x000113D8 | RW | 100000…60000000 raw |
+| MaxAIFaceCosineThreshold | MaxAI | 0x000113DC | RW | Cosine similarity threshold in millionths; default0.45 is a starting point requiring validation on your enrollment data. |
+| MaxAIResultLatch | MaxAI | 0x000113E0 | WO | 0…1 raw |
+| MaxAIResultRelease | MaxAI | 0x000113E4 | WO | 0…1 raw |
+| MaxAIResultValid | MaxAI | 0x000113E8 | RO | 0…1 raw |
+| MaxAIObjectCount | MaxAI | 0x000113EC | RO | 0…32 raw |
+| MaxAIResultSequence | MaxAI | 0x000113F0 | RO | 0…4294967295 raw |
+| MaxAICaptureSequence | MaxAI | 0x000113F4 | RO | 0…4294967295 raw |
+| MaxAITimestampLow | MaxAI | 0x000113F8 | RO | 0…4294967295 raw |
+| MaxAITimestampHigh | MaxAI | 0x000113FC | RO | 0…4294967295 raw |
+| MaxAIObjectSelector | MaxAI | 0x00011400 | RW | 0…31 raw |
+| MaxAIObjectFeature | MaxAI | 0x00011404 | RO | 0…7 raw |
+| MaxAIObjectClass | MaxAI | 0x00011408 | RO | 0…4294967295 raw |
+| MaxAIObjectScore | MaxAI | 0x0001140C | RO | 0…1000000 raw |
+| MaxAIObjectX | MaxAI | 0x00011410 | RO | 0…2592 raw |
+| MaxAIObjectY | MaxAI | 0x00011414 | RO | 0…1944 raw |
+| MaxAIObjectWidth | MaxAI | 0x00011418 | RO | 0…2592 raw |
+| MaxAIObjectHeight | MaxAI | 0x0001141C | RO | 0…1944 raw |
+| MaxAIObjectTrackID | MaxAI | 0x00011420 | RO | 0…4294967295 raw |
+| MaxAIObjectTextWord0 | MaxAI | 0x00011424 | RO | Four UTF-8 bytes packed least-significant-byte first. Eight words form a NUL-terminated32-byte label. Applies to identity, OCR or QR; labels may be truncated. |
+| MaxAIObjectTextWord1 | MaxAI | 0x00011428 | RO | Four UTF-8 bytes packed least-significant-byte first. Eight words form a NUL-terminated32-byte label. Applies to identity, OCR or QR; labels may be truncated. |
+| MaxAIObjectTextWord2 | MaxAI | 0x0001142C | RO | Four UTF-8 bytes packed least-significant-byte first. Eight words form a NUL-terminated32-byte label. Applies to identity, OCR or QR; labels may be truncated. |
+| MaxAIObjectTextWord3 | MaxAI | 0x00011430 | RO | Four UTF-8 bytes packed least-significant-byte first. Eight words form a NUL-terminated32-byte label. Applies to identity, OCR or QR; labels may be truncated. |
+| MaxAIObjectTextWord4 | MaxAI | 0x00011434 | RO | Four UTF-8 bytes packed least-significant-byte first. Eight words form a NUL-terminated32-byte label. Applies to identity, OCR or QR; labels may be truncated. |
+| MaxAIObjectTextWord5 | MaxAI | 0x00011438 | RO | Four UTF-8 bytes packed least-significant-byte first. Eight words form a NUL-terminated32-byte label. Applies to identity, OCR or QR; labels may be truncated. |
+| MaxAIObjectTextWord6 | MaxAI | 0x0001143C | RO | Four UTF-8 bytes packed least-significant-byte first. Eight words form a NUL-terminated32-byte label. Applies to identity, OCR or QR; labels may be truncated. |
+| MaxAIObjectTextWord7 | MaxAI | 0x00011440 | RO | Four UTF-8 bytes packed least-significant-byte first. Eight words form a NUL-terminated32-byte label. Applies to identity, OCR or QR; labels may be truncated. |
+| MaxAIResultWidth | MaxAI | 0x00011444 | RO | Latched source geometry/configuration, or live elapsed microseconds since that capture was offered. Age saturates at32-bit maximum and is not wall-clock time. |
+| MaxAIResultHeight | MaxAI | 0x00011448 | RO | Latched source geometry/configuration, or live elapsed microseconds since that capture was offered. Age saturates at32-bit maximum and is not wall-clock time. |
+| MaxAIResultPixelFormat | MaxAI | 0x0001144C | RO | Latched source geometry/configuration, or live elapsed microseconds since that capture was offered. Age saturates at32-bit maximum and is not wall-clock time. |
+| MaxAIResultConfigGeneration | MaxAI | 0x00011450 | RO | Latched source geometry/configuration, or live elapsed microseconds since that capture was offered. Age saturates at32-bit maximum and is not wall-clock time. |
+| MaxAIResultAgeUs | MaxAI | 0x00011454 | RO | Latched source geometry/configuration, or live elapsed microseconds since that capture was offered. Age saturates at32-bit maximum and is not wall-clock time. |
 
 ## Register catalogue
 

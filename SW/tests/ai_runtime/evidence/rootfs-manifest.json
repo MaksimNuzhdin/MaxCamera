@@ -1,0 +1,12 @@
+{
+  "wheels": {
+    "numpy-2.2.6-cp312-cp312-manylinux_2_17_aarch64.manylinux2014_aarch64.whl": "f2618db89be1b4e05f7a1a847a9c1c0abd63e63a1607d892dd54668dd92faf87",
+    "opencv_python_headless-4.12.0.88-cp37-abi3-manylinux2014_aarch64.manylinux_2_17_aarch64.whl": "aeb4b13ecb8b4a0beb2668ea07928160ea7c2cd2d9b5ef571bbee6bafe9cc8d0"
+  },
+  "source_sdk": "/opt/petalinux/2024.2/sysroots/cortexa72-cortexa53-xilinx-linux",
+  "vendor_busybox_source": "/home/maxim/workarea/axu2cgb/axu2cgb_fpga/images/linux/rootfs.cpio",
+  "mmap_module_source": "/home/maxim/workarea/axu2cgb/axu2cgb_fpga/build/tmp/sysroots-components/cortexa72-cortexa53/python3/usr/lib/python3.12/lib-dynload/mmap.cpython-312-aarch64-linux-gnu.so",
+  "mmap_module_sha256": "6c06a728e3c3bd5f7ff046cf33ba428cc321aff9e44eb4a6eec413f9e7470310",
+  "rootfs_sha256": "a5e85c6d0ca969a26b096e608cc40e2cebb6c89a398cbe5af6c5d16c9dd19ee2",
+  "rootfs_bytes": 158855271
+}

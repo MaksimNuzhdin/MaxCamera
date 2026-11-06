@@ -3,7 +3,9 @@
 /* Fill before release. ASCII, excluding NUL: 31/31/31/47 bytes respectively. */
 #define GIGE_VENDOR_NAME             "DINX Tech Studio"
 #define GIGE_VENDOR_MODEL            "MAX 5640"
-#if defined(MAX_CAMERA_GIGE_FPGA_ISP) && MAX_CAMERA_GIGE_FPGA_ISP
+#if defined(MAX_CAMERA_AI_IPC) && MAX_CAMERA_AI_IPC
+#define GIGE_VENDOR_DEVICE_VERSION   "0.3.16-ai-linux-dev"
+#elif defined(MAX_CAMERA_GIGE_FPGA_ISP) && MAX_CAMERA_GIGE_FPGA_ISP
 #define GIGE_VENDOR_DEVICE_VERSION   "0.3.15-ppc4-dev"
 #else
 #define GIGE_VENDOR_DEVICE_VERSION   "0.2.2"

@@ -1,0 +1,117 @@
+{
+  "start_date": "2026-11-05",
+  "board_test_date": "2026-11-06",
+  "timezone": "Asia/Jerusalem",
+  "firmware": "0.3.16-ai-linux-dev",
+  "fpga_version": 13,
+  "status": "BOUNDED_CAMERA_AND_QEMU_PASS",
+  "profile": {
+    "width": 640,
+    "height": 480,
+    "pixel_format": "RGB8",
+    "packet_delay_us": 20,
+    "cpu": "one Cortex-A53"
+  },
+  "cases": [
+    {
+      "mask": 0,
+      "good_frames": 115,
+      "delivered_fps": 14.29319,
+      "seconds": 8.039767,
+      "bad_frames": 0,
+      "missing_packets": 0,
+      "csi_errors": 0,
+      "dropped_frames": 0,
+      "ai_results": 0,
+      "last_inference_us": 0,
+      "worker_error": 0
+    },
+    {
+      "mask": 1,
+      "good_frames": 115,
+      "delivered_fps": 14.293489,
+      "seconds": 8.039599,
+      "bad_frames": 0,
+      "missing_packets": 0,
+      "csi_errors": 0,
+      "dropped_frames": 0,
+      "ai_results": 12,
+      "last_inference_us": 309476,
+      "worker_error": 0
+    },
+    {
+      "mask": 4,
+      "good_frames": 501,
+      "delivered_fps": 14.293462,
+      "seconds": 35.045495,
+      "bad_frames": 0,
+      "missing_packets": 0,
+      "csi_errors": 0,
+      "dropped_frames": 0,
+      "ai_results": 4,
+      "last_inference_us": 7982439,
+      "worker_error": 0
+    },
+    {
+      "mask": 255,
+      "good_frames": 501,
+      "delivered_fps": 14.293386,
+      "seconds": 35.044799,
+      "bad_frames": 0,
+      "missing_packets": 0,
+      "csi_errors": 0,
+      "dropped_frames": 0,
+      "ai_results": 3,
+      "last_inference_us": 9587395,
+      "worker_error": 0
+    }
+  ],
+  "accepted_complete_frames": 1232,
+  "static_copy": {
+    "passed": true,
+    "scope": "Static-pattern pixel visibility after acquisition stopped; not simultaneous frame-identity qualification",
+    "host_crc32": 3786533809,
+    "linux": {
+      "sequence": 33,
+      "width": 640,
+      "height": 480,
+      "stride": 1920,
+      "pfnc": 35127316,
+      "bytes": 921600,
+      "crc32": 3786533809
+    },
+    "capture": {
+      "good": 57,
+      "bad": 0,
+      "missing_packets": 0,
+      "duplicate_packets": 0,
+      "malformed_packets": 0,
+      "reordered_packets": 11,
+      "early_trailers": 0,
+      "delivered_fps": 14.293298,
+      "receive_buffer": 425984,
+      "seconds": 4.000701,
+      "receiver": "recvmmsg",
+      "receiver_stderr": "",
+      "encoding": "RGB8",
+      "width": 640,
+      "height": 480,
+      "pixel_format": "0x2180014",
+      "payload": 921600,
+      "resulting_fps": 14.293,
+      "maximum_fps": 14.293,
+      "packet_delay": 20,
+      "counters": {
+        "CapturedFrames": 59,
+        "DroppedFrames": 0,
+        "TransmittedFrames": 58,
+        "CsiErrorEvents": 0
+      },
+      "csi": 0,
+      "passed": true
+    }
+  },
+  "accuracy_qualified": false,
+  "physical_sd_boot_tested": false,
+  "persistent_media_written": false
+}
