@@ -1,0 +1,42 @@
+{
+  "gige/GigeHttp.c": {
+    "bytes": 11991,
+    "sha256": "528a694d3e426ab8f8a6b3432a8f22555eda8f453678757e728dd7d41d4c6c1b"
+  },
+  "gige/lwip/lwipopts.h": {
+    "bytes": 1437,
+    "sha256": "eec9314c8aa5397afdc560636481a890007c7f5d6412632b84d6b9d51d84f448"
+  },
+  "gige/GigeVisionVendorDefines.h": {
+    "bytes": 945,
+    "sha256": "48624ef0f026e5a2b4ca3bc810e6523af81f4b8bb0c5c1fa36dcfa7506f9b424"
+  },
+  "tools/qa_cycle_receiver.c": {
+    "bytes": 11399,
+    "sha256": "4cae7f627c3cbc8a92f5285fb00cb49386ada63537f912a6837a95a72b9908a8"
+  },
+  "tools/gige_web_reliability.py": {
+    "bytes": 11664,
+    "sha256": "b2603a3068bc90a8b789af66fc4c47f4b3b145f6cdb12866d46d9650b5490969"
+  },
+  "tools/gige_night_campaign.py": {
+    "bytes": 11663,
+    "sha256": "5474094b5db24b8b927d9f21926408eeeb9bef1c395204957e947f1edbff0250"
+  },
+  "build/tcpheadroom-r5/MaxCameraApp.elf": {
+    "bytes": 2892156,
+    "sha256": "dab6192df4121281a9fbd2a8d6c981412f3270c41bfef6eda77502128b132e65"
+  },
+  "build/tcpheadroom-linux/BOOT.BIN": {
+    "bytes": 189393252,
+    "sha256": "3f30e55d110f7d0846eafb090997e3f68e2f83a0ea1fd1a991181ec895194051"
+  },
+  "build/tcpheadroom-linux/rootfs.cpio.gz": {
+    "bytes": 158880900,
+    "sha256": "63c3ed1262d99e8825ac8064aaa8624367b0e48fb050588b1ba86b71d9267a1d"
+  },
+  "build/tcpheadroom-linux/maxcamera-tcpheadroom-20261110.img": {
+    "bytes": 537919488,
+    "sha256": "4dd8773f7efaddc0a2ca2a59693d30b3d43d7317aa7bc6534efc625a276f37dd"
+  }
+}

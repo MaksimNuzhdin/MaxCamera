@@ -81,3 +81,13 @@ In the portable repository, run the equivalent tools from SW/ after compiling
 with `MAX_CAMERA_AI_IPC=ON MAX_CAMERA_WEB_HTTP=ON bash build.sh`. Vendor SDK,
 Linux/model/runtime licenses and a fresh-machine rebuild remain separate gates;
 this local engineering image is not a completed third-party redistribution audit.
+
+## Later Ethernet reliability candidate
+
+The subsequent0.3.19-tcpheadroom-dev build is prepared separately under
+`build/tcpheadroom-linux/maxcamera-tcpheadroom-20261110.img`, with its own
+`MICROSD-SHA256SUMS`, boot/rootfs manifests and README. The earlier image remains
+unchanged. The later build adds bounded status-read queuing and TCP close-state
+headroom; its night campaign has separate evidence. Both images remain physical
+SD-boot/persistence candidates, not tested cold-boot releases. See the
+[reliability procedure](RELIABILITY_VALIDATION.md).

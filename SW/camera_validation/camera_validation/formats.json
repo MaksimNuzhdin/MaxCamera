@@ -1,0 +1,70 @@
+[
+  {
+    "name": "Mono8",
+    "value": 17301505
+  },
+  {
+    "name": "YUV422Packed",
+    "value": 34603039
+  },
+  {
+    "name": "YUV422_YUYVPacked",
+    "value": 34603058
+  },
+  {
+    "name": "RGB8",
+    "value": 35127316
+  },
+  {
+    "name": "BGR8",
+    "value": 35127317
+  },
+  {
+    "name": "RGB565p",
+    "value": 34603061
+  },
+  {
+    "name": "BayerBG8",
+    "value": 17301515
+  },
+  {
+    "name": "BayerBG10",
+    "value": 17825807
+  },
+  {
+    "name": "BayerBG10p",
+    "value": 17432658
+  },
+  {
+    "name": "YUV8_UYV",
+    "value": 35127328
+  },
+  {
+    "name": "RGB555_16BE",
+    "value": 2182086657
+  },
+  {
+    "name": "RGB444_16BE",
+    "value": 2182086658
+  },
+  {
+    "name": "YUV420Legacy",
+    "value": 2181824515
+  },
+  {
+    "name": "YUV422_YVYU",
+    "value": 2182086660
+  },
+  {
+    "name": "YUV422_VYUY",
+    "value": 2182086661
+  },
+  {
+    "name": "YUV422_8_UYVY",
+    "value": 34603039
+  },
+  {
+    "name": "YUV422_8",
+    "value": 34603058
+  }
+]

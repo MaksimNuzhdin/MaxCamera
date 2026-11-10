@@ -31,7 +31,7 @@ struct client {
     char header[HEADER_MAX+1];
     uint32_t received,header_bytes,expected,sent,response_bytes,acked;
     const unsigned char *response;
-    int shared,finished;
+    int shared,finished,waiting;
     uint64_t started;
 };
 static struct client clients[CLIENTS];
@@ -109,7 +109,14 @@ static int parse_header(struct client *c)
         if(strcmp(path,"/api/config") && strcmp(path,"/api/profiles") && strcmp(path,"/api/gallery")){REPLY(c,missing);return 1;}
         if(acquiring){REPLY(c,busy);return 1;}
     }
-    if(!ctl || slot!=-1 || sequence==UINT32_MAX){REPLY(c,unavailable);return 1;}
+    if(!ctl || slot==-2 || sequence==UINT32_MAX){REPLY(c,unavailable);return 1;}
+    if(slot!=-1){
+        /* Read-only status requests fit in each client's existing header.
+         * Queue them without touching the active Linux request/response lease.
+         * POST bodies still need the one shared upload slot. */
+        if(!post){c->waiting=1;return 0;}
+        REPLY(c,unavailable);return 1;
+    }
     slot=(int)(c-clients);slot_published=0;slot_started=tick;
     for(uint32_t i=0;i<c->header_bytes;++i)req_mem[i]=(uint8_t)c->header[i];
     return 0;
@@ -206,6 +213,18 @@ void GigeHttp_Poll(uint64_t now_us,uint32_t ip,int streaming,unsigned tx_free)
         }
     }
     for(unsigned i=0;i<CLIENTS;++i)if(clients[i].pcb && now_us-clients[i].started>60000000U)abort_client(i);
+    int pending=-1;
+    for(unsigned i=0;i<CLIENTS;++i){
+        struct client *c=clients+i;
+        if(!c->pcb || !c->waiting || c->finished)continue;
+        if(slot==-2 || sequence==UINT32_MAX){c->waiting=0;REPLY(c,unavailable);continue;}
+        if(pending<0 || c->started<clients[pending].started)pending=(int)i;
+    }
+    if(slot==-1 && pending>=0){
+        struct client *c=clients+pending;c->waiting=0;slot=pending;slot_published=0;slot_started=tick;
+        for(uint32_t i=0;i<c->header_bytes;++i)req_mem[i]=(uint8_t)c->header[i];
+        publish(c);
+    }
     if(now_us<next_send || tx_free<16)return;
     for(unsigned offset=0;offset<CLIENTS;++offset){
         static unsigned turn;unsigned i=(turn+offset)%CLIENTS;struct client *c=clients+i;

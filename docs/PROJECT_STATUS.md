@@ -22,6 +22,29 @@ qualification records retain their original scope.
 - An isolated SD boot image can be built from the tested artifacts. FAT32 and
   embedded BOOT.BIN integrity are checked. Physical SD boot is not yet accepted.
 
+## November10 evening reliability update
+
+The0.3.18 web candidate queued concurrent status readers. Its10-second idle
+checks passed819 requests with two clients and816 with four. A later two-minute
+loaded20us window still had9 URL-level connection errors, while all1716 video
+frames arrived. The100us window delivered1716 good frames and7761 HTTP200
+responses. These short results do not close the hour gate.
+
+The0.3.19-tcpheadroom-dev candidate retains four HTTP request contexts and
+reserves16 lwIP TCP PCBs for active plus closing connections. Its initial
+30-second four-client check served2409 requests, all200. The first video gate still lost3 host-socket packets at100us. A subsequent
+CPU8/incremental-statistics gate passes both60-second face windows with858
+frames each and3704 HTTP200 replies under four readers. The unattended
+campaign remains live; no overnight or new hour PASS is claimed.
+
+A newly retained interleaving failure had162 late previous-frame packets after
+the next leader, with no socket drops. Both affected frames' complete packet-ID
+sets exist in the trace. A bounded four-frame receiver and deterministic-pixel
+replay repair this receiver limitation. This does not reinterpret the original
+November9 hour with449 socket drops. Whole-frame gaps, missing trailers and
+window exhaustion still fail. See [reliability procedure](RELIABILITY_VALIDATION.md)
+and [overnight supervisor](NIGHT_CAMPAIGN.md).
+
 ## Next acceptance gates
 
 | Priority | Work | Completion evidence needed |
@@ -59,3 +82,12 @@ endurance and other previously deferred work require a deliberate new scope.
 Nothing here schedules or silently starts such campaigns. Advanced proposals
 such as stabilization, auto-framing, pyramids and simultaneous resolutions are
 not implied by the current CPU detector/tracker implementation.
+
+## Additional bounded evening checks
+
+Early resend requests recover500 intentionally discarded leader/payload/trailer
+packets across100 frames with byte-exact comparison and401 HTTP200 requests.
+An earlier trailer-triggered attempt returned PACKET_UNAVAILABLE after40 complete
+frames; it remains retained. Full-array YUV has a separate10-second5us pass:
+53 good frames at5.211289 FPS. Other tested delays lose packets or lower FPS.
+These are narrower scopes than arbitrary receiver stalls or maximum-mode endurance.

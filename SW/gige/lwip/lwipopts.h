@@ -15,7 +15,8 @@
 #endif
 #define LWIP_TCP MAX_CAMERA_WEB_HTTP
 #if MAX_CAMERA_WEB_HTTP
-#define MEMP_NUM_TCP_PCB 4
+/* Four HTTP requests plus bounded TCP close/retransmission headroom. */
+#define MEMP_NUM_TCP_PCB 16
 #define MEMP_NUM_TCP_PCB_LISTEN 1
 #define MEMP_NUM_TCP_SEG 32
 #define TCP_MSS 1460

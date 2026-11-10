@@ -97,6 +97,31 @@ int main(void)
     now+=10000001;poll(0,64);finish(p);assert(strstr((char *)output[p-pcbs],"503 Service Unavailable"));
     other=connect_client();received(other,"GET /api/status HTTP/1.1\r\nHost: 10.0.0.8\r\n\r\n");finish(other);assert(control[2]==3);
     control[3]=3;poll(0,64);
-    puts("Ethernet HTTP: PASS (fragmentation, framing, ownership, streaming gate, pacing, backpressure, timeout, disconnect lease)");
+    /* Concurrent status readers wait for the immutable backend lease. */
+    p=connect_client();received(p,"GET /api/status HTTP/1.1\r\nHost: 10.0.0.8\r\nX-Test: first\r\n\r\n");assert(control[2]==4);
+    other=connect_client();received(other,"GET /api/status HTTP/1.1\r\nHost: 10.0.0.8\r\nX-Test: second\r\n\r\n");
+    assert(control[2]==4 && strstr((char *)request,"X-Test: first"));
+    memset(response,'A',1200);control[5]=1200;control[3]=4;
+    for(unsigned i=0;i<3;++i)poll(1,64);
+    assert(control[2]==4);poll(1,64);assert(control[2]==5 && strstr((char *)request,"X-Test: second"));
+    memset(response,'B',1200);control[5]=1200;control[3]=5;
+    finish(p);finish(other);
+    assert(sizes[p-pcbs]==1200 && output[p-pcbs][1199]=='A');
+    assert(sizes[other-pcbs]==1200 && output[other-pcbs][1199]=='B');
+    /* A waiting disconnect cannot revoke the current backend request. */
+    p=connect_client();received(p,"GET /api/status HTTP/1.1\r\nHost: 10.0.0.8\r\n\r\n");assert(control[2]==6);
+    other=connect_client();received(other,"GET /api/status HTTP/1.1\r\nHost: 10.0.0.8\r\n\r\n");
+    other->errf(other->callback_arg,ERR_RST);assert(control[2]==6);
+    memset(response,'C',1);control[5]=1;control[3]=6;finish(p);
+    /* A stalled backend quarantines its request and fails queued readers. */
+    p=connect_client();received(p,"GET /api/status HTTP/1.1\r\nHost: 10.0.0.8\r\n\r\n");assert(control[2]==7);
+    other=connect_client();received(other,"GET /api/status HTTP/1.1\r\nHost: 10.0.0.8\r\n\r\n");
+    struct tcp_pcb *writer=connect_client();received(writer,"POST /api/profiles HTTP/1.1\r\nHost: 10.0.0.8\r\nContent-Length: 2\r\n\r\n{}");finish(writer);
+    assert(strstr((char *)output[writer-pcbs],"503 Service Unavailable") && control[2]==7);
+    now+=10000001;poll(0,64);finish(p);finish(other);
+    assert(strstr((char *)output[p-pcbs],"503 Service Unavailable"));
+    assert(strstr((char *)output[other-pcbs],"503 Service Unavailable") && control[2]==7);
+    control[3]=7;poll(0,64);
+    puts("Ethernet HTTP: PASS (fragmentation, framing, ownership, streaming gate, pacing, backpressure, timeout, disconnect lease, queued readers)");
     return 0;
 }

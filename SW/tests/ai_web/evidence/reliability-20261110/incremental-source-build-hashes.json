@@ -1,0 +1,41 @@
+{
+  "scope": "Incremental receiver-statistics revision and early resend requests. Earlier source-build-hashes.json retains the pre-incremental revision. Loaded R5/BOOT artifacts are unchanged.",
+  "files": {
+    "tools/qa_cycle_receiver.c": {
+      "bytes": 11836,
+      "sha256": "686c264e4d715dfe3895277c05b8fa6af925e14cf0ac287e7285615f6f82b6dc"
+    },
+    "tools/gige_resend_reliability.py": {
+      "bytes": 7356,
+      "sha256": "e0b42e0aea62df8146e4ca3ce95fc85309b5d33a98f638eb1f8ae218431f33f8"
+    },
+    "tools/gige_web_reliability.py": {
+      "bytes": 11664,
+      "sha256": "b2603a3068bc90a8b789af66fc4c47f4b3b145f6cdb12866d46d9650b5490969"
+    },
+    "tools/gige_http_concurrency.py": {
+      "bytes": 2570,
+      "sha256": "de2a34f91c041db02f70432a05d4fdf65c7b99b36f7c1e663d334623ce704696"
+    },
+    "tools/gige_night_campaign.py": {
+      "bytes": 12429,
+      "sha256": "a39e63a9659586148bfd646a92bd635056ddfd76c04f7d204c92905b19b78353"
+    },
+    "tools/gige_full_yuv_pacing.py": {
+      "bytes": 3812,
+      "sha256": "072c06ce480faa1f5d49734b89ed71f6a59abd8f2f96404829d5e344650275e6"
+    },
+    "tests/qa_cycle/test_cross_frame_replay.py": {
+      "bytes": 3162,
+      "sha256": "ec82f3065a40f8b0388c2c37631fb10abdc0d560386201f2cb2aa41db592d53c"
+    },
+    "build/tcpheadroom-r5/MaxCameraApp.elf": {
+      "bytes": 2892156,
+      "sha256": "dab6192df4121281a9fbd2a8d6c981412f3270c41bfef6eda77502128b132e65"
+    },
+    "build/tcpheadroom-linux/BOOT.BIN": {
+      "bytes": 189393252,
+      "sha256": "3f30e55d110f7d0846eafb090997e3f68e2f83a0ea1fd1a991181ec895194051"
+    }
+  }
+}

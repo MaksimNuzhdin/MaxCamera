@@ -1,0 +1,21 @@
+{
+  "scope": "Observed packet IDs/lengths only; original fault-frame payload bytes were not recorded in this CSV. Deterministic-pixel replay is separate.",
+  "original_trace_sha256": "b321939611c9ce21a9bb2d2309d18200a521259247328e18539fb9fb5f74bb73",
+  "first_two_blocks": {
+    "7585": {
+      "unique_packet_ids": 632,
+      "complete_id_set": true
+    },
+    "7586": {
+      "unique_packet_ids": 632,
+      "complete_id_set": true
+    }
+  },
+  "observed_receiver_failure": {
+    "bad_frames": 1,
+    "missing_packets": 162,
+    "foreign_previous_frame_packets": 162,
+    "socket_drops": 0
+  },
+  "disposition": "Single-frame receiver dropped late packets after the next leader. Four-frame bounded reassembly is tested separately. Does not dispose the November9 hour socket-overflow failure."
+}

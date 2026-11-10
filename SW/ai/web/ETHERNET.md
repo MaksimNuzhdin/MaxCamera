@@ -20,6 +20,14 @@ board observations distinct from CPU emulation and host tests.
   user authentication or transport encryption.
 - Four TCP clients,1460-byte receive window,2920-byte send buffer per client,
   no out-of-order queue,8192-byte maximum headers, one Linux command slot.
+  Since0.3.18-webqueue-dev, concurrent status GETs wait in the existing client
+  headers and are dispatched oldest-first when the shared slot is free. No
+  extra upload slots are allocated. Busy POSTs return503; quarantine and
+  sequence exhaustion still fail closed.
+  The0.3.19 candidate reserves16 lwIP TCP PCBs for four application clients
+  plus closing/retransmitting connections; it still has four HTTP request
+  contexts and one Linux slot. This is bounded connection-lifetime headroom,
+  not additional video bandwidth or unrestricted clients.
   Request bodies can contain the existing4 MiB maximum reference upload.
   Responses are limited to128 KiB. Connections close after one response; no
   pipelining, chunked requests, Expect/Continue, ambiguous Content-Length or
@@ -110,7 +118,8 @@ programmed. Save raw boot/capture evidence before making hardware claims.
 tests, then raw TCP callback tests under AddressSanitizer/UndefinedBehaviorSanitizer.
 These cover framing, fragmented headers, pending-slot isolation, disconnect and
 timeout quarantine, write denial during acquisition, TX pacing/backpressure,
-exact HTTP lengths, token/Host preservation and volatile profile/config behavior.
+exact HTTP lengths, concurrent read queuing with immutable response isolation,
+queued-reader disconnect/backend-timeout handling, token/Host preservation and volatile profile/config behavior.
 The controlled TCP boundary does not replace real wire-level interoperability.
 Existing GigE and AI runtime regressions should also pass.
 
@@ -126,3 +135,7 @@ saturated link before claiming full performance isolation. A640x480 trial alone
 would not qualify all modes or sustained/endurance performance.
 
 Implementation reference: [lwIP raw TCP API](https://www.nongnu.org/lwip/2_1_x/group__tcp__raw.html).
+
+The current unattended procedure is documented in
+[the night campaign guide](../../../docs/NIGHT_CAMPAIGN.md). A running campaign
+is provisional; inspect its completed phase results and restoration records.
