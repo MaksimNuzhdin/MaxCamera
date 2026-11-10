@@ -18,6 +18,8 @@ enum { AI_MAGIC=0, AI_VERSION, AI_REQUEST, AI_COPY_ACK, AI_RESULT, AI_RESULT_ACK
  * x, y, width, height, track ID, 32 bytes UTF-8 text (NUL terminated). */
 void GigeAI_Init(volatile uint32_t *mailbox);
 void GigeAI_Poll(uint64_t now);
+/* Optional web channel in reserved words 640..653; R5 remains configuration owner. */
+int GigeAI_WebPoll(uint64_t now, int gvcp_owned);
 int GigeAI_Pinned(const void *buffer);
 void GigeAI_Offer(const void *buffer,uint32_t width,uint32_t height,uint32_t stride,
                   uint32_t pfnc,uint64_t timestamp,uint32_t capture);

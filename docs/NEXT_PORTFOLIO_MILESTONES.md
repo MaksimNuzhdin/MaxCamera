@@ -1,5 +1,13 @@
 # Remaining portfolio milestones after bounded v11 acceptance
 
+Current-status note, November10,2026: the dated plans below retain their original
+scope. The later A53 analytics and same-IP Ethernet web implementation is now
+bounded-camera tested. Publication of the current update is authorized. See
+[Project status](PROJECT_STATUS.md) and [MicroSD boot](MICROSD_BOOT.md) for the
+current implemented/open items; do not interpret an older research-only or
+publishing-pending statement as the current feature state.
+
+
 The v11 board bundle is sealed and independently verified (112 files). Eight
 cases delivered 500 complete frames at approximately 14.293 FPS with 20 us packet
 spacing. This does not close 4x enlargement, distortion correction or true HDR.

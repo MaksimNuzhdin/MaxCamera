@@ -8,3 +8,7 @@ this source repository. See [full scope](../../../ai/README.md).
 
 The same v13 FPGA was used; no new FPGA routing or formal protocol certification
 is implied. The earlier November2 evidence remains historical and unchanged.
+
+November10 documentation-only update: workstation path labels in the historical
+rootfs manifest were normalized. Original firmware/runtime hashes, dates and
+qualification scope are unchanged; this is not a new build or hardware test.

@@ -2,8 +2,8 @@
 # CPU/system emulation only; does not emulate the camera, PL or physical IPC.
 set -euo pipefail
 cd "$(dirname "$0")/.."
-qemu=${MAX_CAMERA_QEMU:-/home/maxim/workarea/petalinux_2024_2/sysroots/x86_64-petalinux-linux/usr/bin/qemu-system-aarch64}
-kernel=${MAX_CAMERA_LINUX_IMAGE:-/home/maxim/workarea/axu2cgb/axu2cgb_fpga/images/linux/Image}
+qemu=${MAX_CAMERA_QEMU:-/path/to/petalinux-sdk/sysroots/x86_64-petalinux-linux/usr/bin/qemu-system-aarch64}
+kernel=${MAX_CAMERA_LINUX_IMAGE:-/path/to/petalinux-project/images/linux/Image}
 rootfs=${MAX_CAMERA_AI_ROOTFS:-build/ai-linux/rootfs.cpio.gz}
 log=${MAX_CAMERA_AI_QEMU_LOG:-build/ai-linux/qemu-selftest.log}
 timeout 1200 "$qemu" -machine virt -cpu cortex-a53 -smp 1 -m 752M \

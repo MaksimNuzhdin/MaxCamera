@@ -37,13 +37,16 @@ has been established. No custom training or automatic enrollment is performed.
 The empty folders `presets/faces`, `presets/plates` and `presets/objects` exist.
 On MicroSD they are located under the FAT32 root `PRESETS`. For identities create
 `PRESETS/FACES/<identity>/` and add JPEG/PNG reference images, each with exactly
-one face. Identity directory names become result labels. Reboot to reload the
-gallery. Only `faces` currently consumes presets; `plates` and `objects` are
+one face. Identity directory names become result labels. Reboot after editing
+references on a separate computer. With the optional web console, uploaded
+references trigger a gallery reload between inference calls without a restart.
+Only `faces` currently consumes presets; `plates` and `objects` are
 reserved empty directories and do not imply custom model loading.
 
 The FAT filesystem is case-insensitive; Linux paths use lowercase names.
-The card mounts read-only; inference does not modify enrollment data. The
-in-memory boot copy of ONNX weights is deleted after import to reduce RAM use;
+The default build mounts the card read-only. The optional USB web build mounts
+it read/write for explicit user profile/reference uploads; inference itself does
+not modify enrollment data. The in-memory boot copy of ONNX weights is deleted after import to reduce RAM use;
 this never removes SD/user model files. Restart requires reboot. Gallery data
 and identity strings are not logged by default. Accuracy, similarity threshold
 and reference-image quality require validation with the intended use case.
@@ -104,8 +107,8 @@ single-slot with R5 acknowledgement. Configuration uses odd/even generations.
 Sequence/generation exhaustion fails closed; reboot establishes a new session.
 R5 reinitialization while an old Linux worker survives is unsupported: reboot
 both processors together. Linux remoteproc, GEM, CSI, PL peripherals, SCCB,
-GPIO and FPGA reconfiguration are disabled. Linux owns only its console, SD and
-core runtime services. Clock/power unused-device shutdown is suppressed.
+GPIO and FPGA reconfiguration are disabled. Linux owns its console, SD and core runtime services in the default build.
+The optional web build additionally requires a separately verified USB controller. Clock/power unused-device shutdown is suppressed.
 The actual Device mapping rejected Python bulk stores with SIGBUS. The native
 helper now performs aligned volatile32-bit control accesses and payload reads;
 Python never bulk-copies into the Device-mapped control page. DMB barriers still
@@ -117,8 +120,7 @@ Broader reset/crash/clock/GIC and full-resolution stress still require qualifica
 ## Build and validation
 
 ```
-MAX_CAMERA_AI_IPC=ON MAX_CAMERA_GIGE_FPGA_ISP=ON \
-  MAX_CAMERA_APP_BUILD_DIR=build/ai-r5 bash tools/build_gige_raw10_hw_app.sh
+MAX_CAMERA_AI_IPC=ON MAX_CAMERA_WEB_HTTP=ON bash build.sh
 python3 tools/fetch_ai_models.py --fixtures
 python3 tools/build_ai_rootfs.py
 bash tools/build_ai_tfa.sh
@@ -211,3 +213,23 @@ Sources: [OpenCV face workflow](https://docs.opencv.org/4.12.0/d0/dd4/tutorial_d
 [official OpenCV model zoo](https://github.com/opencv/opencv_zoo),
 [AMD OpenAMP memory guidance](https://docs.amd.com/r/2022.2-English/ug1186-zynq-openamp-gsg/Settings-for-the-Device-Tree-Binary-Source).
 The implementation uses a private mailbox, not the OpenAMP runtime.
+
+
+## Local web console (offline-validated source addition)
+
+See [AI Studio](web/README.md) for the user interface, profile import/export,
+reference-gallery uploads and reload, R5 configuration ownership, and optional
+USB Ethernet setup. The default build keeps USB disabled and SD read-only.
+The optional USB build changes SD to writable preset storage and needs separate
+board qualification. Historical camera measurements above apply to the original
+firmware; they do not qualify the web extension. Physical USB testing is deferred.
+
+
+## November10 Ethernet and boot distribution update
+
+The optional [same-IP Ethernet console](web/ETHERNET.md) passed bounded physical
+video/face/HTTP checks. The [MicroSD operator guide](../../docs/MICROSD_BOOT.md)
+describes the prepared image and unrun physical cold-boot/persistence gates.
+The [project status](../../docs/PROJECT_STATUS.md) also preserves the failed Nov9
+hour campaign and distinguishes it from short passing windows. AI accuracy and
+maximum-mode/endurance performance are not promoted by publishing this update.

@@ -1,5 +1,6 @@
 # Documentation
 
+- [Current project status](PROJECT_STATUS.md), [MicroSD boot](MICROSD_BOOT.md), [Ethernet AI Studio](../SW/ai/web/ETHERNET.md)
 - [Project overview](../README.md), [hardware](../HW/README.md), [software](../SW/README.md)
 - [Architecture](ARCHITECTURE.md), [ISP functions](ISP_FEATURES.md), [capabilities](ISP_CAPABILITIES.md)
 - [Driver guides](drivers), [upscale](FPGA_UPSCALE.md), [remap controls](REMAP_CONTROL.md)
@@ -8,7 +9,8 @@
 - [Genuine image gallery](images/README.md), [capture manifest](images/manifest.json)
 - [Verification and limits](VERIFICATION.md), [rights and notices](../RIGHTS.md)
 
-The polished User Manual, Datasheet and Vivado Reports PDFs are designated
+Revision1.2 (November10) updates the User Manual/Datasheet for278 controls, A53 AI,
+HTTP and SD. The polished User Manual, Datasheet and Vivado Reports PDFs are designated
 release attachments. They are not duplicated into Git source history. Editable
 manual text and curated images remain here. Vendor board/camera PDF manuals,
 rendered QA pages, scratch builds and raw photographs are excluded.

@@ -74,6 +74,12 @@ class AnalyticsTests(unittest.TestCase):
             cv.imwrite(str(gallery/'large.png'),cv.resize(image,(2048,2048)))
             engine = Engine(presets=Path(directory))
             self.assertEqual(len(engine.gallery),2)
+            engine.load_gallery()
+            self.assertEqual(len(engine.gallery),2,'Reload must replace, not duplicate, references')
+            (gallery/'broken.png').write_bytes(b'not an image')
+            engine.load_gallery()
+            self.assertEqual(len(engine.gallery),2)
+            self.assertEqual(len(engine.gallery_errors),1)
             recognized = engine.run(image,3)['objects'][0]
             self.assertEqual(recognized['text'],'fixture_identity')
             self.assertGreater(recognized['score'],.9)

@@ -1,0 +1,15 @@
+{
+  "date": "2026-11-10",
+  "file": "maxcamera-ethernet-web-20261110.img",
+  "bytes": 537919488,
+  "sha256": "f6ac6ebb45fbef871f2b999ba9d4b6bb7a665c0be31c5cdaf1e634d6e891ada4",
+  "boot_bin_sha256": "b72dcdad61f421cb5b5d6ca2bf3b44d887fea57bda7eb525e0288f38afd7f88b",
+  "partition_start_sector": 2048,
+  "partition_bytes": 536870912,
+  "fat32_check": "PASS",
+  "boot_bin_readback": "SHA256_MATCH",
+  "physical_card_written": false,
+  "physical_sd_boot_qualified": false,
+  "ram_payload_scope": "v13, RGB640x480, face detection plus bounded HTTP load; see SW/tests/ai_web/evidence",
+  "distribution": "Prepared local engineering artifact; external vendor/model/runtime redistribution audit incomplete"
+}

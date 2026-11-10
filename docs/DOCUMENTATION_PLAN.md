@@ -51,7 +51,7 @@ resampling, RGB/YUV packing, CLAHE and adaptive tone. Distortion/HDR independent
 components must remain separate from deployed features. Each guide needs pipeline
 position, algorithm/precision, legal range/defaults, GenApi names, lock semantics,
 history/persistence behavior, bandwidth/resource cost and verified limitations.
-AI and model training are not currently deployed camera capabilities.
+The optional A53 CPU analytics and Ethernet web console now have bounded camera evidence; custom training and optical accuracy remain unqualified. See PROJECT_STATUS.md.
 
 ## Real before/after image examples
 

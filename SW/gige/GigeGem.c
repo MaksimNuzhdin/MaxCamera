@@ -95,6 +95,12 @@ static err_t output(struct netif *netif,struct pbuf *p)
 {
     (void)netif;reap();
     if(tx_pending==TX_COUNT)return ERR_MEM;
+#if MAX_CAMERA_WEB_HTTP
+    /* Reserve DMA descriptors for GVSP/GVCP even when lwIP retransmits TCP
+     * outside the HTTP application's paced write loop. */
+    if(TX_COUNT-tx_pending<16 && p->tot_len>=34 && pbuf_get_at(p,12)==0x08 &&
+       pbuf_get_at(p,13)==0x00 && pbuf_get_at(p,23)==6)return ERR_MEM;
+#endif
     if(p->tot_len>1514)return ERR_IF;
     unsigned slot=tx_index;size_t bytes=p->tot_len;
     if(pbuf_copy_partial(p,tx_frame(slot),p->tot_len,0)!=p->tot_len)return ERR_IF;

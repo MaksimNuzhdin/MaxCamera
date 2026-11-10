@@ -1,5 +1,13 @@
 # Verification scope and provenance
 
+November10 update: [current project status](PROJECT_STATUS.md) supersedes older
+research-only status prose. [The Ethernet console](../SW/ai/web/ETHERNET.md)
+shares the camera IP with GigE Vision and has bounded physical video/face/HTTP
+evidence. [MicroSD preparation](MICROSD_BOOT.md) is integrity checked; physical
+cold boot is still unqualified. The November9 hour run remains failed. No new
+optical, maximum-mode, endurance or certification acceptance is inferred.
+
+
 Original-workspace bounded qualification on2026-11-02: firmware0.3.15-ppc4-dev,
 FPGA v13, ALINX AXU2CGB/AN5641. Published source packaging is not a new board test.
 

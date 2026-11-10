@@ -3,6 +3,15 @@
 #include <stdio.h>
 int main(void)
 {
+ assert(!GigeTiming_DeferTelemetry(640U*480U*3U,30000,640U*480U));
+ /* A low average wire rate does not bound a blocking full-frame conversion. */
+ assert(GigeTiming_DeferTelemetry(2592U*1944U*2U,1000,2592U*1944U));
+ assert(GigeTiming_DeferTelemetry(1280U*720U,5000,1280U*720U));
+ assert(!GigeTiming_DeferTelemetry(2592U*1944U*5U/4U,14293,0));
+ assert(GigeTiming_DeferTelemetry(2592U*1944U*2U,11599,0));
+ assert(!GigeTiming_DeferTelemetry(105000000U,1000,0));
+ assert(GigeTiming_DeferTelemetry(105000001U,1000,0));
+ assert(GigeTiming_DeferTelemetry(UINT32_MAX,UINT32_MAX,0));
  assert(GigeTiming_CanServiceSensor(14293,65000));
  assert(!GigeTiming_CanServiceSensor(14293,66000));
  assert(!GigeTiming_CanServiceSensor(14293,70000));

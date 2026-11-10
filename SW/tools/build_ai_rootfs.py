@@ -15,7 +15,7 @@ import zipfile
 
 ROOT = Path(__file__).resolve().parents[1]
 SDK = Path(os.environ.get('MAX_CAMERA_LINUX_SYSROOT', '/opt/petalinux/2024.2/sysroots/cortexa72-cortexa53-xilinx-linux'))
-VENDOR = Path(os.environ.get('MAX_CAMERA_LINUX_ARTIFACTS', '/home/maxim/workarea/axu2cgb/axu2cgb_fpga/images/linux'))
+VENDOR = Path(os.environ.get('MAX_CAMERA_LINUX_ARTIFACTS', '/path/to/petalinux-project/images/linux'))
 
 
 def vendor_busybox():
@@ -57,7 +57,22 @@ def archive(tree, output):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--out', type=Path, default=ROOT/'build/ai-linux')
+    parser.add_argument('--ethernet-web', action='store_true', help='Start the R5 shared-memory HTTP backend; requires matching web-enabled R5')
+    parser.add_argument('--usb-mode', choices=('ecm', 'rndis'))
+    parser.add_argument('--usb-vid', help='Assigned USB vendor ID, e.g. 0x1234')
+    parser.add_argument('--usb-pid', help='Assigned USB product ID')
+    parser.add_argument('--usb-serial', help='Unique alphanumeric device serial')
+    parser.add_argument('--usb-udc', help='Verified sysfs UDC name, e.g. fe200000.usb')
     args = parser.parse_args()
+    if args.ethernet_web and args.usb_mode:
+        parser.error('Choose one console transport per build')
+    if args.usb_mode:
+        if not all((args.usb_vid, args.usb_pid, args.usb_serial, args.usb_udc)):
+            parser.error('USB mode requires VID, PID, unique serial and verified UDC name')
+        if not all(re.fullmatch(r'0x[0-9a-fA-F]{4}', v) for v in (args.usb_vid, args.usb_pid)):
+            parser.error('VID and PID must be four-digit hexadecimal values')
+        if not all(re.fullmatch(r'[A-Za-z0-9_.-]{1,64}', v) for v in (args.usb_serial, args.usb_udc)):
+            parser.error('Invalid USB serial or UDC name')
     out = args.out.resolve();tree = Path('/tmp/maxcamera-ai-rootfs')
     out.mkdir(parents=True, exist_ok=True)
     if tree.exists():
@@ -66,7 +81,7 @@ def main():
         (tree/name).mkdir(parents=True, exist_ok=True)
     (tree/'usr/bin/busybox').write_bytes(vendor_busybox())
     (tree/'usr/bin/busybox').chmod(0o755)
-    for name in ('sh', 'mount', 'mkdir', 'sleep', 'cat', 'echo', 'poweroff'):
+    for name in ('sh', 'mount', 'mkdir', 'sleep', 'cat', 'echo', 'poweroff', 'ip', 'udhcpd', 'ln'):
         (tree/'bin'/name).symlink_to('/usr/bin/busybox')
     shutil.copy2(SDK/'usr/bin/python3.12', tree/'usr/bin/python3.12')
     (tree/'usr/bin/python3').symlink_to('python3.12')
@@ -111,10 +126,23 @@ def main():
         raise RuntimeError('Unresolved ELF dependencies: '+str(sorted(missing)))
     for p in (tree/'usr/lib').glob('*.so*'):
         (tree/'lib'/p.name).symlink_to('/usr/lib/'+p.name)
+    shutil.copy2(ROOT/'linux/ai/usb-network', tree/'opt/maxcamera/usb-network')
+    (tree/'opt/maxcamera/usb-network').chmod(0o755)
+    if args.usb_mode:
+        # Derive stable, locally administered addresses from the unique serial.
+        digest = hashlib.sha256(args.usb_serial.encode()).digest()
+        device_mac = ':'.join(f'{v:02x}' for v in bytes([2])+digest[:5])
+        host_mac = ':'.join(f'{v:02x}' for v in bytes([6])+digest[:5])
+        values = dict(USB_MODE=args.usb_mode, USB_VID=args.usb_vid, USB_PID=args.usb_pid,
+                      USB_SERIAL=args.usb_serial, USB_UDC=args.usb_udc,
+                      USB_DEVICE_MAC=device_mac, USB_HOST_MAC=host_mac)
+        (tree/'etc/maxcamera-usb.conf').write_text(''.join(f'{k}={v}\n' for k,v in values.items()))
+    if args.ethernet_web:
+        (tree/'etc/maxcamera-ethernet-web').write_text('R5 HTTP bridge enabled\n')
     shutil.copy2(ROOT/'linux/ai/init', tree/'init');(tree/'init').chmod(0o755)
     (tree/'etc/ld.so.conf').write_text('/usr/lib\n/lib\n')
     archive(tree, out/'rootfs.cpio.gz')
-    manifest = dict(wheels={p.name: hashlib.sha256(p.read_bytes()).hexdigest() for p in wheels},
+    manifest = dict(ethernet_web=args.ethernet_web, usb_mode=args.usb_mode, usb_udc=args.usb_udc, wheels={p.name: hashlib.sha256(p.read_bytes()).hexdigest() for p in wheels},
                     source_sdk=str(SDK), vendor_busybox_source=str(VENDOR/'rootfs.cpio'),
                     mmap_module_source=str(mmap_source),
                     mmap_module_sha256=hashlib.sha256(mmap_source.read_bytes()).hexdigest(),

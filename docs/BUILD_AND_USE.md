@@ -1,5 +1,13 @@
 # Build and operate
 
+November10 update: [current project status](PROJECT_STATUS.md) supersedes older
+research-only status prose. [The Ethernet console](../SW/ai/web/ETHERNET.md)
+shares the camera IP with GigE Vision and has bounded physical video/face/HTTP
+evidence. [MicroSD preparation](MICROSD_BOOT.md) is integrity checked; physical
+cold boot is still unqualified. The November9 hour run remains failed. No new
+optical, maximum-mode, endurance or certification acceptance is inferred.
+
+
 The portable entry points are [HW recreation](../HW/README.md) and
 [SW compilation/tests](../SW/README.md). They replace development scripts that
 cloned previous generated projects or embedded workstation paths.

@@ -14,7 +14,7 @@ have the bounded test scope described below.
 | [docs](docs/INDEX.md) | Architecture, ISP/control/driver guides, editable manuals and real image examples |
 | [LICENSES](LICENSES) | Preserved third-party notices; see [rights review](RIGHTS.md) before publication |
 
-The latest original-workspace qualification is **FW0.3.15-ppc4-dev + FPGA v13**.
+The historical original ISP qualification is **FW0.3.15-ppc4-dev + FPGA v13**.
 A bounded RGB4x320x240→1280x960 test delivered57 frames at14.293804 FPS with20 us
 packet spacing and no missing/incomplete frames or CSI/recovery errors; one saved
 frame exactly matched the independent Q12 reference. The200 MHz routed design
@@ -60,3 +60,26 @@ proof, all-mode coherency or endurance. See [machine-readable scope](SW/tests/ai
 MicroSD BOOT.BIN/FAT32 disk-image build scripts and a volatile JTAG loader are
 provided. The local image passes FAT/readback and QEMU checks; physical MicroSD
 boot remains untested. No Flash or saved UserSet changes were made by this work.
+
+
+## November10 same-IP Ethernet web update
+
+[AI Studio](SW/ai/web/ETHERNET.md) runs on the camera's ordinary Ethernet IP,
+TCP80, alongside GigE Vision. R5 owns the network and camera; Linux handles
+CPU analytics and the bounded API through reserved DDR. The four USB-A ports
+are HOST ports behind a hub and cannot provide a direct PC gadget connection.
+
+The face-detection/HTTP comparison delivered143 complete RGB640x480 frames per
+10-second window, about14.294 FPS, with no missing packets/device drops/CSI
+errors in that scope;351 HTTP requests completed during the loaded phase.
+[Numeric evidence](SW/tests/ai_web/evidence/face-http-rgb640.json) preserves the
+scope. Writes are locked during acquisition. Optical accuracy, maximum-mode
+coexistence and endurance remain unqualified.
+
+The [MicroSD guide](docs/MICROSD_BOOT.md), [revision1.2 manuals](docs/INDEX.md)
+and [current remaining-work list](docs/PROJECT_STATUS.md) are updated.
+The513 MiB engineering image is prepared and verified locally; physical SD boot
+and persistence remain open. It contains external vendor/model/runtime artifacts
+and is not silently committed as source or offered as a completed redistribution
+audit. The November9 hour campaign remains a failure despite short passing runs.
+

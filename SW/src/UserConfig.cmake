@@ -20,6 +20,13 @@ set(USER_COMPILE_DEFINITIONS
 "MAX_CAMERA_VIDEO_BARS=0"
 )
 
+option(MAX_CAMERA_WEB_HTTP "Enable experimental Ethernet HTTP bridge to A53 Linux" OFF)
+if(MAX_CAMERA_WEB_HTTP)
+    if(NOT MAX_CAMERA_AI_IPC)
+        message(FATAL_ERROR "MAX_CAMERA_WEB_HTTP requires MAX_CAMERA_AI_IPC")
+    endif()
+    list(APPEND USER_COMPILE_DEFINITIONS "MAX_CAMERA_WEB_HTTP=1")
+endif()
 option(MAX_CAMERA_AI_IPC "Enable experimental A53 shared mailbox" OFF)
 if(MAX_CAMERA_AI_IPC)
     list(APPEND USER_COMPILE_DEFINITIONS "MAX_CAMERA_AI_IPC=1")
@@ -216,6 +223,7 @@ set(USER_COMPILE_SOURCES
 "../gige/GigeRemapMap.c"
 "../gige/GigeRemapControl.c"
 "../gige/GigeAI.c"
+"../gige/GigeHttp.c"
 "../gige/GigeRemapReader.c"
 "../gige/GigeFpgaOutput.c"
 "../gige/GigeGem.c"

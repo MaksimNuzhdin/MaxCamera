@@ -1,0 +1,23 @@
+{
+  "revision": "1.2",
+  "date": "2026-11-10",
+  "documents": {
+    "DinxTech_Camera_Datasheet.pdf": {
+      "bytes": 17123730,
+      "sha256": "4ae93d7d5a6e8ce7ba3d5b535af2747e27f21e3ffd93bf4e20b5928f4157b481"
+    },
+    "DinxTech_Camera_User_Manual.pdf": {
+      "bytes": 17205398,
+      "sha256": "a5c23498d31441239b04ef6c1d75fcabc1917906b6d7ba8420bd740ed02b91e0"
+    }
+  },
+  "checks": {
+    "controls_per_document": 278,
+    "manual_pages": 108,
+    "datasheet_pages": 80,
+    "rendered_pages": 188,
+    "out_of_bounds_words": 0,
+    "comparison_pixels_unchanged": true
+  },
+  "delivery": "PDFs prepared locally. Git contains editable narratives/catalog; no GitHub release attachment upload capability is configured."
+}

@@ -17,7 +17,7 @@ class MailboxWorkerTest(unittest.TestCase):
     def test_worker_copy_ack_and_committed_result(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
-            for name in ('worker.py','runtime.py'):
+            for name in ('worker.py','runtime.py','image_limits.py'):
                 shutil.copy2(ROOT/'ai'/name,root/name)
             (root/'models').symlink_to(ROOT/'ai/models')
             (root/'presets/faces').mkdir(parents=True)
@@ -34,7 +34,7 @@ class MailboxWorkerTest(unittest.TestCase):
                 # A completed padded RGB image at an allowed R5 physical address.
                 address,w,h,stride=0x200000,32,24,128
                 file.seek(address);file.write(bytes(h*stride));file.flush()
-                process = subprocess.Popen([sys.executable,str(root/'worker.py'),'--device',str(physical)],stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True)
+                process = subprocess.Popen([sys.executable,str(root/'worker.py'),'--device',str(physical)],env=dict(os.environ, MAXCAMERA_AI_STATUS=str(root/'worker.json')),stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True)
                 try:
                     deadline=time.monotonic()+30
                     while not read(6) and process.poll() is None and time.monotonic()<deadline:time.sleep(.02)

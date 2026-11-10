@@ -62,3 +62,15 @@ The default remains disabled. Exact models are fetched with
 `python3 tools/fetch_ai_models.py --fixtures`; target wheels and the external
 AMD/PetaLinux artifacts are documented separately. The tested JTAG deployment
 uses0.3.16-ai-linux-dev with the original v13 PL image, not a regenerated FPGA.
+
+
+## Same-IP Ethernet AI Studio and SD candidate (November10)
+
+Build with `MAX_CAMERA_AI_IPC=ON MAX_CAMERA_WEB_HTTP=ON bash SW/build.sh` from
+this repository root, with the same platform/Vitis environment as above.
+The private lwIP TCP stack serves the page/API at the camera's current IP, TCP80;
+R5 retains GEM/GVCP/GVSP ownership. No USB gadget is required. Follow
+[transport limits](ai/web/ETHERNET.md), [SD operation](../docs/MICROSD_BOOT.md)
+and [remaining work](../docs/PROJECT_STATUS.md). Run `bash tests/ai_web/run.sh`
+from SW/ for the bounded offline transport checks. A source-export build is not
+a new physical-board qualification of its newly linked ELF.

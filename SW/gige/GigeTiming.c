@@ -1,4 +1,12 @@
 #include "GigeTiming.h"
+int GigeTiming_DeferTelemetry(uint32_t payload,uint32_t rate,uint32_t software_pixels)
+{
+    /* The async SCCB deadline includes scheduling gaps. Large CPU image
+     * conversions can strand a sensor read even below the wire-rate gate.
+     * Keep the qualified VGA software path; direct DMA formats retain the
+     * existing bandwidth policy. Sensor hardware AE/AGC stays enabled. */
+    return software_pixels>640U*480U || (uint64_t)payload*rate>105000000000ULL;
+}
 int GigeTiming_CanServiceSensor(uint32_t rate,uint64_t elapsed)
 {
     if(!rate)return 0;

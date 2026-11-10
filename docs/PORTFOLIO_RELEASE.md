@@ -1,5 +1,13 @@
 # Camera portfolio release
 
+Current-status note, November10,2026: the dated plans below retain their original
+scope. The later A53 analytics and same-IP Ethernet web implementation is now
+bounded-camera tested. Publication of the current update is authorized. See
+[Project status](PROJECT_STATUS.md) and [MicroSD boot](MICROSD_BOOT.md) for the
+current implemented/open items; do not interpret an older research-only or
+publishing-pending statement as the current feature state.
+
+
 The November 1, 2026 scope is a reproducible engineering portfolio, not formal
 GenICam/GigE Vision certification. SDK interoperability and project tests are
 reported with their exact versions and limits. Nothing is published by this task.

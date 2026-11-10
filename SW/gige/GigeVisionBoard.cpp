@@ -4,6 +4,7 @@
 #include "GigeCamera.h"
 #include "GigeRemapControl.h"
 #include "GigeAI.h"
+#include "GigeHttp.h"
 #include "xil_mpu.h"
 #include "xreg_cortexr5.h"
 #include "GigeFlash.h"
@@ -201,7 +202,12 @@ static int acquisition(void *user,int enable)
 int GigeVisionBoard_Init(void)
 {
 #if MAX_CAMERA_AI_IPC
-    if(Xil_SetMPURegion(GIGE_AI_PHYS,GIGE_AI_BYTES,NORM_SHARED_NCACHE|PRIV_RW_USER_RW)!=XST_SUCCESS)return -1;
+    #if MAX_CAMERA_WEB_HTTP
+    const uint32_t shared_bytes=0x1000000U;
+#else
+    const uint32_t shared_bytes=GIGE_AI_BYTES;
+#endif
+    if(Xil_SetMPURegion(GIGE_AI_PHYS,shared_bytes,NORM_SHARED_NCACHE|PRIV_RW_USER_RW)!=XST_SUCCESS)return -1;
     GigeAI_Init((volatile uint32_t *)GIGE_AI_PHYS);
 #else
     GigeAI_Init(0);
@@ -227,6 +233,9 @@ int GigeVisionBoard_Init(void)
         netif_set_addr(&interface,ip_2_ip4(&ip),ip_2_ip4(&mask),ip_2_ip4(&gw));
     } else if(camera.config.mode&GIGE_IP_DHCP)dhcp_start(&interface);
     else autoip_start(&interface);
+#if MAX_CAMERA_WEB_HTTP
+    GigeHttp_Init((volatile uint32_t *)GIGE_HTTP_CONTROL,(volatile uint8_t *)GIGE_HTTP_REQUEST,(volatile uint8_t *)GIGE_HTTP_RESPONSE);
+#endif
     network_ready=1;
     xil_printf("GIGE GVCP port=3956 MAC=%02x:%02x:%02x:%02x:%02x:%02x config=%d\r\n",
         interface.hwaddr[0],interface.hwaddr[1],interface.hwaddr[2],interface.hwaddr[3],
@@ -251,7 +260,7 @@ void GigeVisionBoard_Mac(uint8_t *mac)
 void GigeVisionBoard_Poll(void)
 {
     GigeAI_Poll(GigeVisionBoard_NowUs());
-    if(!camera.privilege)GigeAI_RevokeControl();
+    if(!GigeAI_WebPoll(GigeVisionBoard_NowUs(),camera.privilege!=0) && !camera.privilege)GigeAI_RevokeControl();
     GigeCamera_ServiceTelemetry(); /* Also drain without network/sensor readiness. */
     if(!network_ready)return;
     uint64_t now=GigeVisionBoard_NowUs();GigeVision_Tick(&camera,now);
@@ -293,6 +302,8 @@ void GigeVisionBoard_Poll(void)
         uint64_t tick=GigeVisionBoard_NowUs();if(tick>=burst_end)break;
         GigeVision_Tick(&camera,tick);GigeVision_StreamPoll(&camera);
     }
+    GigeHttp_Poll(GigeVisionBoard_NowUs(),lwip_ntohl(netif_ip4_addr(&interface)->addr),
+                  GigeVisionBoard_Streaming(),GigeGem_TxFree());
     if(now>=next_log && !GigeVisionBoard_Streaming()) {
         next_log=now+5000000U;
         xil_printf("GIGE STAT rx=%d tx=%d macerr=%d cp=%d active=%d capture=%d sent=%d drop=%d csierr=%d txerr=%d frameus=%d\r\n",

@@ -39,5 +39,20 @@ int main(void)
     assert(!GigeAI_Write(GIGE_F_AI_LATCH,1));assert(!readreg(GIGE_F_AI_VALID));
     GigeAI_RevokeControl();cfg=m[AI_CONFIG];GigeAI_RevokeControl();assert(cfg==m[AI_CONFIG]);
     assert(!(cfg&1));assert(!readreg(GIGE_F_AI_ENABLE));
+    /* Web changes are atomic, preserve capture leases, and defer to GVCP. */
+    GigeAI_Init(m);assert(m[14]==0x31424557U);
+    m[AI_HEARTBEAT]=1;m[AI_SUPPORTED]=255;GigeAI_Poll(1);
+    m[651]=1;m[647]=17;m[648]=600000;m[649]=1000000;m[650]=550000;m[644]=1;
+    assert(GigeAI_WebPoll(1,0));assert(m[645]==1 && !m[646]);
+    assert(readreg(GIGE_F_AI_ENABLE)==17);assert(readreg(GIGE_F_AI_SCORE)==600000);
+    assert(!(m[AI_CONFIG]&1));GigeAI_Offer(frame,320,240,960,0x02180014,1,1);
+    assert(GigeAI_Pinned(frame));
+    m[647]=4;m[644]=2;assert(!GigeAI_WebPoll(2,1));
+    assert(m[646]==0x8006U && readreg(GIGE_F_AI_ENABLE)==17);
+    m[647]=128;m[644]=3;assert(!GigeAI_WebPoll(3,0));assert(m[646]==0x8002U);
+    m[647]=1;m[644]=4;assert(GigeAI_WebPoll(4,0));assert(GigeAI_Pinned(frame));
+    assert(!GigeAI_WebPoll(3000001,0));assert(!readreg(GIGE_F_AI_ENABLE));
+    assert(GigeAI_Pinned(frame));
+    puts("AI web control: PASS (atomic configuration, ownership priority, expiry, capture lease)");
     puts("AI control: PASS (leases, timeout, malformed boxes, immutable latch, configuration, unavailable worker)");
 }

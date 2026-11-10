@@ -1,13 +1,16 @@
 # Volatile camera + A53 Linux boot. No Flash, SD or UserSet writes.
 set root [file normalize [file join [file dirname [info script]] ..]]
 set out [file join $root build ai-linux]
+if {[info exists ::env(MAX_CAMERA_AI_LINUX_DIR)]} {
+    set out [file normalize $::env(MAX_CAMERA_AI_LINUX_DIR)]
+}
 set bit [file join $root diagnostics fpga-ppc4-v13-20261102 logic-ppc4-v13.bit]
 set xsa [file join $root diagnostics fpga-ppc4-v13-20261102 logic-ppc4-v13.xsa]
 set r5 [file join $root build ai-r5 MaxCameraApp.elf]
 set fsbl [file normalize [file join $root ../platform/export/platform/sw/boot/fsbl.elf]]
 set pmufw [file normalize [file join $root ../platform/export/platform/sw/boot/pmufw.elf]]
 set bl31 [file join $out tfa-uart1 zynqmp release bl31 bl31.elf]
-set image /home/maxim/workarea/axu2cgb/axu2cgb_fpga/images/linux/Image
+set image /path/to/petalinux-project/images/linux/Image
 # Environment overrides make the source export usable with externally built artifacts.
 foreach {name variable} {MAX_CAMERA_AI_BIT bit MAX_CAMERA_AI_XSA xsa MAX_CAMERA_AI_R5 r5 MAX_CAMERA_AI_FSBL fsbl MAX_CAMERA_AI_PMUFW pmufw MAX_CAMERA_AI_BL31 bl31 MAX_CAMERA_LINUX_IMAGE image} {
     if {[info exists ::env($name)]} {set $variable [file normalize $::env($name)]}
@@ -18,7 +21,10 @@ foreach p [list $bit $xsa $r5 $fsbl $pmufw $bl31 $image [file join $out system.d
 connect -url tcp:127.0.0.1:3121
 jtag targets 2
 jtag frequency 30000000
-source /home/maxim/Xilinx/Vitis/2024.2/scripts/vitis/util/zynqmp_utils.tcl
+if {![info exists ::env(VITIS_ROOT)]} {error "Set VITIS_ROOT to the Vitis2024.2 installation"}
+source [file join $::env(VITIS_ROOT) scripts vitis util zynqmp_utils.tcl]
+# Force both TAPs to enumerate before selecting reset CPU targets.
+puts [targets -target-properties]
 targets -set -nocase -filter {name =~ "APU*"}
 rst -system
 after 3000

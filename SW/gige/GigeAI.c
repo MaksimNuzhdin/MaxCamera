@@ -13,14 +13,18 @@
 static volatile uint32_t *m;
 static uint32_t enabled,selector,objects,sequence,generation,heartbeat,latest,valid;
 static uint32_t snapshot[GIGE_AI_MAX_OBJECTS*16],pending[GIGE_AI_MAX_OBJECTS*16],metadata[10],pending_meta[10],latched_meta[10],latency,error,latched_count,latched_sequence;
+static uint32_t web_heartbeat,web_sequence,web_active;
+static uint64_t web_seen;
 static const void *pin;
 static uint64_t now_us,heartbeat_us,next_offer,offer_us,pending_us,latched_us;
 void GigeAI_Init(volatile uint32_t *mailbox)
 {
+    web_heartbeat=web_sequence=web_active=0;web_seen=0;
     m=mailbox; enabled=selector=objects=sequence=heartbeat=latest=valid=0;
     generation=2;pin=0;now_us=heartbeat_us=next_offer=0;latency=error=0;offer_us=pending_us=latched_us=0;
     latched_count=latched_sequence=0;memset(snapshot,0,sizeof snapshot);memset(metadata,0,sizeof metadata);
     if(m){for(unsigned i=0;i<GIGE_AI_BYTES/4;++i)m[i]=0;
+        m[14]=0x31424557U; /* WEB1 extension capability; reserved in ABI v1. */
         m[AI_VERSION]=1;m[AI_CONFIG]=generation;m[AI_SCORE]=500000;
         m[AI_FACE_THRESHOLD]=450000;m[AI_PERIOD]=500000;BARRIER();m[AI_MAGIC]=GIGE_AI_MAGIC;}
 }
@@ -119,4 +123,36 @@ uint16_t GigeAI_Write(uint32_t a,uint32_t v)
         valid=latest=0;objects=0;BARRIER();generation+=2;m[AI_CONFIG]=generation;return 0;
     }
     return DENIED;
+}
+
+/* A separate command slot avoids A53 writes to R5-owned configuration words.
+ * A GVCP owner always has priority. Web settings are volatile and leased. */
+int GigeAI_WebPoll(uint64_t now, int gvcp_owned)
+{
+    if(!m)return 0;
+    uint32_t beat=m[651];BARRIER();
+    if(beat!=web_heartbeat){web_heartbeat=beat;web_seen=now;}
+    if(gvcp_owned)web_active=0;
+    if(web_active && now-web_seen>=3000000){web_active=0;GigeAI_RevokeControl();}
+    uint32_t request=m[644];BARRIER();
+    if(request && request!=web_sequence){
+        uint32_t mask=m[647],score=m[648],period=m[649],face=m[650];
+        uint32_t status=0;
+        if(gvcp_owned)status=DENIED;
+        else if(!web_heartbeat || now-web_seen>=3000000 || !alive())status=BUSY;
+        else if(mask>255 || (mask&~m[AI_SUPPORTED]) || score<1 || score>1000000 ||
+                face<1 || face>1000000 || period<100000 || period>60000000 ||
+                (mask==128) || generation>=UINT32_MAX-2)status=INVALID;
+        if(!status){
+            m[AI_CONFIG]=generation+1;BARRIER();
+            enabled=mask;m[AI_MASK]=mask;m[AI_SCORE]=score;m[AI_PERIOD]=period;
+            m[AI_FACE_THRESHOLD]=face;valid=latest=objects=0;
+            BARRIER();generation+=2;m[AI_CONFIG]=generation;web_active=1;
+        }
+        m[646]=status;BARRIER();m[645]=request;web_sequence=request;
+    }
+    m[640]=(alive()?1U:0U)|(gvcp_owned?2U:0U)|(web_active?4U:0U);
+    m[652]=error;m[653]=latency;
+    BARRIER();
+    return web_active!=0;
 }

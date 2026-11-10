@@ -1,0 +1,8 @@
+{
+  "date": "2026-11-10",
+  "scope": "Existing rootfs manifest path labels normalized for publication; no new firmware qualification or binary alteration.",
+  "rootfs_manifest": {
+    "bytes": 1071,
+    "sha256": "453c1ff5ed9fc069f0be0fa5e4ceb4565799c0baeca5749820dd74462b953082"
+  }
+}

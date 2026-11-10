@@ -1,0 +1,9 @@
+{
+  "date": "2026-11-10",
+  "exported_r5_build": "PASS: enabled AI IPC and Ethernet HTTP, Vitis2024.2 with existing external BSP. Not a clean-machine build or another board test.",
+  "python_web_tests": 11,
+  "python_web_result": "PASS",
+  "c_http_sanitizer_result": "PASS",
+  "source_distribution": "Source only; no model weights, vendor runtime binaries, user enrollment or raw new scene frames.",
+  "physical_sd_boot": "NOT RUN"
+}

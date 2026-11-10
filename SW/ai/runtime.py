@@ -56,6 +56,7 @@ class Engine:
         self.loaded, self.gallery, self.previous = {}, [], None
         self.tracks, self.next_track, self.frame = {}, 1, 0
         self.errors = {}
+        self.gallery_errors = {}
         self.supported = 16 | 32 | 64 | 128
         self.hog = cv.HOGDescriptor()
         self.hog.setSVMDetector(cv.HOGDescriptor_getDefaultPeopleDetector())
@@ -95,27 +96,45 @@ class Engine:
 
     def load_gallery(self):
         """Only explicit local identity directories are enrolled. Empty means unknown."""
+        self.gallery = []
+        self.gallery_errors = {}
         for identity in sorted((self.presets/'faces').glob('*')):
             if not identity.is_dir():
                 continue
             for path in sorted(identity.iterdir()):
                 if path.suffix.lower() not in ('.jpg', '.jpeg', '.png'):
                     continue
-                image = cv.imread(str(path))
-                if image is None:
+                try:
+                    from .image_limits import validate_reference
+                except ImportError:
+                    from image_limits import validate_reference
+                try:
+                    if path.stat().st_size > 32*1024*1024:
+                        raise ValueError('Reference exceeds local storage limit')
+                    validate_reference(path.read_bytes(), max_bytes=32*1024*1024)
+                except (OSError, ValueError):
+                    self.gallery_errors[str(path)] = 'Invalid or oversized reference image'
                     continue
-                # Bound enrollment inference just like live frames; full-size
-                # phone photos must not allocate full-resolution DNN tensors.
-                h, w = image.shape[:2]
-                if max(w, h) > 640:
-                    ratio = 640/max(w, h)
-                    image = cv.resize(image, (max(1, round(w*ratio)), max(1, round(h*ratio))))
-                faces = self.detect_faces(image, .7)
-                if faces is None or len(faces) != 1:
-                    self.errors[str(path)] = 'Enrollment requires exactly one face'
-                    continue
-                r = self.loaded['recognizer']
-                self.gallery.append((identity.name, r.feature(r.alignCrop(image, faces[0]))))
+                try:
+                    image = cv.imread(str(path))
+                    if image is None:
+                        self.gallery_errors[str(path)] = 'Invalid reference image'
+                        continue
+                    # Bound enrollment inference just like live frames; full-size
+                    # phone photos must not allocate full-resolution DNN tensors.
+                    h, w = image.shape[:2]
+                    if max(w, h) > 640:
+                        ratio = 640/max(w, h)
+                        image = cv.resize(image, (max(1, round(w*ratio)), max(1, round(h*ratio))))
+                    faces = self.detect_faces(image, .7)
+                    if faces is None or len(faces) != 1:
+                        self.gallery_errors[str(path)] = 'Enrollment requires exactly one face'
+                        continue
+                    r = self.loaded['recognizer']
+                    self.gallery.append((identity.name, r.feature(r.alignCrop(image, faces[0]))))
+                except (cv.error, ValueError):
+                    self.gallery_errors[str(path)] = 'Reference decoding or enrollment failed'
+
 
     def detect_objects(self, image, score):
         padded, ratio = letterbox(image, 640)

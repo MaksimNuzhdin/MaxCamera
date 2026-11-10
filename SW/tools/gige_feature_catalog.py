@@ -143,7 +143,7 @@ add('RECOVERY_BUSY','DeviceResetBusy','DeviceMaintenance',access='RO',maximum=1,
 add('RECOVERY_ERROR','DeviceResetLastError','DeviceMaintenance',access='RO',minimum=-1000,maximum=0,signed=True)
 
 
-add('TELEMETRY_DEFERRED','SensorTelemetryDeferred','Diagnostics',access='RO',maximum=1,kind='Boolean',description='High-bandwidth streaming defers SCCB telemetry above 105 MB/s to preserve delivered FPS. Cached values refresh during supported active acquisition or synchronous sensor operations; stopped background reads are disabled.')
+add('TELEMETRY_DEFERRED','SensorTelemetryDeferred','Diagnostics',access='RO',maximum=1,kind='Boolean',description='Streaming defers SCCB telemetry above 105 MB/s or while software-converting images larger than 640x480 to avoid stranding sensor transactions during main-loop stalls. Cached values refresh during supported active acquisition or synchronous sensor operations; stopped background reads are disabled.')
 
 add('FACTORY_SAVE','FactoryUserSetSave','UserSetControl',access='RW',maximum=1,kind='Command',locked='FactoryUserSetSaveLocked',description='Factory maintenance only: save the current profile into the factory slot. Requires UserSetSelector=Default and an unlocked factory password. Not part of standard UserSetSave.')
 

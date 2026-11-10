@@ -48,3 +48,18 @@ int ai_copy_physical(int fd,uint64_t address,void *destination,size_t length)
     ai_barrier();
     return munmap(mapping,mapped);
 }
+
+/* HTTP payloads occupy a separate reserved region. Device memory must use
+ * aligned scalar accesses, including a padded final word. */
+void ai_http_read(const volatile uint32_t *source,void *destination,size_t length)
+{
+    uint8_t *out=destination;ai_barrier();
+    for(size_t i=0;i<length;i+=4){uint32_t value=source[i/4];size_t n=length-i;if(n>4)n=4;memcpy(out+i,&value,n);}
+    ai_barrier();
+}
+void ai_http_write(volatile uint32_t *destination,const void *source,size_t length)
+{
+    const uint8_t *in=source;
+    for(size_t i=0;i<length;i+=4){uint32_t value=0;size_t n=length-i;if(n>4)n=4;memcpy(&value,in+i,n);destination[i/4]=value;}
+    ai_barrier();
+}

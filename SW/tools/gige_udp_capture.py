@@ -1,5 +1,5 @@
 """GenApi-controlled capture with the independent classic GVSP receiver."""
-import json,socket,subprocess,time
+import json,os,socket,subprocess,time
 from pathlib import Path
 
 class CaptureFailure(RuntimeError):
@@ -13,7 +13,7 @@ class CaptureFailure(RuntimeError):
    'stop_error':repr(stop_error) if stop_error is not None else None,
    'receiver_returncode':returncode,'receiver_stdout':stdout,'receiver_stderr':stderr}))
 
-def capture(camera,ip,output,seconds,on_started=None,trace=None,receiver=None):
+def capture(camera,ip,output,seconds,on_started=None,trace=None,receiver=None,packet_trace=None):
  root=Path(__file__).resolve().parent.parent
  source=root/'tools/gige_udp_receiver.c';exe=Path(receiver) if receiver is not None else root/'build/tests/gige_udp_receiver'
  if receiver is None and (not exe.exists() or exe.stat().st_mtime<source.stat().st_mtime):
@@ -23,11 +23,17 @@ def capture(camera,ip,output,seconds,on_started=None,trace=None,receiver=None):
  probe=socket.socket(socket.AF_INET,socket.SOCK_DGRAM);probe.connect((ip,3956));host=probe.getsockname()[0];probe.close()
  command=[str(exe),host,str(w),str(h),str(pf),str(payload),str(seconds),str(output)]
  if trace is not None:command.append(str(trace))
- process=subprocess.Popen(command,stdout=subprocess.PIPE,stderr=subprocess.PIPE,text=True)
+ environment=os.environ.copy()
+ if packet_trace is not None:
+  environment.update(MAXCAMERA_PACKET_TRACE=str(packet_trace),MAXCAMERA_TRACE_FAILURES='1')
+ process=subprocess.Popen(command,stdout=subprocess.PIPE,stderr=subprocess.PIPE,text=True,env=environment)
  try:
   ready=json.loads(process.stdout.readline())
   d.write_register(0xd00,ready['port']);d.write_register(0xd18,int.from_bytes(socket.inet_aton(host),'big'));d.write_register(0xd04,1500)
-  counters=['CapturedFrames','DroppedFrames','TransmittedFrames','CsiErrorEvents'];baseline={n:d.get_integer_feature_value(n) for n in counters}
+  counters=['CapturedFrames','DroppedFrames','TransmittedFrames','CsiErrorEvents',
+            'StreamSendRetries','EthernetErrors','EthernetReceiveDrops',
+            'EthernetReceivedPackets','EthernetTransmittedPackets']
+  baseline={n:d.get_integer_feature_value(n) for n in counters}
   acquisition_started=time.monotonic()
   camera.start_acquisition()
   acquisition_ack=time.monotonic()

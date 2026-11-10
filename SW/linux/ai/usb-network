@@ -1,0 +1,48 @@
+#!/bin/sh
+# Configure one USB Ethernet function. Never touch R5 Ethernet or forward traffic.
+set -eu
+. /etc/maxcamera-usb.conf
+mount -t configfs configfs /sys/kernel/config
+G=/sys/kernel/config/usb_gadget/maxcamera
+mkdir -p "$G"
+echo "$USB_VID" > "$G/idVendor"
+echo "$USB_PID" > "$G/idProduct"
+echo 0x0200 > "$G/bcdUSB"
+echo 0x0100 > "$G/bcdDevice"
+mkdir -p "$G/strings/0x409"
+echo "$USB_SERIAL" > "$G/strings/0x409/serialnumber"
+echo MaxCamera > "$G/strings/0x409/manufacturer"
+echo 'MaxCamera AI Console' > "$G/strings/0x409/product"
+mkdir -p "$G/configs/c.1/strings/0x409"
+echo 'USB Ethernet' > "$G/configs/c.1/strings/0x409/configuration"
+echo 250 > "$G/configs/c.1/MaxPower"
+mkdir -p "$G/functions/$USB_MODE.usb0"
+echo "$USB_DEVICE_MAC" > "$G/functions/$USB_MODE.usb0/dev_addr"
+echo "$USB_HOST_MAC" > "$G/functions/$USB_MODE.usb0/host_addr"
+ln -s "$G/functions/$USB_MODE.usb0" "$G/configs/c.1/"
+if [ "$USB_MODE" = rndis ]; then
+    echo 1 > "$G/os_desc/use"
+    echo 0xcd > "$G/os_desc/b_vendor_code"
+    echo MSFT100 > "$G/os_desc/qw_sign"
+    echo RNDIS > "$G/functions/rndis.usb0/os_desc/interface.rndis/compatible_id"
+    echo 5162001 > "$G/functions/rndis.usb0/os_desc/interface.rndis/sub_compatible_id"
+    ln -s "$G/configs/c.1" "$G/os_desc/"
+fi
+# Match the explicitly selected controller; do not bind an arbitrary UDC.
+[ -d "/sys/class/udc/$USB_UDC" ] || { echo 'Selected USB device controller is unavailable'; exit 1; }
+echo "$USB_UDC" > "$G/UDC"
+ip address add 192.168.7.2/24 dev usb0
+ip link set usb0 up
+mkdir -p /run/maxcamera
+cat > /run/maxcamera/udhcpd.conf <<'EOF'
+start 192.168.7.10
+end 192.168.7.20
+interface usb0
+option subnet 255.255.255.0
+option lease 3600
+lease_file /run/maxcamera/udhcpd.leases
+pidfile /run/maxcamera/udhcpd.pid
+EOF
+# No default gateway or DNS is advertised to the host.
+udhcpd /run/maxcamera/udhcpd.conf
+echo 'MaxCamera console: http://192.168.7.2 (USB Ethernet)'

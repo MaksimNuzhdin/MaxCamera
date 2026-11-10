@@ -10,7 +10,21 @@
 #define PBUF_POOL_BUFSIZE 1600
 #define LWIP_IPV4 1
 #define LWIP_IPV6 0
-#define LWIP_TCP 0
+#ifndef MAX_CAMERA_WEB_HTTP
+#define MAX_CAMERA_WEB_HTTP 0
+#endif
+#define LWIP_TCP MAX_CAMERA_WEB_HTTP
+#if MAX_CAMERA_WEB_HTTP
+#define MEMP_NUM_TCP_PCB 4
+#define MEMP_NUM_TCP_PCB_LISTEN 1
+#define MEMP_NUM_TCP_SEG 32
+#define TCP_MSS 1460
+#define TCP_WND 1460
+#define TCP_SND_BUF (2*1460)
+#define TCP_SND_QUEUELEN 16
+#define TCP_QUEUE_OOSEQ 0
+#define TCP_LISTEN_BACKLOG 1
+#endif
 #define LWIP_UDP 1
 #define LWIP_RAW 0
 #define LWIP_SOCKET 0

@@ -24,3 +24,16 @@ add_custom_command(
     COMMENT "Generating GenApi XML and GVCP ROM"
     VERBATIM)
 add_custom_target(gige_xml DEPENDS "${GIGE_SOURCE_DIR}/GigeVisionXmlRom.h" "${GIGE_SOURCE_DIR}/MaxCamera.xml")
+
+if(MAX_CAMERA_WEB_HTTP)
+    target_compile_definitions(gige_lwip PUBLIC MAX_CAMERA_WEB_HTTP=1)
+    add_custom_command(
+        OUTPUT "${GIGE_SOURCE_DIR}/GigeWebRom.h"
+        COMMAND "${GIGE_XML_PYTHON}" "${GIGE_SOURCE_DIR}/../tools/generate_web_rom.py"
+        DEPENDS "${GIGE_SOURCE_DIR}/../tools/generate_web_rom.py"
+                "${GIGE_SOURCE_DIR}/../ai/web/index.html"
+                "${GIGE_SOURCE_DIR}/../ai/web/style.css"
+                "${GIGE_SOURCE_DIR}/../ai/web/app.js"
+        VERBATIM)
+    add_custom_target(gige_web_rom DEPENDS "${GIGE_SOURCE_DIR}/GigeWebRom.h")
+endif()

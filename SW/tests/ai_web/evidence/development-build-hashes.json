@@ -1,0 +1,18 @@
+{
+  "gige/GigeHttp.c": "8badf53ecaf6ede11457e433c086e72fd0d2c37c051ca30dce7cacabf8955b83",
+  "gige/GigeHttp.h": "044bdee5cadea879041bc044138772dcdfd606ed0cb99ac55382e7a9a7748f1d",
+  "gige/GigeWebRom.h": "25db76e38a9e9e5482f267741a69d2f3b726142c01a868e3fc84fb86b3629f07",
+  "gige/GigeGem.c": "6f4b45e20fe23ccbb006ab596982f2d51e4ab1d5f42860a3659bc8d28472e786",
+  "gige/GigeVisionBoard.cpp": "d6b2b2e0e1052873aed65b0a0ef145542f50f4b728527f1766fb0be979a89aff",
+  "gige/lwip/lwipopts.h": "9edfd4a0d6d30f479e494f0719137b1930b84a8e2f4694e283a4eb155a1f18b0",
+  "ai/http_transport.py": "113df5e0ba3aaaa665fef5c5207c0af49065fc239ca2c250b00351d19dc2a3b0",
+  "ai/web_service.py": "1615922e2aa2018357f680c4891a81c7d7c868c89705156aa7be3ea7af5fcb75",
+  "ai/barrier.c": "7c2dce2188169ed09c1911dabe7acb3786e45de96bc14b44dc519ff4ca2fd63d",
+  "ai/selftest.py": "f7a573eedbe29d698acaa809ef76001b7d400a2860c134bdbce8df5aa345db9f",
+  "linux/ai/init": "c2d981276698314e001f2a77a51ef16afdeec147e14caf3919521680937795ea",
+  "tools/gige_web_board_check.py": "d48e6dc802f3febd0655f2012d90c7f7db48d87262ea5b925e618da80a7da05c",
+  "build/ethernet-web-r5/MaxCameraApp.elf": "c043d54fd492eca87380f84ed26e3e745b51df04109166403f61d8475b874a4b",
+  "build/ethernet-web-linux/BOOT.BIN": "b72dcdad61f421cb5b5d6ca2bf3b44d887fea57bda7eb525e0288f38afd7f88b",
+  "build/ethernet-web-linux/rootfs.cpio.gz": "63c3ed1262d99e8825ac8064aaa8624367b0e48fb050588b1ba86b71d9267a1d",
+  "build/ethernet-web-linux/system.dtb": "826dfa39c259fae799280ace361ba68637a8b19bbb08d15f22208a9adfe832e8"
+}

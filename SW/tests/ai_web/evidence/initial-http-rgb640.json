@@ -1,0 +1,1824 @@
+{
+  "passed": true,
+  "scope": "RGB640x480 bounded trial; not maximum-mode/endurance qualification",
+  "captures": [
+    {
+      "phase": "baseline",
+      "capture": {
+        "good": 143,
+        "bad": 0,
+        "missing_packets": 0,
+        "duplicate_packets": 0,
+        "malformed_packets": 0,
+        "reordered_packets": 30,
+        "early_trailers": 0,
+        "delivered_fps": 14.293562,
+        "receive_buffer": 425984,
+        "seconds": 10.005012,
+        "receiver": "recvmmsg",
+        "receiver_stderr": "",
+        "encoding": "RGB8",
+        "width": 640,
+        "height": 480,
+        "pixel_format": "0x2180014",
+        "payload": 921600,
+        "resulting_fps": 14.293,
+        "maximum_fps": 14.293,
+        "packet_delay": 20,
+        "counters": {
+          "CapturedFrames": 145,
+          "DroppedFrames": 0,
+          "TransmittedFrames": 143,
+          "CsiErrorEvents": 0,
+          "StreamSendRetries": 0,
+          "EthernetErrors": 0,
+          "EthernetReceiveDrops": 0,
+          "EthernetReceivedPackets": 93,
+          "EthernetTransmittedPackets": 90550
+        },
+        "csi": 0,
+        "passed": true
+      }
+    },
+    {
+      "phase": "http-load",
+      "capture": {
+        "good": 143,
+        "bad": 0,
+        "missing_packets": 0,
+        "duplicate_packets": 0,
+        "malformed_packets": 0,
+        "reordered_packets": 7,
+        "early_trailers": 0,
+        "delivered_fps": 14.293626,
+        "receive_buffer": 425984,
+        "seconds": 10.006072,
+        "receiver": "recvmmsg",
+        "receiver_stderr": "",
+        "encoding": "RGB8",
+        "width": 640,
+        "height": 480,
+        "pixel_format": "0x2180014",
+        "payload": 921600,
+        "resulting_fps": 14.293,
+        "maximum_fps": 14.293,
+        "packet_delay": 20,
+        "counters": {
+          "CapturedFrames": 145,
+          "DroppedFrames": 0,
+          "TransmittedFrames": 143,
+          "CsiErrorEvents": 0,
+          "StreamSendRetries": 0,
+          "EthernetErrors": 0,
+          "EthernetReceiveDrops": 0,
+          "EthernetReceivedPackets": 5759,
+          "EthernetTransmittedPackets": 95537
+        },
+        "csi": 0,
+        "passed": true
+      }
+    }
+  ],
+  "http": [
+    {
+      "path": "/api/status",
+      "bytes": 1370,
+      "milliseconds": 19.08269100022153
+    },
+    {
+      "path": "/",
+      "bytes": 5478,
+      "milliseconds": 26.398314000289247
+    },
+    {
+      "path": "/style.css",
+      "bytes": 6059,
+      "milliseconds": 26.595776999783993
+    },
+    {
+      "path": "/app.js",
+      "bytes": 7145,
+      "milliseconds": 30.72410300046613
+    },
+    {
+      "path": "/api/status",
+      "bytes": 1370,
+      "milliseconds": 19.44720099982078
+    },
+    {
+      "path": "/",
+      "bytes": 5478,
+      "milliseconds": 24.87644399934652
+    },
+    {
+      "path": "/style.css",
+      "bytes": 6059,
+      "milliseconds": 27.36157599974831
+    },
+    {
+      "path": "/app.js",
+      "bytes": 7145,
+      "milliseconds": 33.0492580005739
+    },
+    {
+      "path": "/api/status",
+      "bytes": 1370,
+      "milliseconds": 17.80399800009036
+    },
+    {
+      "path": "/",
+      "bytes": 5478,
+      "milliseconds": 24.92900200013537
+    },
+    {
+      "path": "/style.css",
+      "bytes": 6059,
+      "milliseconds": 27.013851999981853
+    },
+    {
+      "path": "/app.js",
+      "bytes": 7145,
+      "milliseconds": 30.813108000074863
+    },
+    {
+      "path": "/api/status",
+      "bytes": 1370,
+      "milliseconds": 20.301582000683993
+    },
+    {
+      "path": "/",
+      "bytes": 5478,
+      "milliseconds": 24.497532999703253
+    },
+    {
+      "path": "/style.css",
+      "bytes": 6059,
+      "milliseconds": 26.675647999581997
+    },
+    {
+      "path": "/app.js",
+      "bytes": 7145,
+      "milliseconds": 31.593575999977475
+    },
+    {
+      "path": "/api/status",
+      "bytes": 1371,
+      "milliseconds": 20.40213300006144
+    },
+    {
+      "path": "/",
+      "bytes": 5478,
+      "milliseconds": 24.663152000357513
+    },
+    {
+      "path": "/style.css",
+      "bytes": 6059,
+      "milliseconds": 27.114051000353356
+    },
+    {
+      "path": "/app.js",
+      "bytes": 7145,
+      "milliseconds": 30.81498199935595
+    },
+    {
+      "path": "/api/status",
+      "bytes": 1371,
+      "milliseconds": 20.102945999497024
+    },
+    {
+      "path": "/",
+      "bytes": 5478,
+      "milliseconds": 25.333094999950845
+    },
+    {
+      "path": "/style.css",
+      "bytes": 6059,
+      "milliseconds": 26.612476999616774
+    },
+    {
+      "path": "/app.js",
+      "bytes": 7145,
+      "milliseconds": 31.56682900043961
+    },
+    {
+      "path": "/api/status",
+      "bytes": 1371,
+      "milliseconds": 19.61634300005244
+    },
+    {
+      "path": "/",
+      "bytes": 5478,
+      "milliseconds": 24.552771000344364
+    },
+    {
+      "path": "/style.css",
+      "bytes": 6059,
+      "milliseconds": 27.422364999438287
+    },
+    {
+      "path": "/app.js",
+      "bytes": 7145,
+      "milliseconds": 30.782376999923144
+    },
+    {
+      "path": "/api/status",
+      "bytes": 1370,
+      "milliseconds": 11.071416999584471
+    },
+    {
+      "path": "/",
+      "bytes": 5478,
+      "milliseconds": 25.546163999933924
+    },
+    {
+      "path": "/style.css",
+      "bytes": 6059,
+      "milliseconds": 26.727027000561066
+    },
+    {
+      "path": "/app.js",
+      "bytes": 7145,
+      "milliseconds": 31.490889999986393
+    },
+    {
+      "path": "/api/status",
+      "bytes": 1370,
+      "milliseconds": 18.759566999506205
+    },
+    {
+      "path": "/",
+      "bytes": 5478,
+      "milliseconds": 24.377459000788804
+    },
+    {
+      "path": "/style.css",
+      "bytes": 6059,
+      "milliseconds": 27.467783000247437
+    },
+    {
+      "path": "/app.js",
+      "bytes": 7145,
+      "milliseconds": 30.786364000050526
+    },
+    {
+      "path": "/api/status",
+      "bytes": 1370,
+      "milliseconds": 19.90317200034042
+    },
+    {
+      "path": "/",
+      "bytes": 5478,
+      "milliseconds": 25.516413999866927
+    },
+    {
+      "path": "/style.css",
+      "bytes": 6059,
+      "milliseconds": 26.793179999913264
+    },
+    {
+      "path": "/app.js",
+      "bytes": 7145,
+      "milliseconds": 31.35758000007627
+    },
+    {
+      "path": "/api/status",
+      "bytes": 1370,
+      "milliseconds": 19.539447000170185
+    },
+    {
+      "path": "/",
+      "bytes": 5478,
+      "milliseconds": 24.44729700073367
+    },
+    {
+      "path": "/style.css",
+      "bytes": 6059,
+      "milliseconds": 31.584739000209083
+    },
+    {
+      "path": "/app.js",
+      "bytes": 7145,
+      "milliseconds": 30.0033869998515
+    },
+    {
+      "path": "/api/status",
+      "bytes": 1370,
+      "milliseconds": 17.00612700005877
+    },
+    {
+      "path": "/",
+      "bytes": 5478,
+      "milliseconds": 25.27879999979632
+    },
+    {
+      "path": "/style.css",
+      "bytes": 6059,
+      "milliseconds": 26.78322800056776
+    },
+    {
+      "path": "/app.js",
+      "bytes": 7145,
+      "milliseconds": 31.215191999763192
+    },
+    {
+      "path": "/api/status",
+      "bytes": 1372,
+      "milliseconds": 19.96799500011548
+    },
+    {
+      "path": "/",
+      "bytes": 5478,
+      "milliseconds": 24.818582000079914
+    },
+    {
+      "path": "/style.css",
+      "bytes": 6059,
+      "milliseconds": 27.07450500020059
+    },
+    {
+      "path": "/app.js",
+      "bytes": 7145,
+      "milliseconds": 31.201656000121147
+    },
+    {
+      "path": "/api/status",
+      "bytes": 1371,
+      "milliseconds": 36.44965400053479
+    },
+    {
+      "path": "/",
+      "bytes": 5478,
+      "milliseconds": 79.02420600021287
+    },
+    {
+      "path": "/style.css",
+      "bytes": 6059,
+      "milliseconds": 28.925808999701985
+    },
+    {
+      "path": "/app.js",
+      "bytes": 7145,
+      "milliseconds": 42.17361399969377
+    },
+    {
+      "path": "/api/status",
+      "bytes": 1371,
+      "milliseconds": 19.644504000098095
+    },
+    {
+      "path": "/",
+      "bytes": 5478,
+      "milliseconds": 24.45242399971903
+    },
+    {
+      "path": "/style.css",
+      "bytes": 6059,
+      "milliseconds": 27.427655999417766
+    },
+    {
+      "path": "/app.js",
+      "bytes": 7145,
+      "milliseconds": 31.486644000324304
+    },
+    {
+      "path": "/api/status",
+      "bytes": 1371,
+      "milliseconds": 19.326709000779374
+    },
+    {
+      "path": "/",
+      "bytes": 5478,
+      "milliseconds": 25.513085999591567
+    },
+    {
+      "path": "/style.css",
+      "bytes": 6059,
+      "milliseconds": 26.69033300026058
+    },
+    {
+      "path": "/app.js",
+      "bytes": 7145,
+      "milliseconds": 31.824704000428028
+    },
+    {
+      "path": "/api/status",
+      "bytes": 1370,
+      "milliseconds": 19.136050999804866
+    },
+    {
+      "path": "/",
+      "bytes": 5478,
+      "milliseconds": 24.7072649999609
+    },
+    {
+      "path": "/style.css",
+      "bytes": 6059,
+      "milliseconds": 27.37541299939039
+    },
+    {
+      "path": "/app.js",
+      "bytes": 7145,
+      "milliseconds": 30.957938000028662
+    },
+    {
+      "path": "/api/status",
+      "bytes": 1370,
+      "milliseconds": 19.961617000262777
+    },
+    {
+      "path": "/",
+      "bytes": 5478,
+      "milliseconds": 25.16525700048078
+    },
+    {
+      "path": "/style.css",
+      "bytes": 6059,
+      "milliseconds": 27.454812000542006
+    },
+    {
+      "path": "/app.js",
+      "bytes": 7145,
+      "milliseconds": 31.710338999801024
+    },
+    {
+      "path": "/api/status",
+      "bytes": 1370,
+      "milliseconds": 18.763770000077784
+    },
+    {
+      "path": "/",
+      "bytes": 5478,
+      "milliseconds": 24.601840999821434
+    },
+    {
+      "path": "/style.css",
+      "bytes": 6059,
+      "milliseconds": 26.959905999319744
+    },
+    {
+      "path": "/app.js",
+      "bytes": 7145,
+      "milliseconds": 31.644226999560487
+    },
+    {
+      "path": "/api/status",
+      "bytes": 1370,
+      "milliseconds": 20.106934000068577
+    },
+    {
+      "path": "/",
+      "bytes": 5478,
+      "milliseconds": 25.42671200080804
+    },
+    {
+      "path": "/style.css",
+      "bytes": 6059,
+      "milliseconds": 26.65276400057337
+    },
+    {
+      "path": "/app.js",
+      "bytes": 7145,
+      "milliseconds": 31.161390999841387
+    },
+    {
+      "path": "/api/status",
+      "bytes": 1370,
+      "milliseconds": 26.304557000003115
+    },
+    {
+      "path": "/",
+      "bytes": 5478,
+      "milliseconds": 25.39471100044466
+    },
+    {
+      "path": "/style.css",
+      "bytes": 6059,
+      "milliseconds": 28.74955900006171
+    },
+    {
+      "path": "/app.js",
+      "bytes": 7145,
+      "milliseconds": 30.953462999605108
+    },
+    {
+      "path": "/api/status",
+      "bytes": 1372,
+      "milliseconds": 11.1464209994665
+    },
+    {
+      "path": "/",
+      "bytes": 5478,
+      "milliseconds": 25.115151000136393
+    },
+    {
+      "path": "/style.css",
+      "bytes": 6059,
+      "milliseconds": 26.796879000357876
+    },
+    {
+      "path": "/app.js",
+      "bytes": 7145,
+      "milliseconds": 30.915827000171703
+    },
+    {
+      "path": "/api/status",
+      "bytes": 1371,
+      "milliseconds": 20.161993999863626
+    },
+    {
+      "path": "/",
+      "bytes": 5478,
+      "milliseconds": 24.403647999861278
+    },
+    {
+      "path": "/style.css",
+      "bytes": 6059,
+      "milliseconds": 26.71978099988337
+    },
+    {
+      "path": "/app.js",
+      "bytes": 7145,
+      "milliseconds": 32.009943000048224
+    },
+    {
+      "path": "/api/status",
+      "bytes": 1371,
+      "milliseconds": 20.166012999652594
+    },
+    {
+      "path": "/",
+      "bytes": 5478,
+      "milliseconds": 25.505936000627116
+    },
+    {
+      "path": "/style.css",
+      "bytes": 6059,
+      "milliseconds": 26.973399000780773
+    },
+    {
+      "path": "/app.js",
+      "bytes": 7145,
+      "milliseconds": 31.116754000322544
+    },
+    {
+      "path": "/api/status",
+      "bytes": 1370,
+      "milliseconds": 19.392842999877757
+    },
+    {
+      "path": "/",
+      "bytes": 5478,
+      "milliseconds": 24.539175999962026
+    },
+    {
+      "path": "/style.css",
+      "bytes": 6059,
+      "milliseconds": 26.74397000009776
+    },
+    {
+      "path": "/app.js",
+      "bytes": 7145,
+      "milliseconds": 31.60621999995783
+    },
+    {
+      "path": "/api/status",
+      "bytes": 1371,
+      "milliseconds": 20.049308000125166
+    },
+    {
+      "path": "/",
+      "bytes": 5478,
+      "milliseconds": 24.399429999903077
+    },
+    {
+      "path": "/style.css",
+      "bytes": 6059,
+      "milliseconds": 27.364042999579397
+    },
+    {
+      "path": "/app.js",
+      "bytes": 7145,
+      "milliseconds": 30.926271999305754
+    },
+    {
+      "path": "/api/status",
+      "bytes": 1370,
+      "milliseconds": 19.883197999661206
+    },
+    {
+      "path": "/",
+      "bytes": 5478,
+      "milliseconds": 24.311643000146432
+    },
+    {
+      "path": "/style.css",
+      "bytes": 6059,
+      "milliseconds": 26.6238849999354
+    },
+    {
+      "path": "/app.js",
+      "bytes": 7145,
+      "milliseconds": 31.8115130003207
+    },
+    {
+      "path": "/api/status",
+      "bytes": 1370,
+      "milliseconds": 10.299955999471422
+    },
+    {
+      "path": "/",
+      "bytes": 5478,
+      "milliseconds": 24.476513999616145
+    },
+    {
+      "path": "/style.css",
+      "bytes": 6059,
+      "milliseconds": 27.440529000159586
+    },
+    {
+      "path": "/app.js",
+      "bytes": 7145,
+      "milliseconds": 30.856045999826165
+    },
+    {
+      "path": "/api/status",
+      "bytes": 1370,
+      "milliseconds": 20.400438000251597
+    },
+    {
+      "path": "/",
+      "bytes": 5478,
+      "milliseconds": 25.07300499928533
+    },
+    {
+      "path": "/style.css",
+      "bytes": 6059,
+      "milliseconds": 26.968371999828378
+    },
+    {
+      "path": "/app.js",
+      "bytes": 7145,
+      "milliseconds": 31.489470999986224
+    },
+    {
+      "path": "/api/status",
+      "bytes": 1370,
+      "milliseconds": 20.226908000040567
+    },
+    {
+      "path": "/",
+      "bytes": 5478,
+      "milliseconds": 24.649352999404073
+    },
+    {
+      "path": "/style.css",
+      "bytes": 6059,
+      "milliseconds": 27.383465999264445
+    },
+    {
+      "path": "/app.js",
+      "bytes": 7145,
+      "milliseconds": 30.866816000525432
+    },
+    {
+      "path": "/api/status",
+      "bytes": 1370,
+      "milliseconds": 20.42905000052997
+    },
+    {
+      "path": "/",
+      "bytes": 5478,
+      "milliseconds": 25.21222899940767
+    },
+    {
+      "path": "/style.css",
+      "bytes": 6059,
+      "milliseconds": 27.131998999720963
+    },
+    {
+      "path": "/app.js",
+      "bytes": 7145,
+      "milliseconds": 31.297710000217194
+    },
+    {
+      "path": "/api/status",
+      "bytes": 1371,
+      "milliseconds": 19.557999999960884
+    },
+    {
+      "path": "/",
+      "bytes": 5478,
+      "milliseconds": 24.445349000416172
+    },
+    {
+      "path": "/style.css",
+      "bytes": 6059,
+      "milliseconds": 27.307703000587935
+    },
+    {
+      "path": "/app.js",
+      "bytes": 7145,
+      "milliseconds": 30.995387000075425
+    },
+    {
+      "path": "/api/status",
+      "bytes": 1370,
+      "milliseconds": 20.34470600028726
+    },
+    {
+      "path": "/",
+      "bytes": 5478,
+      "milliseconds": 25.277034000282583
+    },
+    {
+      "path": "/style.css",
+      "bytes": 6059,
+      "milliseconds": 26.67826599918044
+    },
+    {
+      "path": "/app.js",
+      "bytes": 7145,
+      "milliseconds": 31.098403000214603
+    },
+    {
+      "path": "/api/status",
+      "bytes": 1370,
+      "milliseconds": 20.261949000087043
+    },
+    {
+      "path": "/",
+      "bytes": 5478,
+      "milliseconds": 25.071486000342702
+    },
+    {
+      "path": "/style.css",
+      "bytes": 6059,
+      "milliseconds": 27.21874399958324
+    },
+    {
+      "path": "/app.js",
+      "bytes": 7145,
+      "milliseconds": 31.12269900066167
+    },
+    {
+      "path": "/api/status",
+      "bytes": 1370,
+      "milliseconds": 19.40119800019602
+    },
+    {
+      "path": "/",
+      "bytes": 5478,
+      "milliseconds": 25.134358999821416
+    },
+    {
+      "path": "/style.css",
+      "bytes": 6059,
+      "milliseconds": 26.856473000407277
+    },
+    {
+      "path": "/app.js",
+      "bytes": 7145,
+      "milliseconds": 30.818766999800573
+    },
+    {
+      "path": "/api/status",
+      "bytes": 1369,
+      "milliseconds": 20.324516999608022
+    },
+    {
+      "path": "/",
+      "bytes": 5478,
+      "milliseconds": 24.4981870000629
+    },
+    {
+      "path": "/style.css",
+      "bytes": 6059,
+      "milliseconds": 26.82858899970597
+    },
+    {
+      "path": "/app.js",
+      "bytes": 7145,
+      "milliseconds": 31.483272999139444
+    },
+    {
+      "path": "/api/status",
+      "bytes": 1369,
+      "milliseconds": 20.336309999947844
+    },
+    {
+      "path": "/",
+      "bytes": 5478,
+      "milliseconds": 25.84076599941909
+    },
+    {
+      "path": "/style.css",
+      "bytes": 6059,
+      "milliseconds": 27.24713200041151
+    },
+    {
+      "path": "/app.js",
+      "bytes": 7145,
+      "milliseconds": 30.87693399993441
+    },
+    {
+      "path": "/api/status",
+      "bytes": 1369,
+      "milliseconds": 19.017081999663787
+    },
+    {
+      "path": "/",
+      "bytes": 5478,
+      "milliseconds": 24.527005999516405
+    },
+    {
+      "path": "/style.css",
+      "bytes": 6059,
+      "milliseconds": 26.670279999962077
+    },
+    {
+      "path": "/app.js",
+      "bytes": 7145,
+      "milliseconds": 31.575193999742623
+    },
+    {
+      "path": "/api/status",
+      "bytes": 1369,
+      "milliseconds": 20.02396699936071
+    },
+    {
+      "path": "/",
+      "bytes": 5478,
+      "milliseconds": 25.224170000001322
+    },
+    {
+      "path": "/style.css",
+      "bytes": 6059,
+      "milliseconds": 27.6656380001441
+    },
+    {
+      "path": "/app.js",
+      "bytes": 7145,
+      "milliseconds": 30.755741999200836
+    },
+    {
+      "path": "/api/status",
+      "bytes": 1369,
+      "milliseconds": 19.27703700039274
+    },
+    {
+      "path": "/",
+      "bytes": 5478,
+      "milliseconds": 24.56993100076943
+    },
+    {
+      "path": "/style.css",
+      "bytes": 6059,
+      "milliseconds": 26.955287000419048
+    },
+    {
+      "path": "/app.js",
+      "bytes": 7145,
+      "milliseconds": 31.521568999778538
+    },
+    {
+      "path": "/api/status",
+      "bytes": 1369,
+      "milliseconds": 20.13238499966974
+    },
+    {
+      "path": "/",
+      "bytes": 5478,
+      "milliseconds": 24.569004000113637
+    },
+    {
+      "path": "/style.css",
+      "bytes": 6059,
+      "milliseconds": 27.394712999921467
+    },
+    {
+      "path": "/app.js",
+      "bytes": 7145,
+      "milliseconds": 30.80007900007331
+    },
+    {
+      "path": "/api/status",
+      "bytes": 1371,
+      "milliseconds": 19.809483000244654
+    },
+    {
+      "path": "/",
+      "bytes": 5478,
+      "milliseconds": 24.91412700055662
+    },
+    {
+      "path": "/style.css",
+      "bytes": 6059,
+      "milliseconds": 27.3105950000172
+    },
+    {
+      "path": "/app.js",
+      "bytes": 7145,
+      "milliseconds": 31.682757999988098
+    },
+    {
+      "path": "/api/status",
+      "bytes": 1371,
+      "milliseconds": 19.731700999727764
+    },
+    {
+      "path": "/",
+      "bytes": 5478,
+      "milliseconds": 24.565106000409287
+    },
+    {
+      "path": "/style.css",
+      "bytes": 6059,
+      "milliseconds": 27.407063999817183
+    },
+    {
+      "path": "/app.js",
+      "bytes": 7145,
+      "milliseconds": 39.405502000590786
+    },
+    {
+      "path": "/api/status",
+      "bytes": 1363,
+      "milliseconds": 13.76175899986265
+    },
+    {
+      "path": "/",
+      "bytes": 5478,
+      "milliseconds": 24.84729200023139
+    },
+    {
+      "path": "/style.css",
+      "bytes": 6059,
+      "milliseconds": 26.60203800041927
+    },
+    {
+      "path": "/app.js",
+      "bytes": 7145,
+      "milliseconds": 31.629596000129823
+    },
+    {
+      "path": "/api/status",
+      "bytes": 1370,
+      "milliseconds": 20.58354699966003
+    },
+    {
+      "path": "/",
+      "bytes": 5478,
+      "milliseconds": 24.735891000091215
+    },
+    {
+      "path": "/style.css",
+      "bytes": 6059,
+      "milliseconds": 27.678757999638037
+    },
+    {
+      "path": "/app.js",
+      "bytes": 7145,
+      "milliseconds": 30.882794999342877
+    },
+    {
+      "path": "/api/status",
+      "bytes": 1371,
+      "milliseconds": 19.306764000248222
+    },
+    {
+      "path": "/",
+      "bytes": 5478,
+      "milliseconds": 25.12024299994664
+    },
+    {
+      "path": "/style.css",
+      "bytes": 6059,
+      "milliseconds": 26.889419000326598
+    },
+    {
+      "path": "/app.js",
+      "bytes": 7145,
+      "milliseconds": 31.41766400040069
+    },
+    {
+      "path": "/api/status",
+      "bytes": 1370,
+      "milliseconds": 19.771065999520943
+    },
+    {
+      "path": "/",
+      "bytes": 5478,
+      "milliseconds": 24.44155299963313
+    },
+    {
+      "path": "/style.css",
+      "bytes": 6059,
+      "milliseconds": 27.46796399969753
+    },
+    {
+      "path": "/app.js",
+      "bytes": 7145,
+      "milliseconds": 30.859081000016886
+    },
+    {
+      "path": "/api/status",
+      "bytes": 1370,
+      "milliseconds": 20.33387200026482
+    },
+    {
+      "path": "/",
+      "bytes": 5478,
+      "milliseconds": 25.03474900004221
+    },
+    {
+      "path": "/style.css",
+      "bytes": 6059,
+      "milliseconds": 26.728638999884424
+    },
+    {
+      "path": "/app.js",
+      "bytes": 7145,
+      "milliseconds": 31.755880999298824
+    },
+    {
+      "path": "/api/status",
+      "bytes": 1370,
+      "milliseconds": 19.578291000470927
+    },
+    {
+      "path": "/",
+      "bytes": 5478,
+      "milliseconds": 24.615149999590358
+    },
+    {
+      "path": "/style.css",
+      "bytes": 6059,
+      "milliseconds": 27.495696999721986
+    },
+    {
+      "path": "/app.js",
+      "bytes": 7145,
+      "milliseconds": 30.767805999857956
+    },
+    {
+      "path": "/api/status",
+      "bytes": 1370,
+      "milliseconds": 19.799980000243522
+    },
+    {
+      "path": "/",
+      "bytes": 5478,
+      "milliseconds": 25.991366000198468
+    },
+    {
+      "path": "/style.css",
+      "bytes": 6059,
+      "milliseconds": 26.737192999462422
+    },
+    {
+      "path": "/app.js",
+      "bytes": 7145,
+      "milliseconds": 31.78385699993669
+    },
+    {
+      "path": "/api/status",
+      "bytes": 1369,
+      "milliseconds": 18.645672999809904
+    },
+    {
+      "path": "/",
+      "bytes": 5478,
+      "milliseconds": 24.3973710003047
+    },
+    {
+      "path": "/style.css",
+      "bytes": 6059,
+      "milliseconds": 27.917047000300954
+    },
+    {
+      "path": "/app.js",
+      "bytes": 7145,
+      "milliseconds": 31.211403999805043
+    },
+    {
+      "path": "/api/status",
+      "bytes": 1371,
+      "milliseconds": 19.498143999953754
+    },
+    {
+      "path": "/",
+      "bytes": 5478,
+      "milliseconds": 25.23473100063711
+    },
+    {
+      "path": "/style.css",
+      "bytes": 6059,
+      "milliseconds": 26.79648199955409
+    },
+    {
+      "path": "/app.js",
+      "bytes": 7145,
+      "milliseconds": 32.59548000005452
+    },
+    {
+      "path": "/api/status",
+      "bytes": 1370,
+      "milliseconds": 18.56701700035046
+    },
+    {
+      "path": "/",
+      "bytes": 5478,
+      "milliseconds": 27.020268999876862
+    },
+    {
+      "path": "/style.css",
+      "bytes": 6059,
+      "milliseconds": 27.880818999619805
+    },
+    {
+      "path": "/app.js",
+      "bytes": 7145,
+      "milliseconds": 30.782062000071164
+    },
+    {
+      "path": "/api/status",
+      "bytes": 1370,
+      "milliseconds": 17.47885300028429
+    },
+    {
+      "path": "/",
+      "bytes": 5478,
+      "milliseconds": 25.18196200071543
+    },
+    {
+      "path": "/style.css",
+      "bytes": 6059,
+      "milliseconds": 26.736333999906492
+    },
+    {
+      "path": "/app.js",
+      "bytes": 7145,
+      "milliseconds": 31.970510000064678
+    },
+    {
+      "path": "/api/status",
+      "bytes": 1370,
+      "milliseconds": 19.20248599981278
+    },
+    {
+      "path": "/",
+      "bytes": 5478,
+      "milliseconds": 24.466728999868792
+    },
+    {
+      "path": "/style.css",
+      "bytes": 6059,
+      "milliseconds": 27.114362000247638
+    },
+    {
+      "path": "/app.js",
+      "bytes": 7145,
+      "milliseconds": 33.08823699990171
+    },
+    {
+      "path": "/api/status",
+      "bytes": 1371,
+      "milliseconds": 18.060939000861254
+    },
+    {
+      "path": "/",
+      "bytes": 5478,
+      "milliseconds": 25.000165999699675
+    },
+    {
+      "path": "/style.css",
+      "bytes": 6059,
+      "milliseconds": 26.920088999759173
+    },
+    {
+      "path": "/app.js",
+      "bytes": 7145,
+      "milliseconds": 30.902286999662465
+    },
+    {
+      "path": "/api/status",
+      "bytes": 1370,
+      "milliseconds": 20.29218099960417
+    },
+    {
+      "path": "/",
+      "bytes": 5478,
+      "milliseconds": 24.42189999965194
+    },
+    {
+      "path": "/style.css",
+      "bytes": 6059,
+      "milliseconds": 26.91945999958989
+    },
+    {
+      "path": "/app.js",
+      "bytes": 7145,
+      "milliseconds": 31.536890999632305
+    },
+    {
+      "path": "/api/status",
+      "bytes": 1370,
+      "milliseconds": 20.263728999452724
+    },
+    {
+      "path": "/",
+      "bytes": 5478,
+      "milliseconds": 25.112629999966884
+    },
+    {
+      "path": "/style.css",
+      "bytes": 6059,
+      "milliseconds": 27.186964999600605
+    },
+    {
+      "path": "/app.js",
+      "bytes": 7145,
+      "milliseconds": 30.788401000791055
+    },
+    {
+      "path": "/api/status",
+      "bytes": 1370,
+      "milliseconds": 19.471581999823684
+    },
+    {
+      "path": "/",
+      "bytes": 5478,
+      "milliseconds": 24.501740999767208
+    },
+    {
+      "path": "/style.css",
+      "bytes": 6059,
+      "milliseconds": 27.00226599972666
+    },
+    {
+      "path": "/app.js",
+      "bytes": 7145,
+      "milliseconds": 32.15271400040365
+    },
+    {
+      "path": "/api/status",
+      "bytes": 1370,
+      "milliseconds": 19.410801000049105
+    },
+    {
+      "path": "/",
+      "bytes": 5478,
+      "milliseconds": 24.778882000646263
+    },
+    {
+      "path": "/style.css",
+      "bytes": 6059,
+      "milliseconds": 27.26931799952581
+    },
+    {
+      "path": "/app.js",
+      "bytes": 7145,
+      "milliseconds": 30.790603999776067
+    },
+    {
+      "path": "/api/status",
+      "bytes": 1369,
+      "milliseconds": 10.244817000057083
+    },
+    {
+      "path": "/",
+      "bytes": 5478,
+      "milliseconds": 25.009471999510424
+    },
+    {
+      "path": "/style.css",
+      "bytes": 6059,
+      "milliseconds": 26.765061999867612
+    },
+    {
+      "path": "/app.js",
+      "bytes": 7145,
+      "milliseconds": 31.62572699966404
+    },
+    {
+      "path": "/api/status",
+      "bytes": 1371,
+      "milliseconds": 19.773522999457782
+    },
+    {
+      "path": "/",
+      "bytes": 5478,
+      "milliseconds": 24.325022000084573
+    },
+    {
+      "path": "/style.css",
+      "bytes": 6059,
+      "milliseconds": 27.520882000317215
+    },
+    {
+      "path": "/app.js",
+      "bytes": 7145,
+      "milliseconds": 30.9396389993708
+    },
+    {
+      "path": "/api/status",
+      "bytes": 1370,
+      "milliseconds": 20.305940000071132
+    },
+    {
+      "path": "/",
+      "bytes": 5478,
+      "milliseconds": 25.30324799954542
+    },
+    {
+      "path": "/style.css",
+      "bytes": 6059,
+      "milliseconds": 26.765281999360013
+    },
+    {
+      "path": "/app.js",
+      "bytes": 7145,
+      "milliseconds": 31.654239000090456
+    },
+    {
+      "path": "/api/status",
+      "bytes": 1371,
+      "milliseconds": 19.475850999697286
+    },
+    {
+      "path": "/",
+      "bytes": 5478,
+      "milliseconds": 24.457814000015787
+    },
+    {
+      "path": "/style.css",
+      "bytes": 6059,
+      "milliseconds": 27.30819499993231
+    },
+    {
+      "path": "/app.js",
+      "bytes": 7145,
+      "milliseconds": 30.97453000009409
+    },
+    {
+      "path": "/api/status",
+      "bytes": 1369,
+      "milliseconds": 20.04479100014578
+    },
+    {
+      "path": "/",
+      "bytes": 5478,
+      "milliseconds": 26.260928999363387
+    },
+    {
+      "path": "/style.css",
+      "bytes": 6059,
+      "milliseconds": 27.050605000113137
+    },
+    {
+      "path": "/app.js",
+      "bytes": 7145,
+      "milliseconds": 31.330677999903855
+    },
+    {
+      "path": "/api/status",
+      "bytes": 1370,
+      "milliseconds": 18.376334000095085
+    },
+    {
+      "path": "/",
+      "bytes": 5478,
+      "milliseconds": 25.148867000098107
+    },
+    {
+      "path": "/style.css",
+      "bytes": 6059,
+      "milliseconds": 27.23002299990185
+    },
+    {
+      "path": "/app.js",
+      "bytes": 7145,
+      "milliseconds": 31.00005499982217
+    },
+    {
+      "path": "/api/status",
+      "bytes": 1368,
+      "milliseconds": 19.430948999797693
+    },
+    {
+      "path": "/",
+      "bytes": 5478,
+      "milliseconds": 25.32585300014034
+    },
+    {
+      "path": "/style.css",
+      "bytes": 6059,
+      "milliseconds": 26.769680999677803
+    },
+    {
+      "path": "/app.js",
+      "bytes": 7145,
+      "milliseconds": 31.136988000071142
+    },
+    {
+      "path": "/api/status",
+      "bytes": 1370,
+      "milliseconds": 20.117655999456474
+    },
+    {
+      "path": "/",
+      "bytes": 5478,
+      "milliseconds": 24.943430999883276
+    },
+    {
+      "path": "/style.css",
+      "bytes": 6059,
+      "milliseconds": 27.244867000263184
+    },
+    {
+      "path": "/app.js",
+      "bytes": 7145,
+      "milliseconds": 31.135185000493948
+    },
+    {
+      "path": "/api/status",
+      "bytes": 1370,
+      "milliseconds": 19.846006000079797
+    },
+    {
+      "path": "/",
+      "bytes": 5478,
+      "milliseconds": 25.388643000042066
+    },
+    {
+      "path": "/style.css",
+      "bytes": 6059,
+      "milliseconds": 26.727917999778583
+    },
+    {
+      "path": "/app.js",
+      "bytes": 7145,
+      "milliseconds": 31.245617999957176
+    },
+    {
+      "path": "/api/status",
+      "bytes": 1370,
+      "milliseconds": 19.581315999857907
+    },
+    {
+      "path": "/",
+      "bytes": 5478,
+      "milliseconds": 24.433343000055174
+    },
+    {
+      "path": "/style.css",
+      "bytes": 6059,
+      "milliseconds": 26.926430000457913
+    },
+    {
+      "path": "/app.js",
+      "bytes": 7145,
+      "milliseconds": 31.47950599941396
+    },
+    {
+      "path": "/api/status",
+      "bytes": 1372,
+      "milliseconds": 20.192992000374943
+    },
+    {
+      "path": "/",
+      "bytes": 5478,
+      "milliseconds": 24.92864699979691
+    },
+    {
+      "path": "/style.css",
+      "bytes": 6059,
+      "milliseconds": 26.972175000082643
+    },
+    {
+      "path": "/app.js",
+      "bytes": 7145,
+      "milliseconds": 30.97060300024168
+    },
+    {
+      "path": "/api/status",
+      "bytes": 1371,
+      "milliseconds": 20.260695999240852
+    },
+    {
+      "path": "/",
+      "bytes": 5478,
+      "milliseconds": 24.410898999121855
+    },
+    {
+      "path": "/style.css",
+      "bytes": 6059,
+      "milliseconds": 26.682224999603932
+    },
+    {
+      "path": "/app.js",
+      "bytes": 7145,
+      "milliseconds": 40.393348000179685
+    },
+    {
+      "path": "/api/status",
+      "bytes": 1371,
+      "milliseconds": 13.947776000350132
+    },
+    {
+      "path": "/",
+      "bytes": 5478,
+      "milliseconds": 25.880705999952625
+    },
+    {
+      "path": "/style.css",
+      "bytes": 6059,
+      "milliseconds": 26.890539999840257
+    },
+    {
+      "path": "/app.js",
+      "bytes": 7145,
+      "milliseconds": 31.063589999575925
+    },
+    {
+      "path": "/api/status",
+      "bytes": 1371,
+      "milliseconds": 18.503969999983383
+    },
+    {
+      "path": "/",
+      "bytes": 5478,
+      "milliseconds": 25.16659399952914
+    },
+    {
+      "path": "/style.css",
+      "bytes": 6059,
+      "milliseconds": 26.66889100055414
+    },
+    {
+      "path": "/app.js",
+      "bytes": 7145,
+      "milliseconds": 31.853604999923846
+    },
+    {
+      "path": "/api/status",
+      "bytes": 1370,
+      "milliseconds": 19.271226999990176
+    },
+    {
+      "path": "/",
+      "bytes": 5478,
+      "milliseconds": 25.21368199995777
+    },
+    {
+      "path": "/style.css",
+      "bytes": 6059,
+      "milliseconds": 27.1786390003399
+    },
+    {
+      "path": "/app.js",
+      "bytes": 7145,
+      "milliseconds": 30.907247999493848
+    },
+    {
+      "path": "/api/status",
+      "bytes": 1370,
+      "milliseconds": 19.66200500010018
+    },
+    {
+      "path": "/",
+      "bytes": 5478,
+      "milliseconds": 24.355982999622938
+    },
+    {
+      "path": "/style.css",
+      "bytes": 6059,
+      "milliseconds": 26.73066499937704
+    },
+    {
+      "path": "/app.js",
+      "bytes": 7145,
+      "milliseconds": 31.64095600004657
+    },
+    {
+      "path": "/api/status",
+      "bytes": 1369,
+      "milliseconds": 10.47442500021134
+    },
+    {
+      "path": "/",
+      "bytes": 5478,
+      "milliseconds": 24.48246600033599
+    },
+    {
+      "path": "/style.css",
+      "bytes": 6059,
+      "milliseconds": 27.831373000481108
+    },
+    {
+      "path": "/app.js",
+      "bytes": 7145,
+      "milliseconds": 30.739517000256456
+    },
+    {
+      "path": "/api/status",
+      "bytes": 1370,
+      "milliseconds": 20.02351900046051
+    },
+    {
+      "path": "/",
+      "bytes": 5478,
+      "milliseconds": 25.408790000255976
+    },
+    {
+      "path": "/style.css",
+      "bytes": 6059,
+      "milliseconds": 26.677439999730268
+    },
+    {
+      "path": "/app.js",
+      "bytes": 7145,
+      "milliseconds": 31.674229000600462
+    },
+    {
+      "path": "/api/status",
+      "bytes": 1370,
+      "milliseconds": 18.911979999757023
+    },
+    {
+      "path": "/",
+      "bytes": 5478,
+      "milliseconds": 24.433616999886
+    },
+    {
+      "path": "/style.css",
+      "bytes": 6059,
+      "milliseconds": 27.35528300036094
+    },
+    {
+      "path": "/app.js",
+      "bytes": 7145,
+      "milliseconds": 30.883867999364156
+    },
+    {
+      "path": "/api/status",
+      "bytes": 1370,
+      "milliseconds": 20.459545999983675
+    },
+    {
+      "path": "/",
+      "bytes": 5478,
+      "milliseconds": 25.120288999460172
+    },
+    {
+      "path": "/style.css",
+      "bytes": 6059,
+      "milliseconds": 26.694876999499684
+    },
+    {
+      "path": "/app.js",
+      "bytes": 7145,
+      "milliseconds": 31.123919000492606
+    },
+    {
+      "path": "/api/status",
+      "bytes": 1371,
+      "milliseconds": 20.26871099951677
+    },
+    {
+      "path": "/",
+      "bytes": 5478,
+      "milliseconds": 24.680907999936608
+    },
+    {
+      "path": "/style.css",
+      "bytes": 6059,
+      "milliseconds": 27.322808999997505
+    },
+    {
+      "path": "/app.js",
+      "bytes": 7145,
+      "milliseconds": 30.85263200046029
+    },
+    {
+      "path": "/api/status",
+      "bytes": 1371,
+      "milliseconds": 20.11182100068254
+    },
+    {
+      "path": "/",
+      "bytes": 5478,
+      "milliseconds": 24.9836580005649
+    },
+    {
+      "path": "/style.css",
+      "bytes": 6059,
+      "milliseconds": 26.640156999746978
+    },
+    {
+      "path": "/app.js",
+      "bytes": 7145,
+      "milliseconds": 31.09022799981176
+    },
+    {
+      "path": "/api/status",
+      "bytes": 1371,
+      "milliseconds": 20.473470000069938
+    },
+    {
+      "path": "/",
+      "bytes": 5478,
+      "milliseconds": 24.231422999946517
+    },
+    {
+      "path": "/style.css",
+      "bytes": 6059,
+      "milliseconds": 27.074616999925638
+    },
+    {
+      "path": "/app.js",
+      "bytes": 7145,
+      "milliseconds": 31.38236099948699
+    },
+    {
+      "path": "/api/status",
+      "bytes": 1371,
+      "milliseconds": 20.40606300033687
+    },
+    {
+      "path": "/",
+      "bytes": 5478,
+      "milliseconds": 25.62888699958421
+    },
+    {
+      "path": "/style.css",
+      "bytes": 6059,
+      "milliseconds": 26.53588300017873
+    },
+    {
+      "path": "/app.js",
+      "bytes": 7145,
+      "milliseconds": 31.016093000289402
+    },
+    {
+      "path": "/api/status",
+      "bytes": 1371,
+      "milliseconds": 19.43424999990384
+    },
+    {
+      "path": "/",
+      "bytes": 5478,
+      "milliseconds": 24.537653000152204
+    },
+    {
+      "path": "/style.css",
+      "bytes": 6059,
+      "milliseconds": 26.907505999588466
+    },
+    {
+      "path": "/app.js",
+      "bytes": 7145,
+      "milliseconds": 31.459929999982705
+    },
+    {
+      "path": "/api/status",
+      "bytes": 1370,
+      "milliseconds": 20.19902899974113
+    },
+    {
+      "path": "/",
+      "bytes": 5478,
+      "milliseconds": 24.962496000625833
+    },
+    {
+      "path": "/style.css",
+      "bytes": 6059,
+      "milliseconds": 27.06208199924731
+    },
+    {
+      "path": "/app.js",
+      "bytes": 7145,
+      "milliseconds": 31.04424199955247
+    },
+    {
+      "path": "/api/status",
+      "bytes": 1370,
+      "milliseconds": 20.174745999611332
+    },
+    {
+      "path": "/",
+      "bytes": 5478,
+      "milliseconds": 24.79399399999238
+    },
+    {
+      "path": "/style.css",
+      "bytes": 6059,
+      "milliseconds": 26.827706999938528
+    },
+    {
+      "path": "/app.js",
+      "bytes": 7145,
+      "milliseconds": 31.720425999992585
+    }
+  ]
+}

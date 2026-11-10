@@ -4,7 +4,7 @@ This manual explains how to operate, configure and diagnose the DinxTech Camera 
 
 The camera combines an ALINX AXU2CGB development board, an AN5641 module with an OV5640 sensor, FPGA image processing and standalone Cortex-R5 firmware. The DinxTech name is the document and product presentation identity; existing software may still identify the device as MaxCamera. Device identity strings have not been rewritten by this documentation.
 
-This revision consolidates evidence available through 07:01 UTC on 2 November 2026. The accepted adaptive-tone baseline is firmware 0.3.13-adaptive-dev with FPGA v11. Natural-scene photographs were captured on firmware 0.3.12-upscale-dev with FPGA v10. Earlier format, CLAHE, live-control and UserSet tests retain their original version and scope. The corrected firmware 0.3.14-remap-dev / FPGA v12 pair subsequently passed bounded synthetic remap acceptance on 2 November 2026. The initial failed v12 run is retained separately; it does not describe the corrected pair. Remap acceptance is limited to 640x480 nearest sampling and plus/minus seven source rows with 40 us packet spacing, not optical calibration or endurance. Historical records describe a test configuration, not the camera's present runtime state.
+Revision 1.2 consolidates versioned evidence through 10 November 2026. It includes the A53 analytics implementation, the same-IP Ethernet web console and the prepared MicroSD boot candidate. The November9 hour campaign remains a transport failure; physical SD boot remains unqualified. The accepted adaptive-tone baseline is firmware 0.3.13-adaptive-dev with FPGA v11. Natural-scene photographs were captured on firmware 0.3.12-upscale-dev with FPGA v10. Earlier format, CLAHE, live-control and UserSet tests retain their original version and scope. The corrected firmware 0.3.14-remap-dev / FPGA v12 pair subsequently passed bounded synthetic remap acceptance on 2 November 2026. The initial failed v12 run is retained separately; it does not describe the corrected pair. Remap acceptance is limited to 640x480 nearest sampling and plus/minus seven source rows with 40 us packet spacing, not optical calibration or endurance. Historical records describe a test configuration, not the camera's present runtime state.
 
 ## Evidence terms
 
@@ -20,7 +20,7 @@ The PDF contains a linked contents page and bookmarks. Feature names use exact c
 
 ## Hardware identity and electrical boundary
 
-The owner-confirmed combination is AXU2CGB plus AN5641. The manufacturer board manual identifies the XCZU2CG-1SFVC784E device, 2 GB of 64-bit PS DDR4 on the B variant, 256 Mbit QSPI and 8 GB eMMC. These are board capacities, not a promise that the application uses each peripheral. MaxCamera operates one camera stream through the implemented network path. It does not provide a USB camera service, DisplayPort viewer, dual-camera acquisition or an A53 inference service merely because the board contains related hardware.
+The owner-confirmed combination is AXU2CGB plus AN5641. The manufacturer board manual identifies the XCZU2CG-1SFVC784E device, 2 GB of 64-bit PS DDR4 on the B variant, 256 Mbit QSPI and 8 GB eMMC. These are board capacities, not a promise that the application uses each peripheral. MaxCamera operates one camera stream through the implemented network path. It does not provide a USB camera service, DisplayPort viewer or dual-camera acquisition. A53 Linux inference and the web backend require the explicitly enabled experimental build; they are not inferred from board specifications.
 
 The ALINX module manual identifies OV5640, a 1/4-inch optical format, manual focus and a 15-pin 1.0 mm pitch two-lane MIPI connection. The module includes supply and clock circuitry. The board manual specifies a 12 V DC adapter and a 2 A rating in its 2021 revision. Use the supply supplied or specified for the actual board revision and confirm connector polarity from that board; this manual does not infer a universal adapter rating or measured camera power consumption. The module's 3.3 V connector supply is not a 12 V input.
 
@@ -32,7 +32,7 @@ The ALINX module manual identifies OV5640, a 1/4-inch optical format, manual foc
 2. Connect Ethernet to the host or an appropriate switch. Use a link that negotiates the intended Gigabit rate and avoid an overloaded shared path during diagnosis.
 3. Connect the diagnostic USB-UART and JTAG only if required. A receiver and a programming tool have different ownership responsibilities; do not open a competing console or reset an active session.
 4. Apply the board's verified supply. Confirm startup and discovery before starting capture. A programmed RAM-only image may be lost after power cycling; a previous successful volatile session does not establish the contents of the boot image.
-5. Discover the camera by its actual MAC, serial and current IP address. The development network used camera 10.0.0.3 and host 10.0.0.7; these are examples, not universally assigned addresses.
+5. Discover the camera by its actual MAC, serial and current IP address. The November10 web trial used camera 10.0.0.10 and host 10.0.0.7; addresses in older examples are historical, not fixed network settings.
 6. Open a compatible GenICam host application, select one controlling client and read device version, readiness and processing capability nodes.
 
 The manufacturer mechanical drawing gives a 100.00 x 85.00 mm board outline, 91.11 x 76.12 mm mounting-hole center spacing and 3.175 mm hole diameter. These are board drawing dimensions, not a finished camera enclosure or lens clearance specification. Verify actual revision and mechanical clearances before designing a housing. Camera mass, enclosure rating, lens calibration, cable-length limit and assembled thermal envelope remain unspecified.
@@ -121,7 +121,7 @@ Disabling the scaler does not necessarily preserve full field of view: output di
 
 Area interpolation supports reduction only. Polyphase uses a six-tap, 64-phase AMD VPSS. Reductions larger than 4:1 first use an Area prefilter; mixed up/down axes are supported by the planner and offline tests. Equal geometry bypasses VPSS and an unchanged axis uses identity coefficients. Enlarging pixels does not recover optical detail.
 
-The public software limit is 4x enlargement per ROI axis within the maximum output canvas. Hardware evidence is narrower: centered 640x480 ROI to 1280x960 RGB8 passed; centered 320x240 ROI to 1280x960 YUYV passed 57 frames at 14.293775 FPS in the November 2 diagnostic. The equivalent RGB8 4x case produced no completed frames and raised CSI stream-line-buffer-full. Use only the qualified geometry/format combinations for dependable operation; an availability flag is not proof of every legal combination.
+The public software limit is 4x enlargement per ROI axis within the maximum output canvas. Hardware evidence is narrower: centered 640x480 ROI to 1280x960 RGB8 passed; centered 320x240 ROI to 1280x960 YUYV passed 57 frames at 14.293775 FPS in the November 2 diagnostic. The equivalent RGB8 4x case failed on the historical v10 pair with CSI stream-line-buffer-full. The subsequent v13 pair repaired the bounded RGB4x case; the November9 campaign still found other transport and switching failures. This repair is not all-mode or endurance acceptance. Use only the qualified geometry/format combinations for dependable operation; an availability flag is not proof of every legal combination.
 
 ## Exposure and cadence
 
@@ -129,7 +129,7 @@ ExposureTime is expressed in microseconds but programmed in sensor lines. The XM
 
 GainFactor is linear gain with raw units of 1/16; raw 16 is 1x and the exposed register ceiling 1023 is 63.9375x. GainAuto must be Off for manual gain. This register range is not a calibrated low-noise operating range. Sensor white-balance gains use raw unity 1024 and are separate from FPGA Q8.8 gains.
 
-AcquisitionFrameRate changes vertical blanking, not the sensor clock or line cadence. ResultingFrameRate is the nominal sensor rate from timing, not host-delivered FPS. A 1 FPS request did not resolve the 4x RGB overflow because instantaneous row/burst pressure remained. Query dynamic frame-rate limits rather than applying an advertised sensor maximum to every processing and transport route. Sources: [D3], [F1], [E5].
+AcquisitionFrameRate changes vertical blanking, not the sensor clock or line cadence. ResultingFrameRate is the nominal sensor rate from timing, not host-delivered FPS. A 1 FPS request did not resolve the historical v10 4x RGB overflow because instantaneous row/burst pressure remained. Query dynamic frame-rate limits rather than applying an advertised sensor maximum to every processing and transport route. Sources: [D3], [F1], [E5].
 
 # FPGA image processing
 
@@ -207,7 +207,7 @@ For the supplied comparison baseline, RGB8 output is 640x480 from full input 259
 
 ## Twofold digital ROI zoom
 
-Configure full input 2592x1944, ROI x=976, y=732, width=640 and height=480, output 1280x960, scaler on, Polyphase and compatible RGB8 processing. Ensure the entire ROI fits and configure while stopped. This expands a centered subregion; it narrows field of view. Do not use the native YUV reference as a pixel-aligned before image. For 4x, the 320x240 centered ROI and 1280x960 output have only a bounded YUYV diagnostic pass; RGB remains an open failure.
+Configure full input 2592x1944, ROI x=976, y=732, width=640 and height=480, output 1280x960, scaler on, Polyphase and compatible RGB8 processing. Ensure the entire ROI fits and configure while stopped. This expands a centered subregion; it narrows field of view. Do not use the native YUV reference as a pixel-aligned before image. For 4x, the 320x240 centered ROI and 1280x960 output have a historical YUYV diagnostic pass and a subsequent bounded v13 RGB repair. The original v10 RGB failure remains in the evidence archive. Use the matching v13 hardware/firmware pair and retain the November9 transport limitations.
 
 ## JPEG capture
 
@@ -264,7 +264,55 @@ Actual camera upload requires a matching qualified image, stopped/drained state 
 
 The repository contains offline HDR session, lease and CPU merge components. Sensor-effective exposure association, acquisition integration and frame ownership remain unproven for a deployable camera HDR mode. A cached exposure value is not an immutable capture tag. The camera does not gain true HDR because gamma, CLAHE or adaptive tone makes shadows more visible.
 
-No AI model, hardware-trigger service, dataset acquisition campaign or custom training is deployed by this release. Available CPU cores and unused DDR capacity do not establish a usable inference path. End-to-end memory ownership, operator support, timing and accuracy would each need separate evidence. Sources: [D6], [E6], [E7].
+The optional A53 build now runs pretrained CPU analytics on the camera. R5 retains capture leases, configuration authority and GigE ownership. The following chapters describe the implemented AI and web interface. Custom training, calibrated recognition/OCR accuracy and hardware triggering remain unqualified. Sources: [D6], [E8], [E9].
+
+# AI Studio on the camera Ethernet interface
+
+## One cable and one address
+
+Use the camera's normal Gigabit Ethernet connector for both GigE Vision and AI Studio. R5 continues to own GEM3, GVCP on UDP3956 and GVSP image transmission. TCP80 at the same camera IP serves the web application. Linux on A53 has no Ethernet interface; R5 forwards bounded API requests through reserved shared memory. No USB cable or host inference is required. The four USB-A connectors on AXU2CGA/B are HOST ports behind the onboard hub, not device/OTG ports for a direct PC gadget connection.
+
+Open http://CAMERA_IP/ after discovering the current DHCP address. The November10 development address was10.0.0.10. Check that the page identifies GigE Ethernet and AI worker Online. The page offers configuration and diagnostics; it does not expose a Linux shell, SSH service or live video player. Video remains in the GenICam receiver.
+
+## Features and thresholds
+
+The eight enable bits are1 face boxes (YuNet),2 recognition against an explicit SFace gallery,4 objects (YOLOX,80 COCO classes),8 plate candidates and English CRNN OCR,16 sampled-frame motion,32 HOG pedestrians,64 QR and128 nearest-center tracking. Recognition also runs face detection. Tracking requires another detector. Plate/object preset folders do not load custom models.
+
+Inputs are bounded to640 pixels on the longest side; at most32 objects are returned in captured-output coordinates. The web minimum score and face cosine threshold map to R5 millionths, range1..1000000. Defaults are0.50 minimum score,0.45 face threshold and500 ms admission interval. The interval range is100..60000 ms; busy samples are skipped, so this is not an inference-rate guarantee. The face threshold is an uncalibrated starting point. Scores for motion, QR and plate candidates are operational markers rather than calibrated probabilities. OCR is not jurisdiction-qualified.
+
+Start with a small feature subset. In the November10 RGB640x480 face trial, last inference was316021 us while video stayed about14.294 FPS. Historical all-feature inference took about9.6 seconds on one A53. Video FPS and AI results per second are different quantities. Neither result establishes recognition accuracy or all-mode throughput.
+
+## Applying settings and control ownership
+
+Configure while no GenICam client owns the camera. Apply sends all AI parameters to R5, which validates the worker, supported bits, ranges and ownership and acknowledges a coherent generation. Select FPGA RGB8/BGR8 with the stopped-acquisition sequence before starting video. GenICam then owns configuration for its session; the web page shows the lock. AI settings are volatile, excluded from UserSet persistence, and default disabled after boot.
+
+While acquisition is active, all modifying HTTP requests are rejected with409, including profile and reference uploads. Static files and status remain readable with bounded traffic. The web transport supports four TCP clients and one Linux request slot. New response payload is paced in512-byte portions, at most once per2 ms while streaming; TCP headers, ACKs and retries add traffic. GEM also reserves descriptors for the existing video/control paths. These bounds avoid waiting for Linux in the R5 video loop; they do not guarantee lossless operation on a saturated link.
+
+The bounded face/HTTP comparison delivered143 complete frames in each10-second window, with zero missing packets, incomplete frames, device drops or CSI errors. The load phase completed351 HTTP requests. The November9 one-hour campaign in a separate scope failed with2 incomplete frames,448 missing packets and449 receiver socket drops. These results remain separate; no hour-long or maximum-mode HTTP acceptance is asserted. Sources: [E9], [E10].
+
+## Profiles reference gallery and diagnosis
+
+Save named profiles on the mounted MicroSD, or export/import JSON. Loading a profile fills the editor and never applies it automatically. With no card, the UI announces volatile storage and changes are lost at reboot. Profiles do not replace GenICam UserSets and do not change UserSetDefault.
+
+For recognition, upload JPEG/PNG reference images under explicit English identity labels. The worker bounds dimensions, decodes the image, requires exactly one face and reloads between inference calls without restarting. Saved file count is not enrolled face count: diagnostics show accepted and rejected references. Empty galleries return unknown. Uploads are limited to4 MiB each,12 megapixels and8192 pixels per dimension, with32 MiB/256-reference gallery limits. Identity labels become results; enroll only intended identities.
+
+Read worker availability, R5 error, configuration generation, last inference time, authority and gallery validation status. Error0 is success,1 worker exception,2 rejected result and3 cancelled/stale configuration. A successful empty result is distinct from unavailable inference. For GenICam objects use ResultLatch, check ResultValid/count/source generation/age, select each object and release. Sequence is not GVSP BlockID. Restarting a failed worker or just one processor is unsupported; reboot R5 and A53 together.
+
+The current HTTP interface has no login/TLS and is intended for a trusted development network. Host/Origin checks and a random boot token protect browser writes across origins; they are not user authentication. Multi-client contention, backend failure, large uploads and power loss need additional qualification.
+
+# MicroSD boot image and persistence
+
+## Prepared engineering image
+
+The named candidate is maxcamera-ethernet-web-20261110.img, a513 MiB whole-disk image with an MBR and a512 MiB FAT32 partition starting at sector2048. It contains BOOT.BIN, HASHES.TXT, README.TXT and empty PRESETS/FACES, PRESETS/PLATES and PRESETS/OBJECTS directories. The payload includes matched platform startup, v13 FPGA, AI/HTTP R5, relocated TF-A, Linux, DTB, initramfs and the entry stub. It deliberately bypasses U-Boot to preserve the R5 DDR boundary. The exact image SHA256 is supplied separately; no user identities or reference photographs are included.
+
+Verify MICROSD-SHA256SUMS, back up a known-good card, and write the complete image to the intended whole removable device with a disk-imaging utility. Use a card of at least1 GB, verify the write and eject safely. Copying the image file onto a filesystem is not imaging. Check the actual board manual for SD boot-switch positions. Do not infer them from a JTAG load, and do not overwrite the host system disk.
+
+## First boot acceptance still required
+
+The same software/FPGA payload passed the stated RAM/JTAG tests. FAT consistency and BOOT.BIN readback hashing establish file integrity, not physical SD startup. Before promoting this image, verify cold boot, firmware/FPGA identity, DHCP, web/AI availability, a bounded stream, profile/reference persistence across reboot and recovery to the known-good card. Physical SD boot has not been performed by the preparation task.
+
+The opt-in web build mounts presets storage read/write. Finish writes and use a verified clean shutdown/unmount procedure before removing power. A browser power-off button and power-loss-safe FAT behavior are not qualified. Without SD, the RAM trial remains volatile. Source/build/operator details are in docs/MICROSD_BOOT.md and ai/web/ETHERNET.md. Sources: [E8], [E9].
 
 # Diagnostics troubleshooting and recovery
 
@@ -288,7 +336,7 @@ Keep the first UART or receiver error and the later recovery outcome separately.
 
 **Missing packets with healthy capture.** Inspect host UDP errors, socket buffer and CPU scheduling, then adjust pacing while stopped. Resend only helps while the source payload remains retained. Do not declare packet integrity from FPS alone.
 
-**No DMA completion and rising CSI errors.** Retain the hardware fault before recovery clears it. The reproduced 4x RGB path is an example; lower average FPS alone did not repair it. Return to a bounded known configuration and keep the failed mode outside acceptance.
+**No DMA completion and rising CSI errors.** Retain the hardware fault before recovery clears it. The historical v10 4x RGB failure is an example; lower average FPS alone did not repair it. A bounded v13 repair subsequently passed. Return to a known matching configuration and preserve any new fault independently of that earlier repair.
 
 **CLAHE or tone differs on first frames.** This can be intended history initialization. Retain frame sequence and the number of settling frames. Do not compare first-frame bypass with steady-state output as though both had identical temporal state.
 
@@ -306,7 +354,7 @@ A full JTAG reload is disruptive and requires the compatible sealed bitstream, E
 
 The verified local environment uses AMD Vivado, Vitis HLS and Vitis 2024.2, the R5 toolchain/BSP, native C/C++ compilers and Python 3. Vitis Vision headers are pinned by tools/fetch_camera_vision.sh. Aravis/eBUS-dependent checks need their installed runtimes and applicable licenses.
 
-The application directory alone is not a proven clean-checkout release. Builds reference sibling drivers and platform/BSP trees, exported IP and generated hardware artifacts. Preserve dependency versions and third-party notices; license review and a clean-machine reproduction remain publication gates. The application is standalone C/C++ on Cortex-R5 #0 with lwIP, not an A53 Linux camera/inference distribution.
+The application directory alone is not a proven clean-checkout release. Builds reference sibling drivers and platform/BSP trees, exported IP and generated hardware artifacts. Preserve dependency versions and third-party notices; license review and a clean-machine reproduction remain publication gates. The capture application is standalone C/C++ on Cortex-R5 #0 with lwIP. The optional A53 Linux analytics distribution and shared-memory Ethernet web backend are separate build components with external runtime/model dependencies; their prepared image is an engineering candidate, not a clean-machine or physical SD-boot qualification.
 
 ## Offline commands
 

@@ -2,6 +2,7 @@
 """Single-slot A53 worker. /dev/mem control is reserved and uncached; no camera MMIO."""
 import argparse
 import mmap
+import json
 import os
 import struct
 import threading
@@ -118,8 +119,35 @@ def serve():
         thread = threading.Thread(target=heartbeat, daemon=True)
         thread.start()
         last = 0
+        reload_revision = None
+        report_time = 0
+        status_path = Path(os.environ.get('MAXCAMERA_AI_STATUS', '/run/maxcamera/worker.json'))
+        status_path.parent.mkdir(parents=True, exist_ok=True)
+        def report(generation):
+            temporary = status_path.with_suffix('.tmp')
+            temporary.write_text(json.dumps(dict(updated=time.monotonic(), generation=generation,
+                                                gallery_count=len(engine.gallery),
+                                                gallery_errors=len(engine.gallery_errors))))
+            temporary.replace(status_path)
         try:
             while True:
+                # Gallery reloads happen only between inference calls and never
+                # restart the worker or acknowledge an outstanding capture lease.
+                if time.monotonic() - report_time > 1:
+                    marker = engine.presets/'gallery-reload.json'
+                    try:
+                        revision = marker.read_text()
+                    except OSError:
+                        revision = None
+                    if revision != reload_revision:
+                        if engine.supported & 2:
+                            engine.load_gallery()
+                        reload_revision = revision
+                    try:
+                        report(box.read(8))
+                    except OSError:
+                        pass  # Optional diagnostics must not interrupt the IPC worker.
+                    report_time = time.monotonic()
                 request = box.read(2)
                 if not request or request == last or box.read(4) != box.read(5):
                     time.sleep(.01)

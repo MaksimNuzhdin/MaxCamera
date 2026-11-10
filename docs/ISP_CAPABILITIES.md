@@ -1,8 +1,14 @@
 # ISP capability and acceptance guide
 
+Current status: see [PROJECT_STATUS.md](PROJECT_STATUS.md). A53 AI and the same-IP
+web console are separate optional services; their November10 bounded acceptance
+does not extend the optical/ISP qualification scopes below. Historical statements
+about a future AI assessment are superseded by [the implementation](../SW/ai/README.md).
+
+
 Scope: **v9 RAM-only functional acceptance, 2026-10-27**. This guide consolidates
 existing evidence; writing it performs no camera test or optical calibration.
-It addresses the integration/control/qualification checklist in TODO (archived development reference; see [verification scope](VERIFICATION.md)).
+It addresses the integration/control/qualification checklist in [TODO](PROJECT_STATUS.md).
 The image is not an unconditional production release or formal GenICam/GigE
 Vision certification. Keep the v8 rollback available.
 
@@ -11,9 +17,9 @@ Vision certification. Keep the v8 rollback available.
 - Firmware: `0.3.9-contrast-dev`; PL signature `0x49535009`, capabilities `65535`.
 - ELF SHA256: `6d2d240c78f5dd4bf758cce53f9ede1268c7b5880e45b33f7ed29b629ee82529`.
 - Bitstream SHA256: `97400b23d8a13bbc0d9f4a32779650bd587b7baa781eaeae80138969b6e7c589`.
-- Qualification and limits (archived development reference; see [verification scope](VERIFICATION.md)),
-  frozen sources and artifacts (archived development reference; see [verification scope](VERIFICATION.md)),
-  independent camera-evidence review (archived development reference; see [verification scope](VERIFICATION.md)).
+- Qualification and limits (archived `diagnostics/fpga-color-v9-20261027/qualification.json`),
+  frozen sources and artifacts (archived `diagnostics/fpga-color-v9-20261027/README.md`),
+  independent camera-evidence review (archived `diagnostics/clahe-independent-20261027/camera-review/README.md`).
 
 Inspect `FpgaProcessingVersion`, `FpgaProcessingCapabilities` and each stage's
 availability node before configuring a camera. Current working-tree features or
@@ -44,7 +50,7 @@ values, not claims that a calibrated profile exists.
 Implementation entry points: [RAW/color HLS](../HW/hls/camera_isp/camera_isp.cpp),
 [CLAHE HLS](../HW/hls/camera_isp/local_contrast.cpp),
 [firmware controls](../SW/gige/GigeFpgaIsp.c),
-v9 control tests (archived development reference; see [verification scope](VERIFICATION.md)).
+[v9 control tests](../SW/tests/color_isp/test_v9_controls.c).
 
 ## Configuration and persistence contract
 
@@ -149,4 +155,4 @@ native/scaled format frames match v12. This does not qualify every enlargement
 geometry, optical calibration or endurance. Routed resources:45832 LUT,126 BRAM36,
 235 DSP at200 MHz; WNS+0.429 ns and WHS+0.011 ns. Original runtime restored and
 camera released; no persistent writes. See [bounded upscale evidence](FPGA_UPSCALE.md)
-and board state (archived development reference; see [verification scope](VERIFICATION.md)).
+and board state (archived `diagnostics/ppc4-v13-board-20261102/final-state.json`).

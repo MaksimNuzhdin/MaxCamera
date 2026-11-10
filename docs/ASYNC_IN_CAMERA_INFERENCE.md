@@ -1,5 +1,13 @@
 # Asynchronous in-camera inference: architecture investigation
 
+Current-status note, November10,2026: the dated plans below retain their original
+scope. The later A53 analytics and same-IP Ethernet web implementation is now
+bounded-camera tested. Publication of the current update is authorized. See
+[Project status](PROJECT_STATUS.md) and [MicroSD boot](MICROSD_BOOT.md) for the
+current implemented/open items; do not interpret an older research-only or
+publishing-pending statement as the current feature state.
+
+
 Date: 2026-10-27. Research only: no model download/execution, enrollment, dataset,
 AI deployment, boot change or hardware access by this reviewer.
 
@@ -205,7 +213,7 @@ experiment approval. Linux/OpenCV introduction is a later, separately scoped
 runtime experiment, not part of this minimal transport test.
 
 The offline proposal oracle and cache-publication checklist are in
-tests/ai_ipc_contract (archived development reference; see [verification scope](VERIFICATION.md)). Eight tests pass as of
+[tests/ai_ipc_contract](../SW/tests/ai_ipc_contract/README.md). Eight tests pass as of
 2026-10-27. They do not establish real inter-core ordering, memory availability,
 AI execution, or a production GenICam interface.
 

@@ -48,3 +48,6 @@
 *.pem
 *.key
 .DS_Store
+
+# Complete SD images contain external runtimes; distribute only after review.
+*.img

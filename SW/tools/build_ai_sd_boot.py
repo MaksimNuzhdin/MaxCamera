@@ -21,11 +21,15 @@ def nodes(dtb, path='/'):
         yield from nodes(dtb, path.rstrip('/')+'/'+child)
 
 def main():
+    global OUT
     parser = argparse.ArgumentParser()
+    parser.add_argument('--out', type=Path, default=OUT, help='Isolated directory containing rootfs and receiving boot artifacts')
+    parser.add_argument('--usb-device-node', help='Verified DWC3 child path; enables only its parent and USB2 peripheral mode')
     parser.add_argument('--r5', type=Path, default=ROOT/'build/ai-r5/MaxCameraApp.elf')
     parser.add_argument('--bit', type=Path, default=ROOT/'diagnostics/fpga-ppc4-v13-20261102/logic-ppc4-v13.bit')
     parser.add_argument('--bl31', type=Path, default=ROOT/'build/ai-linux/tfa-uart1/zynqmp/release/bl31/bl31.elf')
     args = parser.parse_args()
+    OUT = args.out.resolve()
     OUT.mkdir(parents=True, exist_ok=True)
     initrd = OUT/'rootfs.cpio.gz'
     assert initrd.is_file(), 'Build the rootfs first'
@@ -73,11 +77,24 @@ def main():
     for path in run('fdtget', '-l', dtb, '/reserved-memory').split():
         if path != 'maxcamera-ipc@1f000000':
             run('fdtput', '-r', dtb, '/reserved-memory/'+path)
+    if args.usb_device_node:
+        node = args.usb_device_node
+        if node not in existing or run('fdtget', '-t', 's', dtb, node, 'compatible').strip() != 'snps,dwc3':
+            raise ValueError('USB device node must identify the board-verified snps,dwc3 controller')
+        parent = node.rsplit('/', 1)[0]
+        for path in (parent, node):
+            run('fdtput', '-t', 's', dtb, path, 'status', 'okay')
+            if path in disabled:
+                disabled.remove(path)
+        run('fdtput', '-t', 's', dtb, node, 'dr_mode', 'peripheral')
+        run('fdtput', '-t', 's', dtb, node, 'maximum-speed', 'high-speed')
+        # Do not enable shared GPIO/PHY controllers automatically. Board reset,
+        # pinmux and clock ownership must be checked before loading this candidate.
     bootargs = 'console=ttyPS0,115200 earlycon clk_ignore_unused pd_ignore_unused maxcpus=1 nr_cpus=1 cma=0 swiotlb=128 rootfstype=ramfs init=/init loglevel=6'
     run('fdtput', '-t', 's', dtb, '/chosen', 'bootargs', bootargs)
     for key, value in [('linux,initrd-start', 0x26000000), ('linux,initrd-end', 0x26000000+initrd.stat().st_size)]:
         run('fdtput', '-t', 'x', dtb, '/chosen', key, '0', f'{value:x}')
-    cc = Path('/home/maxim/Xilinx/Vitis/2024.2/gnu/aarch64/lin/aarch64-none/bin/aarch64-none-elf-gcc')
+    cc = Path(os.environ.get('MAX_CAMERA_AARCH64_CC',str(Path(os.environ.get('VITIS_ROOT','/path/to/Vitis/2024.2'))/'gnu/aarch64/lin/aarch64-none/bin/aarch64-none-elf-gcc')))
     entry = OUT/'linux-entry.elf'
     run(cc, '-mcpu=cortex-a53', '-nostdlib', '-Wl,-T,'+str(ROOT/'linux/ai/entry.ld')+',--build-id=none', ROOT/'linux/ai/entry.S', '-o', entry)
     platform = Path(os.environ.get('MAX_CAMERA_BOOT_COMPONENTS', str(ROOT.parent/'platform/export/platform/sw/boot')))
@@ -93,10 +110,10 @@ def main():
     for _, p in parts:
         assert p.is_file(), p
     bif = OUT/'boot.bif';bif.write_text('maxcamera:\n{\n'+''.join(f'  {attrs} {p}\n' for attrs,p in parts)+'}\n')
-    bootgen = Path('/home/maxim/Xilinx/Vitis/2024.2/bin/bootgen')
+    bootgen = Path(os.environ.get('VITIS_ROOT','/path/to/Vitis/2024.2'))/'bin/bootgen'
     run(bootgen, '-arch', 'zynqmp', '-image', bif, '-w', 'on', '-o', OUT/'BOOT.BIN')
     (OUT/'boot-headers.txt').write_text(run(bootgen, '-arch', 'zynqmp', '-read', OUT/'BOOT.BIN'))
-    manifest = dict(status='BUILT_NOT_BOARD_QUALIFIED', disabled_linux_nodes=disabled,
+    manifest = dict(usb_device_node=args.usb_device_node, status='BUILT_NOT_BOARD_QUALIFIED', disabled_linux_nodes=disabled,
                     bootargs=bootargs, memory=dict(r5_end='0x10000000', linux_start='0x10000000', ipc_start='0x1f000000'),
                     inputs={str(p): hashlib.sha256(p.read_bytes()).hexdigest() for _,p in parts})
     (OUT/'boot-manifest.json').write_text(json.dumps(manifest, indent=2)+'\n')

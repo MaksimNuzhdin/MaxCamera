@@ -768,9 +768,13 @@ uint16_t GigeCamera_FeatureWrite(uint32_t a,uint32_t v)
 }
 int GigeCamera_TelemetryDeferred(void)
 {
-    /* Preserve maximum LE16 delivery while the software GPIO high-bandwidth
-     * experiments remain unqualified. Hardware AE/AGC continues independently. */
-    return streaming && ((uint64_t)GigeImage_Payload(width,height,format)*effective_rate(&sensor.config)>105000000000ULL);
+    uint32_t software_pixels=width*height;
+#if MAX_CAMERA_GIGE_RAW10_HW
+    if(format==GIGE_PIXEL_BG10 || format==GIGE_PIXEL_BG10P || color_selected(format))
+        software_pixels=0;
+#endif
+    return streaming && GigeTiming_DeferTelemetry(GigeImage_Payload(width,height,format),
+        effective_rate(&sensor.config),software_pixels);
 }
 void GigeCamera_RefreshControls(void)
 {

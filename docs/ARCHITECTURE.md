@@ -7,10 +7,20 @@ The project targets AMD `xczu2cg-sfvc784-1-e` on the
 [ALINX AN5641 camera module](https://www.en.alinx.com/Product/Add-on-Modules/AN5641.html). The owner confirmed
 both product models. The companion module manual identifies its OV5640 sensor
 and two-lane MIPI interface; see [identity evidence](DOCUMENTATION_PLAN.md).
-The operating application is standalone
-C/C++ on Cortex-R5 #0 with an AMD BSP and lwIP. The current project does not boot
-an A53 Linux inference worker or deploy AI models. A core being held in reset is
-not equivalent to an implemented/available worker service.
+R5 #0 runs the standalone camera and lwIP stack. The optional A53 Linux build
+runs CPU analytics and the web API; it passed bounded physical camera checks on
+November6 and same-IP HTTP/video/face checks on November10. R5 remains sole owner
+of GEM3, GVCP/GVSP, CSI/capture, SCCB and camera buffers. Linux owns its carved-out
+RAM, reserved IPC, core services and SD preset storage; it has no GEM netif.
+
+TCP80 and the existing GigE protocols share the same camera IP. R5 serves static
+web assets and forwards bounded API requests over a separate request/response
+region within the16 MiB no-map reservation. HTTP uses raw nonblocking callbacks,
+paced response copies, a TX descriptor reserve and a single immutable Linux slot.
+Acquisition rejects HTTP writes; GVCP ownership has priority. See
+[transport ABI and limits](../SW/ai/web/ETHERNET.md), [AI contracts](../SW/ai/README.md)
+and [current evidence](PROJECT_STATUS.md). This is not a blanket maximum-mode,
+cache/reset/interconnect or endurance qualification.
 
 ## Capture and processing
 
@@ -56,8 +66,8 @@ they are never unrestricted ARM MMIO addresses.
 ROM, references and feature addresses. Standard bootstrap/PFNC concepts coexist
 with explicitly vendor-specific `Fpga...` nodes and custom format codes. The
 advertised/implemented protocol subset and interoperability results are not
-formal GenICam/GigE Vision certification. See protocol source guide (archived development reference; see [verification scope](VERIFICATION.md))
-and generated feature reference (archived development reference; see [verification scope](VERIFICATION.md)).
+formal GenICam/GigE Vision certification. See [protocol source guide](../SW/gige/FeatureReference.md)
+and [generated feature reference](../SW/gige/FeatureReference.md).
 
 Sensor SCCB, camera lifecycle, GVCP and transmission share bounded polling work.
 Async telemetry preserves last-good values and yields to synchronous sensor
@@ -86,8 +96,8 @@ Historical full-field 2592x1944 input to 640x480 RGB preview is approximately
 configured 100 MB/s payload budget; sensor mode, packing and receiver buffering
 matter. Live Black Level's short 86-frame windows around14.294 FPS are not
 24-hour endurance. The November1 real-scene collection captured2x ROI upscale;
-4x timed out and remains an open hardware regression despite passing isolated RTL.
+the initial4x failure was repaired for one paired PPC4 v13 profile, while wider geometries remain unqualified.
 
 Routed v11 uses41706 LUT,107.5 BRAM36,235 DSP at200 MHz with setup/hold slack
-+0.382/+0.010 ns. Its camera acceptance is still unrun. Distortion/HDR/AI cannot
++0.382/+0.010 ns. Its separate eight-case bounded camera acceptance is recorded in the versioned v11 evidence. Distortion/HDR/AI cannot
 be promised from unused CPU or DDR capacity alone. See [release limits](PORTFOLIO_RELEASE.md).
